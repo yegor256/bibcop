@@ -40,17 +40,15 @@
 \RequirePackage{iexec}
 \RequirePackage{fancyvrb}
 
-\begin{VerbatimOut}{bibcop.pl}
-print '\endinput';
-\end{VerbatimOut}
-\message{bibcop: File with Perl script 'bibcop.pl' saved^^J}%
-\makeatother
+\RequirePackage{verbatimcopy}
+\VerbatimCopy{bibcop.pl}{bibcop.pl}
+\message{bibcop: File with Perl script 'bibcop.pl' copied^^J}%
 
 \makeatletter
 \ifdefined\bibliography\else\gdef\bibliography#1{}\fi
 \let\bibcop@oldbibliography\bibliography
 \renewcommand\bibliography[1]{%
-  \iexec[quiet]{perl "bibcop.pl" '#1'}%
+  \iexec[quiet]{perl "bibcop.pl" '#1.bib'}%
   \bibcop@oldbibliography{#1}%
 }
 \makeatother
