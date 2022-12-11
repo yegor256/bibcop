@@ -3,9 +3,6 @@ build/
 _docshots/
 _minted-*/
 bibcop.tex
-bibcop.pl
-bibcop-phi.pl
-bibcop-sodg.pl
 bibcop.ret
 iexec.ret
 bibcop.stdout

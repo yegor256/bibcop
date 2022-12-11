@@ -3,11 +3,10 @@ docker:
 install: |-
   sudo gem install texsc:0.6.0
   sudo gem install texqc:0.6.0
-  sudo apt-get -y update
   sudo tlmgr option repository ctan
   sudo tlmgr --verify-repo=none update --self
   sudo tlmgr --verify-repo=none install l3build
-  sudo tlmgr --verify-repo=none update iexec docshots acmart booktabs totpages setspace textcase hyperxmp ifmtarg manyfoot cmap caption comment hyperref
+  sudo tlmgr --verify-repo=none update iexec href-ul
 merge:
   script: |-
     l3build check
