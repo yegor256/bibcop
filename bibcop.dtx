@@ -122,14 +122,12 @@
 %    \end{macrocode}
 
 % \begin{macro}{bibcop.pl}
-% Then, we create a Perl script for |phiquation| processing using |VerbatimOut| environment from
-% \href{https://ctan.org/pkg/fancyvrb}{fancyvrb}:
+% Then, we copy the Perl script using |VerbatimCopy| from
+% \href{https://ctan.org/pkg/verbatimcopy}{verbatimcopy}:
 %    \begin{macrocode}
-\begin{VerbatimOut}{bibcop.pl}
-print '\endinput';
-\end{VerbatimOut}
-\message{bibcop: File with Perl script 'bibcop.pl' saved^^J}%
-\makeatother
+\RequirePackage{verbatimcopy}
+\VerbatimCopy{bibcop.pl}{bibcop.pl}
+\message{bibcop: File with Perl script 'bibcop.pl' copied^^J}%
 %    \end{macrocode}
 % \end{macro}
 
@@ -140,7 +138,7 @@ print '\endinput';
 \ifdefined\bibliography\else\gdef\bibliography#1{}\fi
 \let\bibcop@oldbibliography\bibliography
 \renewcommand\bibliography[1]{%
-  \iexec[quiet]{perl "bibcop.pl" '#1'}%
+  \iexec[quiet]{perl "bibcop.pl" '#1.bib'}%
   \bibcop@oldbibliography{#1}%
 }
 \makeatother
