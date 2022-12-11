@@ -5,7 +5,7 @@ checkopts = "-interaction=batchmode -shell-escape -halt-on-error"
 checkengines = {"pdftex", "luatex", "xetex"}
 tagfiles = {"build.lua", "bibcop.dtx"}
 cleanfiles = {"build", "_docshots", "*.pl", "*.run.xml", "*.log", "*.bcf", "*.glo", "*.fls", "*.idx", "*.out", "*.fdb_latexmk", "*.aux", "*.sty", "*.zip", "bibcop.pdf", "*.bbl"}
-dynamicfiles = { "simple.bbl" }
+dynamicfiles = {"*.bbl"}
 typesetruns = 2
 checkruns = 2
 
