@@ -19,7 +19,8 @@ jobs:
           update-all-packages: true
           package-file: DEPENDS.txt
           packages: scheme-basic xetex ffcode libertine microtype hypdoc l3build href-ul newtx biblatex biber
-      - run: l3build ctan --show-log-on-error --halt-on-error
+      - run: l3build ctan --show-log-on-error --halt-on-error || echo NO
+      - run: cat build/doc/bibcop.log
       - uses: JamesIves/github-pages-deploy-action@v4.4.1
         with:
           branch: gh-pages
