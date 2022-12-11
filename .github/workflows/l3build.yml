@@ -18,7 +18,7 @@ jobs:
         with:
           update-all-packages: true
           package-file: DEPENDS.txt
-          packages: scheme-basic xetex ffcode libertine microtype hypdoc l3build href-ul newtx biblatex biber
+          packages: scheme-basic xetex ffcode libertine microtype hypdoc l3build href-ul newtx biblatex biber verbatimcopy
       - run: l3build ctan --show-log-on-error --halt-on-error
       - uses: JamesIves/github-pages-deploy-action@v4.4.1
         with:
