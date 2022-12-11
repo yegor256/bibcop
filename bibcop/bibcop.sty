@@ -38,17 +38,16 @@
 
 
 \RequirePackage{iexec}
-\RequirePackage{fancyvrb}
 
 \RequirePackage{verbatimcopy}
-\VerbatimCopy{bibcop.pl}{bibcop.pl}
+\VerbatimCopy{bibcop.pl}{bibcop.tmp.pl}
 \message{bibcop: File with Perl script 'bibcop.pl' copied^^J}%
 
 \makeatletter
 \ifdefined\bibliography\else\gdef\bibliography#1{}\fi
 \let\bibcop@oldbibliography\bibliography
 \renewcommand\bibliography[1]{%
-  \iexec[quiet]{perl "bibcop.pl" '#1.bib'}%
+  \iexec{perl "./bibcop.tmp.pl" '#1.bib'}%
   \bibcop@oldbibliography{#1}%
 }
 \makeatother
@@ -57,7 +56,7 @@
 \ifdefined\addbibresource\else\gdef\addbibresource#1{}\fi
 \let\bibcop@oldaddbibresource\addbibresource
 \renewcommand\addbibresource[1]{%
-  \iexec[quiet]{perl "bibcop.pl" '#1'}%
+  \iexec{perl "./bibcop.tmp.pl" '#1'}%
   \bibcop@oldaddbibresource{#1}%
 }
 \makeatother
