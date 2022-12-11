@@ -3,9 +3,7 @@ Don't change this file in any respect.
 LaTeX Warning: Citation `dijkstra1968letters' on page 1 undefined on input line ....
 runsystem((perl "./bibcop.tmp.pl" 'main.bib') > iexec.tmp 2>&1; /bin/echo -n $?%
  >iexec.ret)...executed
-(iexec.tmp
-Package bibcop Warning: Hello, world!.
-) iexec: The content of 'iexec.tmp' was included into the document
+(iexec.tmp) iexec: The content of 'iexec.tmp' was included into the document
 runsystem(rm iexec.tmp)...executed
 runsystem(rm iexec.ret)...executed
 (bibtex.bbl)
