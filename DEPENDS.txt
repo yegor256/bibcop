@@ -1,0 +1,3 @@
+hard iexec
+hard fancyvrb
+hard pdftexcmds

@@ -1,0 +1,28 @@
+name: l3build
+on:
+  push:
+    branches: master
+  pull_request:
+    branches: master
+jobs:
+  l3build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-20.04, macos-12]
+    steps:
+      - uses: actions/checkout@v3
+      - run: sudo apt-get -y install ghostscript
+        if: matrix.os == 'ubuntu-20.04'
+      - uses: teatimeguest/setup-texlive-action@v2.5.0
+        with:
+          update-all-packages: true
+          package-file: DEPENDS.txt
+          packages: scheme-basic xetex ffcode libertine microtype hypdoc l3build href-ul newtx biblatex biber docshots pdfcrop acmart booktabs totpages setspace textcase hyperxmp ifmtarg manyfoot cmap caption comment standalone
+      - run: l3build ctan --show-log-on-error --halt-on-error
+      - uses: JamesIves/github-pages-deploy-action@v4.4.1
+        with:
+          branch: gh-pages
+          folder: build/distrib/tds/tex/latex
+          clean: true
+        if: github.ref == 'refs/heads/master' && matrix.os == 'ubuntu-20.04'

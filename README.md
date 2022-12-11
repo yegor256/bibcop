@@ -1,0 +1,27 @@
+[![l3build](https://github.com/yegor256/bibcop.sty/actions/workflows/l3build.yml/badge.svg)](https://github.com/yegor256/bibcop.sty/actions/workflows/l3build.yml)
+[![CTAN](https://img.shields.io/ctan/v/bibcop)](https://ctan.org/pkg/bibcop)
+[![License](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/yegor256/bibcop.sty/blob/master/LICENSE.txt)
+
+This LaTeX package checks the quality of your `.bib` file and
+emits warning message if any issues found.
+
+First, [install it](https://en.wikibooks.org/wiki/LaTeX/Installing_Extra_Packages)
+from [CTAN](https://ctan.org/pkg/bibcop)
+and then use in the preamble (if you use BibTeX, for example):
+
+```tex
+\documentclass{article}
+\usepackage{bibcop}
+\begin{document}
+\bibliographystyle{plain}
+\bibliography{main}
+\end{document}
+```
+
+Otherwise, you can download [`bibcop.sty`](https://raw.githubusercontent.com/yegor256/bibcop.sty/gh-pages/bibcop/bibcop.sty) and add to your project.
+
+If you want to contribute yourself, make a fork, then create a branch, 
+then run `l3build ctan` in the root directory.
+It should compile everything without errors. If not, submit an issue and wait.
+Otherwise, make your changes and then run `l3build ctan` again. If the build is
+still clean, submit a pull request.

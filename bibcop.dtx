@@ -1,0 +1,157 @@
+% \iffalse meta-comment
+% (The MIT License)
+%
+% Copyright (c) 2022 Yegor Bugayenko
+%
+% Permission is hereby granted, free of charge, to any person obtaining a copy
+% of this software and associated documentation files (the 'Software'), to deal
+% in the Software without restriction, including without limitation the rights
+% to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+% copies of the Software, and to permit persons to whom the Software is
+% furnished to do so, subject to the following conditions:
+%
+% The above copyright notice and this permission notice shall be included in all
+% copies or substantial portions of the Software.
+%
+% THE SOFTWARE IS PROVIDED 'AS IS', WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+% IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+% FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+% AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+% LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+% OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+% SOFTWARE.
+% \fi
+
+% \CheckSum{0}
+%
+% \CharacterTable
+%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
+%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
+%   Digits        \0\1\2\3\4\5\6\7\8\9
+%   Exclamation   \!     Double quote  \"     Hash (number) \#
+%   Dollar        \$     Percent       \%     Ampersand     \&
+%   Acute accent  \'     Left paren    \(     Right paren   \)
+%   Asterisk      \*     Plus          \+     Comma         \,
+%   Minus         \-     Point         \.     Solidus       \/
+%   Colon         \:     Semicolon     \;     Less than     \<
+%   Equals        \=     Greater than  \>     Question mark \?
+%   Commercial at \@     Left bracket  \[     Backslash     \\
+%   Right bracket \]     Circumflex    \^     Underscore    \_
+%   Grave accent  \`     Left brace    \{     Vertical bar  \|
+%   Right brace   \}     Tilde         \~}
+
+% \GetFileInfo{bibcop.dtx}
+% \DoNotIndex{\endgroup,\begingroup,\let,\else,\s,\n,\r,\\,\1,\fi}
+
+% \iffalse
+%<*driver>
+\ProvidesFile{bibcop.dtx}
+%</driver>
+%<package>\NeedsTeXFormat{LaTeX2e}
+%<package>\ProvidesPackage{bibcop}
+%<*package>
+[0000-00-00 0.0.0 Style Checker of Bibliography Files]
+%</package>
+%<*driver>
+\documentclass{ltxdoc}
+\usepackage[T1]{fontenc}
+\usepackage[maxnames=1,minnames=1,maxbibnames=1,natbib=true,citestyle=authoryear,bibstyle=authoryear,doi=false,url=false,isbn=false,isbn=false]{biblatex}
+\addbibresource{bibcop.bib}
+\usepackage[tt=false, type1=true]{libertine}
+\usepackage{microtype}
+\AddToHook{env/verbatim/begin}{\microtypesetup{protrusion=false}}
+\usepackage[runs=2,dtx]{docshots}
+\usepackage{href-ul}
+\PageIndex
+\EnableCrossrefs
+\CodelineIndex
+\RecordChanges
+\begin{document}
+	\DocInput{bibcop.dtx}
+	\PrintChanges
+	\PrintIndex
+\end{document}
+%</driver>
+% \fi
+
+% \title{|bibcop|: \LaTeX{} Package \\ for Style Checking of |.bib| Files\thanks{The sources are in GitHub at \href{https://github.com/yegor256/bibcop.sty}{yegor256/bibcop.sty}}}
+% \author{Yegor Bugayenko \\ \texttt{yegor256@gmail.com}}
+% \date{\filedate, \fileversion}
+%
+% \maketitle
+%
+% \textbf{\color{red}NB!}
+% You must run \TeX{} processor with |--shell-escape| option
+% and you must have \href{https://www.perl.org}{Perl} installed.
+% This package doesn't work on Windows.
+
+% \section{Introduction}
+%
+% This package scans your |.bib| files for style errors and emits
+% warning messages if any issues are found:
+%\iffalse
+%<*verb>
+%\fi
+\begin{verbatim}
+\documentclass{article}
+\usepackage{bibcop}
+\begin{document}
+\bibliographystyle{plain}
+\bibliography{main}
+\end{document}
+\end{verbatim}
+%\iffalse
+%</verb>
+%\fi
+% You may see warnings in the \TeX log. Fix the issues in the |main.bib| file
+% and the warnings will disappear.
+
+% \StopEventually{}
+
+% \section{Implementation}
+% \changes{0.0.1}{2022/12/11}{First draft.}
+
+% First, we include a few packages.
+% We need \href{https://ctan.org/pkg/iexec}{iexec} for executing Perl scripts:
+%    \begin{macrocode}
+\RequirePackage{iexec}
+%    \end{macrocode}
+% We need \href{https://ctan.org/pkg/fancyvrb}{fancyvrb} for |\VerbatimEnvironment| command:
+%    \begin{macrocode}
+\RequirePackage{fancyvrb}
+%    \end{macrocode}
+
+% \begin{macro}{bibcop.pl}
+% Then, we create a Perl script for |phiquation| processing using |VerbatimOut| environment from
+% \href{https://ctan.org/pkg/fancyvrb}{fancyvrb}:
+%    \begin{macrocode}
+\begin{VerbatimOut}{bibcop.pl}
+print '\endinput';
+\end{VerbatimOut}
+\message{bibcop: File with Perl script 'bibcop.pl' saved^^J}%
+\makeatother
+%    \end{macrocode}
+% \end{macro}
+
+% \begin{macro}{\bibliography}
+% Then, we re-define the |\bibliography| command:
+%    \begin{macrocode}
+\makeatletter
+\let\bibcop@oldbibliography\bibliography
+\renewcommand\bibliography[1]{%
+  \iexec[quiet]{perl "bibcop.pl" '#1'}%
+  \bibcop@oldbibliography{#1}%
+}
+\makeatother
+%    \end{macrocode}
+% \end{macro}
+
+% \Finale
+
+% \clearpage
+% \printbibliography
+% \clearpage
+
+% \PrintChanges
+% \clearpage
+% \PrintIndex
