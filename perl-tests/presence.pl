@@ -1,4 +1,3 @@
-#!/usr/bin/perl
 # (The MIT License)
 #
 # Copyright (c) 2022 Yegor Bugayenko
@@ -21,18 +20,10 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-use warnings;
 use strict;
+use warnings;
 
-# Assert on the value and exit if error.
-sub assert {
-  my ($l, $r) = @_;
-  if ($l ne $r) {
-    print "'$l' ne '$r'\n";
-    exit 1;
-  }
-}
+assert(year_is_present(('title' => 'The TeX Book')), 'The \'year\' key is missing');
+assert(year_is_present(('year' => '1984')), '');
 
-require './bibcop.pl';
-require './perl-tests/parsing.pl';
-require './perl-tests/presence.pl';
+1;
