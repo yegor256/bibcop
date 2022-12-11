@@ -23,7 +23,29 @@
 use strict;
 use warnings;
 
-assert(year_is_present(('title' => 'The TeX Book')), 'The \'year\' key is missing');
-assert(year_is_present(('year' => '1984')), '');
+fails(('title' => 'The TeX Book'));
+fails(('author' => 'Donald Knuth'));
+fails(('year' => '1984'));
+passes(('author' => 'Donald Knuth', 'title' => '{The TeX Book}', 'year' => '1984'));
+
+sub fails {
+  my (%item) = @_;
+  my @errors = check(%item);
+  if (@errors+0 eq 0) {
+    show_item(%item);
+    print "No error here, why?\n";
+    exit 1;
+  }
+}
+
+sub passes {
+  my (%item) = @_;
+  my @errors = check(%item);
+  if (@errors+0 gt 0) {
+    show_item(%item);
+    print "Error here, why?\n";
+    exit 1;
+  }
+}
 
 1;

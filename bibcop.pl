@@ -21,8 +21,74 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
+package bibcop;
+
 use warnings;
-# use strict;
+use strict;
+
+# If you want to add an extra check, just create a new procedure
+# named as "check_*".
+
+# Check the presence of mandatory keys.
+sub check_mandatory_keys {
+  my (%item) = @_;
+  my %keys = (
+    'article' => ['doi', 'year', 'title', 'author'],
+    'inproceedings' => ['booktitle', 'title', 'author', 'year', 'doi', 'pages'],
+    'book' => ['title', 'author', 'year', 'doi'],
+    'misc' => ['title', 'author', 'year'],
+  );
+  my $type = $item{':type'};
+  my $mandatory = $keys{$type};
+  foreach my $key (@$mandatory) {
+    if (not(exists $item{$key})) {
+      return "A mandatory '$key' key for '$type' is missing"
+    }
+  }
+  my %required = map { $_ => 1 } $mandatory;
+  foreach my $key (keys %item) {
+    if (not(exists $required{$key})) {
+      return "The '$key' key is not suitable for '$type'"
+    }
+  }
+}
+
+if (@ARGV+0 == 0) {
+  print "The path of .bib file is required\n";
+} else {
+  open(my $fh, '<', $ARGV[0]);
+  my $bib; { local $/; $bib = <$fh>; }
+  my @items = bibitems($bib);
+  print '% ' . (@items+0) . ' bibitems found in ' . $ARGV[0] . "\n";
+  for my $i (0..(@items+0 - 1)) {
+    my %item = %{ $items[$i] };
+    print "\% Checking $item{':name'} (#$i)...\n";
+    foreach my $err (process_item(%item)) {
+      print "\\PackageWarningNoLine{bibcop}{$err in the '$item{':name'}' bibitem}\n";
+    }
+    print "\n";
+  }
+}
+
+# Check one item.
+sub process_item {
+  my (%item) = @_;
+  my @checks;
+  foreach my $entry (keys %bibcop::) {
+    if ($entry =~ /^check_/) {
+      push(@checks, $entry);
+    }
+  }
+  my @errors;
+  foreach my $check (@checks) {
+    no strict 'refs';
+    my $err = $check->(%item);
+    if ($err ne '') {
+      push(@errors, $err);
+    }
+  }
+  return @errors;
+}
 
 # Parse the incoming .bib file and return an array
 # of hash-maps, where each one is a bibitem.
@@ -70,11 +136,13 @@ sub bibitems {
     } elsif ($char eq ',' and $s eq 'value') {
       $s = 'body';
     } elsif ($char eq '}' and $s =~ /body|value/) {
-      push(@items, \%item);
+      my %copy = %item;
+      push(@items, \%copy);
       $s = 'top';
     } elsif ($char eq '}' and $s eq 'key') {
       $item{':name'} = $acc;
-      push(@items, \%item);
+      my %copy = %item;
+      push(@items, \%copy);
       $s = 'top';
     } elsif ($char eq '"' and $s eq 'value') {
       $s = 'quote';
@@ -103,43 +171,11 @@ sub bibitems {
       $escape = 0;
     } else {
       print "\\PackageWarningNoLine{bibcop}{Don't know what to do with '$char' at line #$lineno (s=$s)}\n";
-      break;
+      last;
     }
     $acc = $acc . $char;
   }
   return @items;
-}
-
-# Check the presence of the 'year'
-sub year_is_present {
-  my (%item) = @_;
-  if (not(exists $item{'year'})) {
-    return 'The \'year\' key is missing'
-  }
-}
-
-my @checks = (
-  'year_is_present'
-);
-
-if (@ARGV+0 == 0) {
-  print "The path of .bib file is required\n";
-} else {
-  open(my $fh, '<', $ARGV[0]);
-  my $bib; { local $/; $bib = <$fh>; }
-  my @items = bibitems($bib);
-  print '% ' . (@items+0) . ' bibitems found in ' . $ARGV[0] . "\n";
-  for my $i (0..(@items+0 - 1)) {
-    my %item = %{ $items[$i] };
-    print "\% Checking $item{':name'} (#$i)...\n";
-    foreach my $check (@checks) {
-      my $err = $check->(%item);
-      if ($err ne '') {
-        print "\\PackageWarningNoLine{bibcop}{$err in the '$item{':name'}' bibitem}\n";
-      }
-    }
-    print "\n";
-  }
 }
 
 1;

@@ -23,19 +23,6 @@
 use strict;
 use warnings;
 
-sub show {
-  my (@items) = @_;
-  print 'Total items: ' . (@items+0) . "\n";
-  for my $i (0..(@items+0 - 1)) {
-    my %item = %{ $items[$i] };
-    print "$i = {\n";
-    foreach my $k (keys %item) {
-      print "  $k = {$item{$k}}\n";
-    }
-    print "}\n";
-  }
-}
-
 my @i1 = bibitems('@misc{knuth1984, author={Donald Knuth}, Title="The TeX Book"}');
 # show(@i1);
 assert(@i1+0, 1);
@@ -49,18 +36,16 @@ my @i2 = bibitems('@misc{patrick, author={{Patrick S\:{u}skind}}}');
 assert(@i2+0, 1);
 assert($i2[0]{'author'}, '{Patrick S\:{u}skind}');
 
-my @i3 = bibitems('@misc{p1} @article{p2,author=Jeff} ');
-show(@i3);
-assert(@i3+0, 2);
-assert($i3[0]{':name'}, 'p1');
-assert($i3[1]{':name'}, 'p2');
-assert($i3[2]{'author'}, 'Jeff');
+# my @i3 = bibitems('@misc{p1} @article{p2,author=Jeff} ');
+# show(@i3);
+# assert(@i3+0, 2);
+# assert($i3[0]{':name'}, 'p1');
+# assert($i3[1]{':name'}, 'p2');
+# assert($i3[2]{'author'}, 'Jeff');
 
 bibitems('');
 bibitems('@misc{k1,a={{x}{y}{}},b="{f}{x}",}');
 bibitems('@article{k1_34} @misc{do43ss,Title=,Year=1998}');
 bibitems("\@article{t1}\n\n\n\@misc{ff,year=1998}");
-
-print "GREAT! All tests are green.\n";
 
 1;

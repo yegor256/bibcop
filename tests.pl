@@ -33,6 +33,29 @@ sub assert {
   }
 }
 
+# Print item to console.
+sub show_item {
+  my (%item) = @_;
+  print "{\n";
+  foreach my $k (keys %item) {
+    print "  $k = {$item{$k}}\n";
+  }
+  print "}\n";
+}
+
+# Print items to console.
+sub show {
+  my (@items) = @_;
+  print 'Total items: ' . (@items+0) . "\n";
+  for my $i (0..(@items+0 - 1)) {
+    my %item = %{ $items[$i] };
+    show_item(%item);
+  }
+}
+
 require './bibcop.pl';
 require './perl-tests/parsing.pl';
-require './perl-tests/presence.pl';
+require './perl-tests/checking.pl';
+
+print "GREAT! All tests are green.\n";
+
