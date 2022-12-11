@@ -1,7 +1,7 @@
 \input{regression-test.tex}
 \documentclass{article}
 \usepackage[style=numeric]{biblatex}
-\addbibresource{main}
+\addbibresource{main.bib}
 \usepackage{bibcop}
 \begin{document}
 
