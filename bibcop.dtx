@@ -116,17 +116,13 @@
 %    \begin{macrocode}
 \RequirePackage{iexec}
 %    \end{macrocode}
-% We need \href{https://ctan.org/pkg/fancyvrb}{fancyvrb} for |\VerbatimEnvironment| command:
-%    \begin{macrocode}
-\RequirePackage{fancyvrb}
-%    \end{macrocode}
 
 % \begin{macro}{bibcop.pl}
-% Then, we copy the Perl script using |VerbatimCopy| from
+% Then, we copy the Perl script using |\VerbatimCopy| from
 % \href{https://ctan.org/pkg/verbatimcopy}{verbatimcopy}:
 %    \begin{macrocode}
 \RequirePackage{verbatimcopy}
-\VerbatimCopy{bibcop.pl}{bibcop.pl}
+\VerbatimCopy{bibcop.pl}{bibcop.tmp.pl}
 \message{bibcop: File with Perl script 'bibcop.pl' copied^^J}%
 %    \end{macrocode}
 % \end{macro}
@@ -138,7 +134,7 @@
 \ifdefined\bibliography\else\gdef\bibliography#1{}\fi
 \let\bibcop@oldbibliography\bibliography
 \renewcommand\bibliography[1]{%
-  \iexec[quiet]{perl "bibcop.pl" '#1.bib'}%
+  \iexec{perl "./bibcop.tmp.pl" '#1.bib'}%
   \bibcop@oldbibliography{#1}%
 }
 \makeatother
@@ -152,7 +148,7 @@
 \ifdefined\addbibresource\else\gdef\addbibresource#1{}\fi
 \let\bibcop@oldaddbibresource\addbibresource
 \renewcommand\addbibresource[1]{%
-  \iexec[quiet]{perl "bibcop.pl" '#1'}%
+  \iexec{perl "./bibcop.tmp.pl" '#1'}%
   \bibcop@oldaddbibresource{#1}%
 }
 \makeatother

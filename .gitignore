@@ -4,6 +4,7 @@ _docshots/
 _minted-*/
 bibcop.tex
 bibcop.ret
+bibcop.tmp.pl
 iexec.ret
 bibcop.stdout
 bibcop.stderr

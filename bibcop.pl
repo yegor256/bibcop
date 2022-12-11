@@ -1,3 +1,3 @@
 # Lexer
 
-print 'Hello, world!';
+print '\PackageWarningNoLine{bibcop}{Hello, world!}';
