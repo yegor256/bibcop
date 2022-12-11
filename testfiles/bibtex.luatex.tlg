@@ -1,7 +1,8 @@
 This is a generated file for the l3build validation system.
 Don't change this file in any respect.
 LaTeX Warning: Citation `dijkstra1968letters' on page 1 undefined on input line ....
-runsystem((perl "bibcop.pl" 'simple') > iexec.tmp 2>&1; /bin/echo -n $?% >iexec.ret)...executed.
-runsystem(rm iexec.tmp)...executed.
-runsystem(rm iexec.ret)...executed.
-(simple.bbl)
+runsystem((perl "bibcop.pl" 'main') > iexec.tmp 2>&1; /bin/echo -n $?% >iexec.re
+t)...executed
+runsystem(rm iexec.tmp)...executed
+runsystem(rm iexec.ret)...executed
+(bibtex.bbl)

@@ -1,0 +1,14 @@
+\input{regression-test.tex}
+\documentclass{article}
+\usepackage{bibcop}
+\begin{document}
+
+\START
+
+It has already been explained by \cite{dijkstra1968letters}
+why GOTO statement is harmful.
+
+\bibliographystyle{plain}
+\bibliography{main}
+
+\END

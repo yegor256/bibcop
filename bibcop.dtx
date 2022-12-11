@@ -137,10 +137,25 @@ print '\endinput';
 % Then, we re-define the |\bibliography| command:
 %    \begin{macrocode}
 \makeatletter
+\ifdefined\bibliography\else\gdef\bibliography#1{}\fi
 \let\bibcop@oldbibliography\bibliography
 \renewcommand\bibliography[1]{%
   \iexec[quiet]{perl "bibcop.pl" '#1'}%
   \bibcop@oldbibliography{#1}%
+}
+\makeatother
+%    \end{macrocode}
+% \end{macro}
+
+% \begin{macro}{\addbibresource}
+% Then, we re-define the |\addbibresource| command:
+%    \begin{macrocode}
+\makeatletter
+\ifdefined\addbibresource\else\gdef\addbibresource#1{}\fi
+\let\bibcop@oldaddbibresource\addbibresource
+\renewcommand\addbibresource[1]{%
+  \iexec[quiet]{perl "bibcop.pl" '#1'}%
+  \bibcop@oldaddbibresource{#1}%
 }
 \makeatother
 %    \end{macrocode}
