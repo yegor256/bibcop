@@ -45,10 +45,13 @@ sub check_mandatory_keys {
       return "A mandatory '$key' key for '$type' is missing"
     }
   }
-  my %required = map { $_ => 1 } $mandatory;
+  my %required = map { $_ => 1 } @$mandatory;
   foreach my $key (keys %item) {
+    if ($key =~ /^:/) {
+      next;
+    }
     if (not(exists $required{$key})) {
-      return "The '$key' key is not suitable for '$type'"
+      return "The '$key' key is not suitable for '$type', use only these: (@$mandatory)"
     }
   }
 }

@@ -20,17 +20,19 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
+package bibcop;
+
 use strict;
 use warnings;
 
-fails(('title' => 'The TeX Book'));
-fails(('author' => 'Donald Knuth'));
-fails(('year' => '1984'));
-passes(('author' => 'Donald Knuth', 'title' => '{The TeX Book}', 'year' => '1984'));
+fails((':type' => 'book', 'title' => 'The TeX Book'));
+fails((':type' => 'book', 'author' => 'Donald Knuth'));
+fails((':type' => 'book', 'year' => '1984'));
+passes((':type' => 'book', 'author' => 'Donald Knuth', 'title' => '{The TeX Book}', 'year' => '1984', 'doi' => 'test'));
 
 sub fails {
   my (%item) = @_;
-  my @errors = check(%item);
+  my @errors = process_item(%item);
   if (@errors+0 eq 0) {
     show_item(%item);
     print "No error here, why?\n";
@@ -40,9 +42,12 @@ sub fails {
 
 sub passes {
   my (%item) = @_;
-  my @errors = check(%item);
+  my @errors = process_item(%item);
   if (@errors+0 gt 0) {
     show_item(%item);
+    foreach my $err (@errors) {
+      print "$err\n";
+    }
     print "Error here, why?\n";
     exit 1;
   }

@@ -20,6 +20,8 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
+package bibcop;
+
 use strict;
 use warnings;
 
@@ -36,12 +38,12 @@ my @i2 = bibitems('@misc{patrick, author={{Patrick S\:{u}skind}}}');
 assert(@i2+0, 1);
 assert($i2[0]{'author'}, '{Patrick S\:{u}skind}');
 
-# my @i3 = bibitems('@misc{p1} @article{p2,author=Jeff} ');
-# show(@i3);
-# assert(@i3+0, 2);
-# assert($i3[0]{':name'}, 'p1');
-# assert($i3[1]{':name'}, 'p2');
-# assert($i3[2]{'author'}, 'Jeff');
+my @i3 = bibitems('@misc{p1} @article{p2,author="Jeff"} ');
+show(@i3);
+assert(@i3+0, 2);
+assert($i3[0]{':name'}, 'p1');
+assert($i3[1]{':name'}, 'p2');
+assert($i3[1]{'author'}, 'Jeff');
 
 bibitems('');
 bibitems('@misc{k1,a={{x}{y}{}},b="{f}{x}",}');
