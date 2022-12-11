@@ -2,6 +2,8 @@
 [![CTAN](https://img.shields.io/ctan/v/bibcop)](https://ctan.org/pkg/bibcop)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/yegor256/bibcop.sty/blob/master/LICENSE.txt)
 
+**NOTE: It's still a draft, not yet released to CTAN!**
+
 This LaTeX package checks the quality of your `.bib` file and
 emits warning message if any issues found. You may also like
 [biblint](https://github.com/Kingsford-Group/biblint) tool ---
