@@ -18,13 +18,13 @@ uploadconfig = {
   note = "Bug fixes",
   announcement = "",
   ctanPath = "/macros/latex/contrib/bibcop",
-  bugtracker = "https://github.com/yegor256/bibcop.sty/issues",
+  bugtracker = "https://github.com/yegor256/bibcop/issues",
   home = "",
-  description = "Style checker of .bib files",
+  description = "Style Checker of .bib Files",
   development = "",
   license = "mit",
   summary = "This LaTeX package checks the quality of your .bib file and emits warning message if any issues found.",
-  repository = "https://github.com/yegor256/bibcop.sty",
+  repository = "https://github.com/yegor256/bibcop",
   support = "",
   topic = {"bibliography"}
 }

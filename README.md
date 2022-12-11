@@ -1,6 +1,6 @@
-[![l3build](https://github.com/yegor256/bibcop.sty/actions/workflows/l3build.yml/badge.svg)](https://github.com/yegor256/bibcop.sty/actions/workflows/l3build.yml)
+[![l3build](https://github.com/yegor256/bibcop/actions/workflows/l3build.yml/badge.svg)](https://github.com/yegor256/bibcop/actions/workflows/l3build.yml)
 [![CTAN](https://img.shields.io/ctan/v/bibcop)](https://ctan.org/pkg/bibcop)
-[![License](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/yegor256/bibcop.sty/blob/master/LICENSE.txt)
+[![License](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/yegor256/bibcop/blob/master/LICENSE.txt)
 
 **NOTE: It's still a draft, not yet released to CTAN!**
 
@@ -22,7 +22,7 @@ and then use in the preamble (if you use BibTeX, for example):
 \end{document}
 ```
 
-Otherwise, you can download [`bibcop.sty`](https://raw.githubusercontent.com/yegor256/bibcop.sty/gh-pages/bibcop/bibcop.sty) and add to your project.
+Otherwise, you can download [`bibcop.sty`](https://raw.githubusercontent.com/yegor256/bibcop/gh-pages/bibcop/bibcop.sty) and add to your project.
 
 If you want to contribute yourself, make a fork, then create a branch, 
 then run `l3build ctan` in the root directory.
