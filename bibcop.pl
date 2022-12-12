@@ -34,7 +34,7 @@ my %blessed = (
   'article' => ['doi', 'year', 'title', 'author', 'journal', 'volume', 'number', 'publisher?'],
   'inproceedings' => ['doi', 'booktitle', 'title', 'author', 'year', 'pages', 'organization?', 'volume?'],
   'book' => ['doi', 'title', 'author', 'year', 'publisher'],
-  'misc' => ['title', 'author', 'year', 'eprint?', 'archiveprefix?', 'primaryclass?', 'publisher?', 'organization?'],
+  'misc' => ['title', 'author', 'year', 'eprint?', 'archiveprefix?', 'primaryclass?', 'publisher?', 'organization?', 'doi?'],
 );
 
 # Check the presence of mandatory keys.
