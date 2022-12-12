@@ -101,7 +101,7 @@ sub check_author {
       return "The format of the 'author' is wrong, use 'Knuth, Donald E. and Duane, Bibby'"
     }
     if ($author =~ /.*[A-Z]([ ,]|$).*/) {
-      return "A shortened name must have a tailing dot"
+      return "A shortened name must have a tailing dot, as in 'Knuth, Donald E.'"
     }
   }
 }
