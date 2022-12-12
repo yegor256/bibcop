@@ -187,7 +187,7 @@ sub check_booktile_of_inproceedings {
     if (exists $item{'booktitle'}) {
       my @words = only_words($item{'booktitle'});
       if (lc($words[0]) ne 'proceedings' or lc($words[1]) ne 'of' or lc($words[2]) ne 'the') {
-        return "The '$key' must be start with 'Proceedings of the ...'"
+        return "The '$key' must start with 'Proceedings of the ...'"
       }
     }
   }
@@ -198,7 +198,7 @@ sub check_doi {
   my (%item) = @_;
   if (exists $item{'doi'}) {
     my $doi = $item{'doi'};
-    if (not $item{'doi'} =~ /^[0-9a-zA-Z.]+\/[0-9a-zA-Z.]+$/) {
+    if (not $item{'doi'} =~ /^[0-9a-zA-Z.]+\/[0-9a-zA-Z._]+$/) {
       return "The format of the 'doi' is wrong"
     }
   }
@@ -449,7 +449,7 @@ if (@ARGV+0 eq 0 or exists $args{'--help'}) {
       foreach my $line (@sorted) {
         debug($line);
       }
-      debug('}');
+      debug("}\n");
     }
   } else {
     debug((@items+0) . ' bibitems found in ' . $file);
