@@ -97,7 +97,7 @@ sub check_author {
   my (%item) = @_;
   if (exists $item{'author'}) {
     my $author = clean_tex($item{'author'});
-    if (not $author =~ /^[^ ]+(,( [^ ]+)+)?( and [^ ]+(,( [^ ]+)+)?)*$/) {
+    if (not $author =~ /^[A-Z][^ ]+(,( [A-Z][^ ]+)+)?( and [A-Z][^ ]+(,( [A-Z][^ ]+)+)?)*$/) {
       return "The format of the 'author' is wrong, use 'Knuth, Donald E. and Duane, Bibby'"
     }
     if ($author =~ /.*[A-Z]([ ,]|$).*/) {
