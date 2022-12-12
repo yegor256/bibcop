@@ -92,6 +92,17 @@ sub check_capitalization {
   }
 }
 
+# Check that the 'author' is formatted correctly.
+sub check_author {
+  my (%item) = @_;
+  if (exists $item{'author'}) {
+    my $author = clean_tex($item{'author'});
+    if (not $author =~ /^[^ ]+(,( [^ ]+)+)?( and [^ ]+(,( [^ ]+)+)?)*$/) {
+      return "The format of the 'author' is wrong, use 'Knuth, Donald E. and Duane, Bibby'"
+    }
+  }
+}
+
 # Check that titles don't have shortened words with a tailing dot.
 sub check_shortenings {
   my (%item) = @_;
@@ -329,10 +340,16 @@ sub bibitems {
 # Takes the text and returns only list of words seen there.
 sub only_words {
   my ($tex) = @_;
+  return split(/ /, clean_tex($tex));
+}
+
+# Take a TeX string and return a cleaner one, without redundant spaces, brackets, etc.
+sub clean_tex {
+  my ($tex) = @_;
   $tex =~ s/\s+/ /g;
   $tex =~ s/^\{+//g;
   $tex =~ s/\}+$//g;
-  return split(/ /, $tex);
+  return $tex;
 }
 
 # Take a bibitem and print all its keys as a comma-separated string.
