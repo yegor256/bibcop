@@ -198,7 +198,7 @@ sub check_doi {
   my (%item) = @_;
   if (exists $item{'doi'}) {
     my $doi = $item{'doi'};
-    if (not $item{'doi'} =~ /^[0-9a-zA-Z.]+\/[0-9a-zA-Z._]+$/) {
+    if (not $item{'doi'} =~ /^[0-9a-zA-Z.]+\/[0-9a-zA-Z._\-]+$/) {
       return "The format of the 'doi' is wrong"
     }
   }
