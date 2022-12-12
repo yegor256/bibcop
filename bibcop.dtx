@@ -197,6 +197,20 @@ journal = {Journal of Logic and Computation}
 %</verb>
 %\fi
 
+% \DescribeMacro{brackets}
+% The |title|, |booktitle|, and |journal| must be wrapped with double brackets, for example:
+%\iffalse
+%<*verb>
+%\fi
+\begin{verbatim}
+title = {{A Survey of Symbolic Execution Techniques}}
+\end{verbatim}
+%\iffalse
+%</verb>
+%\fi
+% This is necessary in order to prevent down-casing of capitalized words, which is done by some
+% bibliography styles.
+
 % \StopEventually{}
 
 % \section{Implementation}
