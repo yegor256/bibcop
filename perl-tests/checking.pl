@@ -46,7 +46,7 @@ passes((
 ));
 passes((
   ':type' => 'inproceedings',
-  'author' => 'James',
+  'author' => 'James and others',
   'title' => '{The Title}',
   'booktitle' => '{Proceedings of the ICCQ}',
   'year' => '1984',
