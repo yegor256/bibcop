@@ -32,4 +32,10 @@ still clean, submit a pull request.
 
 If you want to add a new check, add it as a Perl subroutine to the `bibcop.pl` file.
 Don't forget to add a test to one of the test files that stay in the `perl-tests/` directory.
+When ready, run this, in order to check that all tests pass:
 
+```bash
+$ ./tests.pl
+```
+
+You should see the `GREAT!` message.
