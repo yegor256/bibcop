@@ -175,6 +175,28 @@ author = {Knuth, Donald E. and others}
 %\fi
 % When first names are shortened to a single letter, it has to have a tailing dot.
 
+% \DescribeMacro{shorts}
+% It is not allowed to shorten any words, for example this is illegal:
+%\iffalse
+%<*verb>
+%\fi
+\begin{verbatim}
+journal = {J. Log. Comput.}
+\end{verbatim}
+%\iffalse
+%</verb>
+%\fi
+% This must be replaced with the following:
+%\iffalse
+%<*verb>
+%\fi
+\begin{verbatim}
+journal = {Journal of Logic and Computation}
+\end{verbatim}
+%\iffalse
+%</verb>
+%\fi
+
 % \StopEventually{}
 
 % \section{Implementation}
