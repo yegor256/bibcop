@@ -66,7 +66,7 @@ sub check_mandatory_keys {
 sub check_capitalization {
   my (%item) = @_;
   my %keys = map { $_ => 1 } qw/title booktitle journal/;
-  my %minors = map { $_ => 1 } qw/in of at to by the a an and or as if up via yet nor but off on for/;
+  my %minors = map { $_ => 1 } qw/in of at to by the a an and or as if up via yet nor but off on for into/;
   foreach my $key (keys %item) {
     if (not exists $keys{$key}) {
       next;
