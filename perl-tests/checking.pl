@@ -57,6 +57,16 @@ passes((
   'doi' => '10.5555/1102013',
   'pages' => '22--33'
 ));
+passes((
+  ':type' => 'inproceedings',
+  'author' => '{IEEE}',
+  'title' => '{The {wrong} {word}}',
+  'booktitle' => '{Proceedings of the ICCQ}',
+  'year' => '1984',
+  'volume' => '32',
+  'doi' => '10.5555/1102013',
+  'pages' => '22--33'
+));
 
 sub fails {
   my (%item) = @_;
