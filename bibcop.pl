@@ -191,6 +191,17 @@ sub check_booktile_of_inproceedings {
   }
 }
 
+# Check the right format of the 'doi.'
+sub check_doi {
+  my (%item) = @_;
+  if (exists $item{'doi'}) {
+    my $doi = $item{'doi'};
+    if (not $item{'doi'} =~ /^[0-9a-zA-Z.]+\/[0-9a-zA-Z.]+$/) {
+      return "The format of the 'doi' is wrong"
+    }
+  }
+}
+
 # Check the right format of the 'year.'
 sub check_year {
   my (%item) = @_;

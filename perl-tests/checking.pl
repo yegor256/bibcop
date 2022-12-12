@@ -36,13 +36,14 @@ fails((':type' => 'misc', 'year' => '1984', 'author' => 'Knuth', 'title' => '{CA
 fails((':type' => 'misc', 'year' => '1984', 'author' => 'Knuth', 'title' => '{CACM}', 'pages'=>'4-5'));
 fails((':type' => 'misc', 'year' => '1984', 'author' => 'Knuth', 'title' => '{CACM}', 'pages'=>'54--21'));
 fails((':type' => 'misc', 'year' => '1984', 'author' => 'Knuth', 'title' => '{The Article , a Good One}'));
+fails((':type' => 'misc', 'year' => '1984', 'author' => 'Knuth', 'title' => '{The Title}', 'doi' => 'http://dx.doi.org/1/1'));
 
 passes((
   ':type' => 'book',
   'author' => 'Knuth, Donald E. and Duane, Bibby',
   'title' => '{The TeX Book}',
   'year' => '1984',
-  'doi' => 'test',
+  'doi' => '10.5555/1102013',
   'publisher' => 'Addison-Wesley Professional'
 ));
 passes((
@@ -52,7 +53,7 @@ passes((
   'booktitle' => '{Proceedings of the ICCQ}',
   'year' => '1984',
   'volume' => '32',
-  'doi' => 'd',
+  'doi' => '10.5555/1102013',
   'pages' => '22--33'
 ));
 
