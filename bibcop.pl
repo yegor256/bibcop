@@ -142,6 +142,23 @@ sub check_titles {
   }
 }
 
+# Check the year is not mentioned in titles.
+sub check_year_in_titles {
+  my (%item) = @_;
+  my @keys = qw/title booktitle journal/;
+  foreach my $key (@keys) {
+    if (not exists($item{$key})) {
+      next;
+    }
+    my @words = only_words($item{$key});
+    foreach my $word (@words) {
+      if ($word =~ /^[1-9][0-9]{3}$/) {
+        return "The '$key' must not contain the year $word, it is enough to have the 'year' key"
+      }
+    }
+  }
+}
+
 # Check the right format of the 'booktitle' in the 'inproceedings' item.
 sub check_booktile_of_inproceedings {
   my (%item) = @_;

@@ -30,6 +30,7 @@ fails((':type' => 'book', 'author' => 'Knuth, Donald'));
 fails((':type' => 'book', 'year' => '1984'));
 fails((':type' => 'misc', 'year' => '1984', 'author' => 'Jeff', 'title' => '{Comm. of the ACM}'));
 fails((':type' => 'misc', 'year' => '1984', 'author' => 'Knuth, Donald E', 'title' => '{CACM}'));
+fails((':type' => 'misc', 'year' => '1984', 'author' => 'Knuth', 'title' => '{1984 CACM}'));
 passes((
   ':type' => 'book',
   'author' => 'Knuth, Donald E. and Duane, Bibby',
