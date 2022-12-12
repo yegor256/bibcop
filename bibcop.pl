@@ -33,7 +33,7 @@ use strict;
 sub check_mandatory_keys {
   my (%item) = @_;
   my %keys = (
-    'article' => ['doi', 'year', 'title', 'author'],
+    'article' => ['doi', 'year', 'title', 'author', 'journal', 'volume', 'number', 'publisher?'],
     'inproceedings' => ['booktitle', 'title', 'author', 'year', 'doi', 'pages', 'volume?'],
     'book' => ['title', 'author', 'year', 'doi'],
     'misc' => ['title', 'author', 'year'],
@@ -102,7 +102,7 @@ sub check_titles {
     }
     my $title = $item{$key};
     if (not $title =~ /^\{.+\}$/) {
-      return "The $key must be wrapped in double curled brackets"
+      return "The '$key' must be wrapped in double curled brackets"
     }
   }
 }
@@ -115,7 +115,7 @@ sub check_booktile_of_inproceedings {
     if (exists $item{'booktitle'}) {
       my @words = only_words($item{'booktitle'});
       if (lc($words[0]) ne 'proceedings' or lc($words[1]) ne 'of') {
-        return "The $key must be start with 'Proceedings of ...'"
+        return "The '$key' must be start with 'Proceedings of ...'"
       }
     }
   }
@@ -127,7 +127,7 @@ sub check_year {
   if (exists $item{'year'}) {
     my $year = $item{'year'};
     if (not $item{'year'} =~ /^[0-9]{3,4}$/) {
-      return "The format of the year is wrong: '$year'"
+      return "The format of the 'year' is wrong: '$year'"
     }
   }
 }
@@ -138,7 +138,7 @@ sub check_month {
   if (exists $item{'month'}) {
     my $month = $item{'month'};
     if (not $item{'month'} =~ /^[1-9]|10|11|12$/) {
-      return "The format of the month is wrong: '$month'"
+      return "The format of the 'month' is wrong: '$month'"
     }
   }
 }
@@ -149,7 +149,7 @@ sub check_volume {
   if (exists $item{'volume'}) {
     my $volume = $item{'volume'};
     if (not $item{'volume'} =~ /^[1-9][0-9]*$/) {
-      return "The format of the volume is wrong: '$volume'"
+      return "The format of the 'volume' is wrong: '$volume'"
     }
   }
 }
@@ -176,7 +176,7 @@ if (@ARGV+0 == 0) {
     my %item = %{ $items[$i] };
     print "\% Checking $item{':name'} (#$i)...\n";
     foreach my $err (process_item(%item)) {
-      print "\\PackageWarningNoLine{bibcop}{$err in the '$item{':name'}' bibitem}\n";
+      print "\\PackageWarningNoLine{bibcop}{$err, in the '$item{':name'}' bibitem}\n";
     }
     print "\n";
   }
