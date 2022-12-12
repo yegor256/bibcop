@@ -34,13 +34,16 @@ sub check_mandatory_keys {
   my (%item) = @_;
   my %keys = (
     'article' => ['doi', 'year', 'title', 'author'],
-    'inproceedings' => ['booktitle', 'title', 'author', 'year', 'doi', 'pages'],
+    'inproceedings' => ['booktitle', 'title', 'author', 'year', 'doi', 'pages', 'volume?'],
     'book' => ['title', 'author', 'year', 'doi'],
     'misc' => ['title', 'author', 'year'],
   );
   my $type = $item{':type'};
   my $mandatory = $keys{$type};
   foreach my $key (@$mandatory) {
+    if ($key =~ /^.*\?$/) {
+      next;
+    }
     if (not(exists $item{$key})) {
       return "A mandatory '$key' key for '$type' is missing"
     }
@@ -51,7 +54,7 @@ sub check_mandatory_keys {
       if ($key =~ /^:/) {
         next;
       }
-      if (not(exists $required{$key})) {
+      if (not(exists $required{$key}) && not(exists $required{$key . '?'})) {
         return "The '$key' key is not suitable for '$type', use only these: (@$mandatory)"
       }
     }
@@ -88,7 +91,7 @@ sub check_capitalization {
   }
 }
 
-# Check the right format of the year.
+# Check the right format of the 'year.'
 sub check_year {
   my (%item) = @_;
   if (exists $item{'year'}) {
@@ -99,13 +102,35 @@ sub check_year {
   }
 }
 
-# Check the right format of the month.
+# Check the right format of the 'month.'
 sub check_month {
   my (%item) = @_;
   if (exists $item{'month'}) {
     my $month = $item{'month'};
     if (not $item{'month'} =~ /^[1-9]|10|11|12$/) {
       return "The format of the month is wrong: '$month'"
+    }
+  }
+}
+
+# Check the right format of the 'volume.'
+sub check_volume {
+  my (%item) = @_;
+  if (exists $item{'volume'}) {
+    my $volume = $item{'volume'};
+    if (not $item{'volume'} =~ /^[1-9][0-9]*$/) {
+      return "The format of the volume is wrong: '$volume'"
+    }
+  }
+}
+
+# Check the right format of the 'pages.'
+sub check_pages {
+  my (%item) = @_;
+  if (exists $item{'pages'}) {
+    my $pages = $item{'pages'};
+    if (not $item{'pages'} =~ /^[1-9][0-9]*--[1-9][0-9]*|[1-9][0-9]*$/) {
+      return "The format of the pages is wrong: '$pages'"
     }
   }
 }

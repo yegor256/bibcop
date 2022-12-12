@@ -29,6 +29,7 @@ fails((':type' => 'book', 'title' => 'The TeX Book'));
 fails((':type' => 'book', 'author' => 'Donald Knuth'));
 fails((':type' => 'book', 'year' => '1984'));
 passes((':type' => 'book', 'author' => 'Donald Knuth', 'title' => '{The TeX Book}', 'year' => '1984', 'doi' => 'test'));
+passes((':type' => 'inproceedings', 'author' => 'James', 'title' => 'The Title', 'booktitle' => 'Proceedings of ICCQ', 'year' => '1984', 'volume' => '32', 'doi' => 'd', 'pages' => '22--33'));
 
 sub fails {
   my (%item) = @_;
