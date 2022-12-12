@@ -39,7 +39,7 @@ assert(@i2+0, 1);
 assert($i2[0]{'author'}, '{Patrick S\:{u}skind}');
 
 my @i3 = bibitems('@misc{p1} @article{p2,author="Jeff"} ');
-show(@i3);
+# show(@i3);
 assert(@i3+0, 2);
 assert($i3[0]{':name'}, 'p1');
 assert($i3[1]{':name'}, 'p2');

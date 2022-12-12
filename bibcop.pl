@@ -45,13 +45,45 @@ sub check_mandatory_keys {
       return "A mandatory '$key' key for '$type' is missing"
     }
   }
-  my %required = map { $_ => 1 } @$mandatory;
+  if (exists $keys{$type}) {
+    my %required = map { $_ => 1 } @$mandatory;
+    foreach my $key (keys %item) {
+      if ($key =~ /^:/) {
+        next;
+      }
+      if (not(exists $required{$key})) {
+        return "The '$key' key is not suitable for '$type', use only these: (@$mandatory)"
+      }
+    }
+  }
+}
+
+# Check that all major words are capitalized.
+sub check_capitalization {
+  my (%item) = @_;
+  my %keys = map { $_ => 1 } qw/title booktitle/;
+  my %minors = map { $_ => 1 } qw/in of at to by the a an and or as if up via yet nor but off on/;
   foreach my $key (keys %item) {
-    if ($key =~ /^:/) {
+    if (not exists $keys{$key}) {
       next;
     }
-    if (not(exists $required{$key})) {
-      return "The '$key' key is not suitable for '$type', use only these: (@$mandatory)"
+    my $value = $item{$key};
+    my @words = split(/[^A-Za-z]/, $value);
+    my $pos = 0;
+    foreach my $word (@words) {
+      if (not $word =~ /^[A-Za-z]/) {
+        next;
+      }
+      $pos = $pos + 1;
+      if (exists $minors{$word}) {
+        next;
+      }
+      if (exists $minors{lc($word)} and $pos gt 1) {
+        return "All minor words in the '$key' must be lower-cased, while '$word' (no.$pos) is not"
+      }
+      if ($word =~ /^[a-z].*/) {
+        return "All major words in the '$key' must be capitalized, while '$word' (no.$pos) is not"
+      }
     }
   }
 }
@@ -82,8 +114,9 @@ sub process_item {
       push(@checks, $entry);
     }
   }
+  my @sorted = sort @checks;
   my @errors;
-  foreach my $check (@checks) {
+  foreach my $check (@sorted) {
     no strict 'refs';
     my $err = $check->(%item);
     if ($err ne '') {
@@ -139,13 +172,11 @@ sub bibitems {
     } elsif ($char eq ',' and $s eq 'value') {
       $s = 'body';
     } elsif ($char eq '}' and $s =~ /body|value/) {
-      my %copy = %item;
-      push(@items, \%copy);
+      push(@items, { %item });
       $s = 'top';
     } elsif ($char eq '}' and $s eq 'key') {
       $item{':name'} = $acc;
-      my %copy = %item;
-      push(@items, \%copy);
+      push(@items, { %item });
       $s = 'top';
     } elsif ($char eq '"' and $s eq 'value') {
       $s = 'quote';
