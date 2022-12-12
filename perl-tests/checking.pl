@@ -32,6 +32,10 @@ fails((':type' => 'misc', 'year' => '1984', 'author' => 'Jeff', 'title' => '{Com
 fails((':type' => 'misc', 'year' => '1984', 'author' => 'Knuth, Donald E', 'title' => '{CACM}'));
 fails((':type' => 'misc', 'year' => '1984', 'author' => 'Knuth', 'title' => '{1984 CACM}'));
 fails((':type' => 'misc', 'year' => '1984', 'author' => 'Knuth', 'title' => '{CACM.}'));
+fails((':type' => 'misc', 'year' => '1984', 'author' => 'Knuth', 'title' => '{CACM}', 'pages'=>'4a'));
+fails((':type' => 'misc', 'year' => '1984', 'author' => 'Knuth', 'title' => '{CACM}', 'pages'=>'4-5'));
+fails((':type' => 'misc', 'year' => '1984', 'author' => 'Knuth', 'title' => '{CACM}', 'pages'=>'54--21'));
+
 passes((
   ':type' => 'book',
   'author' => 'Knuth, Donald E. and Duane, Bibby',

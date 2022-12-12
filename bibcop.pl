@@ -193,7 +193,7 @@ sub check_year {
   if (exists $item{'year'}) {
     my $year = $item{'year'};
     if (not $item{'year'} =~ /^[0-9]{3,4}$/) {
-      return "The format of the 'year' is wrong: '$year'"
+      return "The format of the 'year' is wrong"
     }
   }
 }
@@ -204,7 +204,7 @@ sub check_month {
   if (exists $item{'month'}) {
     my $month = $item{'month'};
     if (not $item{'month'} =~ /^[1-9]|10|11|12$/) {
-      return "The format of the 'month' is wrong: '$month'"
+      return "The format of the 'month' is wrong"
     }
   }
 }
@@ -215,7 +215,7 @@ sub check_volume {
   if (exists $item{'volume'}) {
     my $volume = $item{'volume'};
     if (not $item{'volume'} =~ /^[1-9][0-9]*$/) {
-      return "The format of the 'volume' is wrong: '$volume'"
+      return "The format of the 'volume' is wrong"
     }
   }
 }
@@ -226,7 +226,13 @@ sub check_pages {
   if (exists $item{'pages'}) {
     my $pages = $item{'pages'};
     if (not $item{'pages'} =~ /^[1-9][0-9]*--[1-9][0-9]*|[1-9][0-9]*$/) {
-      return "The format of the pages is wrong: '$pages'"
+      return "The format of the 'pages' is wrong"
+    }
+    my @parts = split(/--/, $pages);
+    if (@parts+0 eq 2) {
+      if ($parts[0] gt $parts[1]) {
+        return "The 'pages' are in the wrong order"
+      }
     }
   }
 }
