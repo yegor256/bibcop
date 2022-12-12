@@ -50,6 +50,11 @@ my @i4 = bibitems('@misc{x1, year =   1989   }');
 assert(@i4+0, 1);
 assert($i4[0]{'year'}, '1989');
 
+my @i5 = bibitems('@misc{x2,year=2021,}');
+# show(@i5);
+assert(@i5+0, 1);
+assert($i5[0]{'year'}, '2021');
+
 bibitems('');
 bibitems('@misc{k1,a={{x}{y}{}},b="{f}{x}",}');
 bibitems('@article{k1_34} @misc{do43ss,Title=,Year=1998}');

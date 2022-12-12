@@ -247,6 +247,11 @@ sub bibitems {
       $s = 'value';
       $acc = '';
     } elsif ($char eq ',' and $s eq 'value') {
+      if (not exists $item{lc($key)}) {
+        my $tex = substr($acc, 1);
+        $tex =~ s/\s//g;
+        $item{lc($key)} = $tex;
+      }
       $s = 'body';
     } elsif ($char eq '}' and $s eq 'body') {
       push(@items, { %item });
