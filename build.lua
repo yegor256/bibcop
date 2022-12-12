@@ -31,7 +31,7 @@ uploadconfig = {
   summary = "This LaTeX package checks the quality of your .bib file and emits warning message if any issues found.",
   repository = "https://github.com/yegor256/bibcop",
   support = "",
-  topic = {"bibliography"}
+  topic = {"ext-code", "biblio-supp"}
 }
 
 function update_tag(file, content, tagname, tagdate)
