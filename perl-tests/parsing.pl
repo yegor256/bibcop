@@ -33,7 +33,7 @@ assert($i1[0]{':type'}, 'misc');
 assert($i1[0]{'author'}, 'Donald Knuth');
 assert($i1[0]{'title'}, 'The TeX Book ');
 
-my @i2 = bibitems('@misc{patrick, author={{Patrick S\:{u}skind}}}');
+my @i2 = bibitems('@misc{patrick, author={{Patrick S\:{u}skind}},}');
 # show(@i2);
 assert(@i2+0, 1);
 assert($i2[0]{'author'}, '{Patrick S\:{u}skind}');
@@ -44,6 +44,11 @@ assert(@i3+0, 2);
 assert($i3[0]{':name'}, 'p1');
 assert($i3[1]{':name'}, 'p2');
 assert($i3[1]{'author'}, 'Jeff');
+
+my @i4 = bibitems('@misc{x1, year =   1989   }');
+# show(@i4);
+assert(@i4+0, 1);
+assert($i4[0]{'year'}, '1989');
 
 bibitems('');
 bibitems('@misc{k1,a={{x}{y}{}},b="{f}{x}",}');

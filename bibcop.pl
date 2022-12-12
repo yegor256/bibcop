@@ -45,7 +45,8 @@ sub check_mandatory_keys {
       next;
     }
     if (not(exists $item{$key})) {
-      return "A mandatory '$key' key for '$type' is missing"
+      my $listed = listed_keys(%item);
+      return "A mandatory '$key' key for '\@$type' is missing among $listed"
     }
   }
   if (exists $keys{$type}) {
@@ -247,7 +248,15 @@ sub bibitems {
       $acc = '';
     } elsif ($char eq ',' and $s eq 'value') {
       $s = 'body';
-    } elsif ($char eq '}' and $s =~ /body|value/) {
+    } elsif ($char eq '}' and $s eq 'body') {
+      push(@items, { %item });
+      $s = 'top';
+    } elsif ($char eq '}' and $s eq 'value') {
+      if (not exists $item{lc($key)}) {
+        my $tex = substr($acc, 1);
+        $tex =~ s/\s//g;
+        $item{lc($key)} = $tex;
+      }
       push(@items, { %item });
       $s = 'top';
     } elsif ($char eq '}' and $s eq 'key') {
@@ -298,6 +307,20 @@ sub only_words {
   $tex =~ s/^\{+//g;
   $tex =~ s/\}+$//g;
   return split(/ /, $tex);
+}
+
+# Take a bibitem and print all its keys as a comma-separated string.
+sub listed_keys {
+  my (%item) = @_;
+  my @list;
+  foreach my $key (keys %item) {
+    if ($key =~ /^:.*/) {
+      next;
+    }
+    push(@list, $key);
+  }
+  my @sorted = sort @list;
+  return '(' . join(', ', @sorted) . ')';
 }
 
 1;
