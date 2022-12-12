@@ -421,7 +421,6 @@ if (@ARGV+0 eq 0 or exists $args{'--help'}) {
   open(my $fh, '<', $file);
   my $bib; { local $/; $bib = <$fh>; }
   my @items = bibitems($bib);
-  debug((@items+0) . ' bibitems found in ' . $file);
   if (exists $args{'--fix'}) {
     for my $i (0..(@items+0 - 1)) {
       my %item = %{ $items[$i] };
@@ -429,9 +428,9 @@ if (@ARGV+0 eq 0 or exists $args{'--help'}) {
       if (not exists $blessed{$type}) {
         error("I don't know what to do with \@$type type of bibitem");
       }
-      debug("\@$type\{$item{':name'},");
       my $keys = $blessed{$item{':type'}};
       my %allowed = map { $_ => 1 } @$keys;
+      my @lines;
       foreach my $key (keys %item) {
         if ($key =~ /^:/) {
           next;
@@ -443,11 +442,17 @@ if (@ARGV+0 eq 0 or exists $args{'--help'}) {
         if ($key =~ /title|booktitle|journal/) {
           $value = '{' . $value . '}';
         }
-        debug("  $key = {$value},");
+        push(@lines, "  $key = {$value},");
+      }
+      debug("\@$type\{$item{':name'},");
+      my @sorted = sort @lines;
+      foreach my $line (@sorted) {
+        debug($line);
       }
       debug('}');
     }
   } else {
+    debug((@items+0) . ' bibitems found in ' . $file);
     for my $i (0..(@items+0 - 1)) {
       my %item = %{ $items[$i] };
       debug("Checking $item{':name'} (#$i)...");
