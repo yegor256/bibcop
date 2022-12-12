@@ -29,17 +29,19 @@ use strict;
 # If you want to add an extra check, just create a new procedure
 # named as "check_*".
 
+# Only these keys are allowed and only these types of items.
+my %blessed = (
+  'article' => ['doi', 'year', 'title', 'author', 'journal', 'volume', 'number', 'publisher?'],
+  'inproceedings' => ['doi', 'booktitle', 'title', 'author', 'year', 'pages', 'organization?', 'volume?'],
+  'book' => ['doi', 'title', 'author', 'year', 'publisher'],
+  'misc' => ['title', 'author', 'year', 'eprint?', 'archiveprefix?', 'primaryclass?', 'publisher?', 'organization?'],
+);
+
 # Check the presence of mandatory keys.
 sub check_mandatory_keys {
   my (%item) = @_;
-  my %keys = (
-    'article' => ['doi', 'year', 'title', 'author', 'journal', 'volume', 'number', 'publisher?'],
-    'inproceedings' => ['doi', 'booktitle', 'title', 'author', 'year', 'pages', 'organization?', 'volume?'],
-    'book' => ['doi', 'title', 'author', 'year', 'publisher'],
-    'misc' => ['title', 'author', 'year', 'eprint?', 'archiveprefix?', 'primaryclass?'],
-  );
   my $type = $item{':type'};
-  my $mandatory = $keys{$type};
+  my $mandatory = $blessed{$type};
   foreach my $key (@$mandatory) {
     if ($key =~ /^.*\?$/) {
       next;
@@ -49,7 +51,7 @@ sub check_mandatory_keys {
       return "A mandatory '$key' key for '\@$type' is missing among $listed"
     }
   }
-  if (exists $keys{$type}) {
+  if (exists $blessed{$type}) {
     my %required = map { $_ => 1 } @$mandatory;
     foreach my $key (keys %item) {
       if ($key =~ /^:/) {
@@ -410,7 +412,7 @@ if (@ARGV+0 eq 0 or exists $args{'--help'}) {
     "Usage: bibcop [<options>] <.bib file path>\n" .
     "  --version Print the current version of the tool and exit\n" .
     "  --help    Print this help screen\n" .
-    "  --fix     Fix the errors and modify the file\n" .
+    "  --fix     Fix the errors and print a new version of the .bib file to the console\n" .
     "  --latex   Report errors in LaTeX format using \\PackageWarningNoLine command");
 } elsif (exists $args{'--version'}) {
   debug('0.0.0');
@@ -419,14 +421,48 @@ if (@ARGV+0 eq 0 or exists $args{'--help'}) {
   open(my $fh, '<', $file);
   my $bib; { local $/; $bib = <$fh>; }
   my @items = bibitems($bib);
-  debug((@items+0) . ' bibitems found in ' . $ARGV[0]);
-  for my $i (0..(@items+0 - 1)) {
-    my %item = %{ $items[$i] };
-    debug("Checking $item{':name'} (#$i)...");
-    foreach my $err (process_item(%item)) {
-      warning("$err, in the '$item{':name'}' bibitem");
+  debug((@items+0) . ' bibitems found in ' . $file);
+  if (exists $args{'--fix'}) {
+    for my $i (0..(@items+0 - 1)) {
+      my %item = %{ $items[$i] };
+      my $type = $item{':type'};
+      if (not exists $blessed{$type}) {
+        error("I don't know what to do with \@$type type of bibitem");
+      }
+      debug("\@$type\{$item{':name'},");
+      my $keys = $blessed{$item{':type'}};
+      my %allowed = map { $_ => 1 } @$keys;
+      foreach my $key (keys %item) {
+        if ($key =~ /^:/) {
+          next;
+        }
+        if (not exists $allowed{$key} and not exists $allowed{$key . '?'}) {
+          next;
+        }
+        my $value = clean_tex($item{$key});
+        if ($key =~ /title|booktitle|journal/) {
+          $value = '{' . $value . '}';
+        }
+        debug("  $key = {$value},");
+      }
+      debug('}');
+    }
+  } else {
+    for my $i (0..(@items+0 - 1)) {
+      my %item = %{ $items[$i] };
+      debug("Checking $item{':name'} (#$i)...");
+      foreach my $err (process_item(%item)) {
+        warning("$err, in the '$item{':name'}' bibitem");
+      }
     }
   }
+}
+
+# Print ERROR message to the console and die.
+sub error {
+  my ($txt) = @_;
+  print $txt . "\n";
+  exit 1;
 }
 
 # Print DEBUG message to the console.
