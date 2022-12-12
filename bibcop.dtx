@@ -211,6 +211,20 @@ title = {{A Survey of Symbolic Execution Techniques}}
 % This is necessary in order to prevent down-casing of capitalized words, which is done by some
 % bibliography styles.
 
+% \DescribeMacro{year}
+% It is not allowed to mention the year inside the title of a conference or a journal, for example,
+% this would be illegal:
+%\iffalse
+%<*verb>
+%\fi
+\begin{verbatim}
+booktitle = {{1994 IEEE International Conference on Computer Languages}}
+\end{verbatim}
+%\iffalse
+%</verb>
+%\fi
+% The year should only be mentioned in the |year| key, nowhere else.
+
 % \StopEventually{}
 
 % \section{Implementation}
