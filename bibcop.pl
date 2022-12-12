@@ -98,7 +98,7 @@ sub check_author {
   if (exists $item{'author'}) {
     my $author = clean_tex($item{'author'});
     if (not $author =~ /^[A-Z][^ ]+(,( [A-Z][^ ]+)+)?( and [A-Z][^ ]+(,( [A-Z][^ ]+)+)?)*$/) {
-      return "The format of the 'author' is wrong, use 'Knuth, Donald E. and Duane, Bibby'"
+      return "The format of the 'author' is wrong, use something like 'Knuth, Donald E. and Duane, Bibby'"
     }
     if ($author =~ /.*[A-Z]([ ,]|$).*/) {
       return "A shortened name must have a tailing dot, as in 'Knuth, Donald E.'"
