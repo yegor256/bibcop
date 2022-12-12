@@ -35,8 +35,8 @@ sub check_mandatory_keys {
   my %keys = (
     'article' => ['doi', 'year', 'title', 'author', 'journal', 'volume', 'number', 'publisher?'],
     'inproceedings' => ['booktitle', 'title', 'author', 'year', 'doi', 'pages', 'volume?'],
-    'book' => ['title', 'author', 'year', 'doi'],
-    'misc' => ['title', 'author', 'year'],
+    'book' => ['title', 'author', 'year', 'doi', 'publisher'],
+    'misc' => ['title', 'author', 'year', 'eprint?', 'archivePrefix?', 'primaryClass?'],
   );
   my $type = $item{':type'};
   my $mandatory = $keys{$type};

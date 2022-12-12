@@ -42,7 +42,8 @@ passes((
   'author' => 'Knuth, Donald E. and Duane, Bibby',
   'title' => '{The TeX Book}',
   'year' => '1984',
-  'doi' => 'test'
+  'doi' => 'test',
+  'publisher' => 'Addison-Wesley Professional'
 ));
 passes((
   ':type' => 'inproceedings',
