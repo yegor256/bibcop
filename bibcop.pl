@@ -94,6 +94,21 @@ sub check_capitalization {
   }
 }
 
+# Check the right format of the 'title' and 'booktitle.'
+sub check_titles {
+  my (%item) = @_;
+  my @keys = qw/title booktitle/;
+  foreach my $key (@keys) {
+    if (not exists($item{$key})) {
+      next;
+    }
+    my $title = $item{$key};
+    if (not $title =~ /^\{.+\}$/) {
+      return "The $key must be wrapped in double curled brackets"
+    }
+  }
+}
+
 # Check the right format of the 'year.'
 sub check_year {
   my (%item) = @_;
