@@ -26,6 +26,9 @@ package bibcop;
 use warnings;
 use strict;
 
+# Hash of incoming command line arguments.
+my %args = map { $_ => 1 } @ARGV;
+
 # If you want to add an extra check, just create a new procedure
 # named as "check_*".
 
@@ -387,8 +390,9 @@ sub only_words {
 sub clean_tex {
   my ($tex) = @_;
   $tex =~ s/\s+/ /g;
-  $tex =~ s/^\{+//g;
-  $tex =~ s/\}+$//g;
+  $tex =~ s/^\s+//g;
+  $tex =~ s/\s+$//g;
+  while ($tex =~ s/^\{(.+)\}$/\1/g) {};
   return $tex;
 }
 
@@ -406,7 +410,32 @@ sub listed_keys {
   return '(' . join(', ', @sorted) . ')';
 }
 
-my %args = map { $_ => 1 } @ARGV;
+# Print ERROR message to the console and die.
+sub error {
+  my ($txt) = @_;
+  print $txt . "\n";
+  exit 1;
+}
+
+# Print DEBUG message to the console.
+sub debug {
+  my ($txt) = @_;
+  if (exists $args{'--latex'}) {
+    print '% ';
+  }
+  print $txt . "\n";
+}
+
+# Print INFO message to the console.
+sub warning {
+  my ($txt) = @_;
+  if (exists $args{'--latex'}) {
+    print "\\PackageWarningNoLine{bibcop}{$txt}\n";
+  } else {
+    print $txt . "\n";
+  }
+}
+
 if (@ARGV+0 eq 0 or exists $args{'--help'}) {
   debug("Bibcop is a Style Checker of .bib Files\n" .
     "Usage: bibcop [<options>] <.bib file path>\n" .
@@ -460,32 +489,6 @@ if (@ARGV+0 eq 0 or exists $args{'--help'}) {
         warning("$err, in the '$item{':name'}' bibitem");
       }
     }
-  }
-}
-
-# Print ERROR message to the console and die.
-sub error {
-  my ($txt) = @_;
-  print $txt . "\n";
-  exit 1;
-}
-
-# Print DEBUG message to the console.
-sub debug {
-  my ($txt) = @_;
-  if (exists $args{'--latex'}) {
-    print '% ';
-  }
-  print $txt . "\n";
-}
-
-# Print INFO message to the console.
-sub warning {
-  my ($txt) = @_;
-  if (exists $args{'--latex'}) {
-    print "\\PackageWarningNoLine{bibcop}{$txt}\n";
-  } else {
-    print $txt . "\n";
   }
 }
 

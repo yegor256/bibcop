@@ -1,4 +1,3 @@
-#!/usr/bin/perl
 # (The MIT License)
 #
 # Copyright (c) 2022 Yegor Bugayenko
@@ -23,42 +22,15 @@
 
 package bibcop;
 
-use warnings;
 use strict;
+use warnings;
 
-# Assert on the value and exit if error.
-sub assert {
-  my ($l, $r) = @_;
-  if ($l ne $r) {
-    print "'$l' ne '$r'\n";
-    exit 1;
-  }
-}
+assert(clean_tex('Hello,   \LaTeX{}!'), 'Hello, \LaTeX{}!');
+assert(clean_tex("Hello,\n\\TeX{}!"), 'Hello, \TeX{}!');
+assert(clean_tex("  Gamma!"), 'Gamma!');
+assert(clean_tex("Hello!  "), 'Hello!');
+assert(clean_tex('{Alpha}'), 'Alpha');
+assert(clean_tex('{{Beta}}'), 'Beta');
+assert(clean_tex('Hello, {world!}'), 'Hello, {world!}');
 
-# Print item to console.
-sub show_item {
-  my (%item) = @_;
-  print "{\n";
-  foreach my $k (keys %item) {
-    print "  $k = {$item{$k}}\n";
-  }
-  print "}\n";
-}
-
-# Print items to console.
-sub show {
-  my (@items) = @_;
-  print 'Total items: ' . (@items+0) . "\n";
-  for my $i (0..(@items+0 - 1)) {
-    my %item = %{ $items[$i] };
-    show_item(%item);
-  }
-}
-
-require './bibcop.pl';
-require './perl-tests/parsing.pl';
-require './perl-tests/checking.pl';
-require './perl-tests/functions.pl';
-
-print "\033[0;32mGREAT!\033[0m All tests are green.\n";
-
+1;
