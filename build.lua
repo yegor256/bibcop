@@ -2,6 +2,7 @@ module = "bibcop"
 ctanupload = true
 typesetopts = "-interaction=batchmode -shell-escape -halt-on-error"
 checkopts = "-interaction=batchmode -shell-escape -halt-on-error"
+exefiles = {"bibcop.pl"}
 sourcefiles = {"*.dtx", "*.ins", "*-????-??-??.sty", "bibcop.pl"}
 checkengines = {"pdftex", "luatex", "xetex"}
 tagfiles = {"build.lua", "bibcop.dtx"}
@@ -9,6 +10,7 @@ docfiles = {"bibcop.pl"}
 checkfiles = {"bibcop.pl"}
 cleanfiles = {"build", "_docshots", "*.run.xml", "*.log", "*.bcf", "*.glo", "*.fls", "*.idx", "*.out", "*.fdb_latexmk", "*.aux", "*.sty", "*.zip", "bibcop.pdf", "*.bbl"}
 dynamicfiles = {"*.bbl"}
+tagfiles = {"bibcop.dtx", "bibcop.pl", "build.lua"}
 typesetruns = 2
 checkruns = 2
 

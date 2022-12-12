@@ -1,8 +1,8 @@
 This is a generated file for the l3build validation system.
 Don't change this file in any respect.
 LaTeX Warning: Citation `dijkstra1968letters' on page 1 undefined on input line ....
-runsystem((perl "./bibcop.tmp.pl" 'main.bib') > iexec.tmp 2>&1; /bin/echo -n $?%
- >iexec.ret)...executed
+runsystem((perl "./bibcop.tmp.pl" --latex 'main.bib') > iexec.tmp 2>&1; /bin/ech
+o -n $?% >iexec.ret)...executed
 (iexec.tmp
 Package bibcop Warning: All minor words in the 'title' must be lower-cased, while 'To' (no.6) is not, in the 'dijkstra1968letters' bibitem.
 Package bibcop Warning: A mandatory 'doi' key for '@article' is missing among (author, journal, number, pages, publisher, title, volume, year), in the 'dijkstra1968letters' bibitem.

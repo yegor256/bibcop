@@ -252,23 +252,6 @@ sub check_pages {
   }
 }
 
-if (@ARGV+0 == 0) {
-  print "The path of .bib file is required\n";
-} else {
-  open(my $fh, '<', $ARGV[0]);
-  my $bib; { local $/; $bib = <$fh>; }
-  my @items = bibitems($bib);
-  print '% ' . (@items+0) . ' bibitems found in ' . $ARGV[0] . "\n";
-  for my $i (0..(@items+0 - 1)) {
-    my %item = %{ $items[$i] };
-    print "\% Checking $item{':name'} (#$i)...\n";
-    foreach my $err (process_item(%item)) {
-      print "\\PackageWarningNoLine{bibcop}{$err, in the '$item{':name'}' bibitem}\n";
-    }
-    print "\n";
-  }
-}
-
 # Check one item.
 sub process_item {
   my (%item) = @_;
@@ -419,6 +402,50 @@ sub listed_keys {
   }
   my @sorted = sort @list;
   return '(' . join(', ', @sorted) . ')';
+}
+
+my %args = map { $_ => 1 } @ARGV;
+if (@ARGV+0 eq 0 or exists $args{'--help'}) {
+  debug("Bibcop is a Style Checker of .bib Files\n" .
+    "Usage: bibcop [<options>] <.bib file path>\n" .
+    "  --version Print the current version of the tool and exit\n" .
+    "  --help    Print this help screen\n" .
+    "  --fix     Fix the errors and modify the file\n" .
+    "  --latex   Report errors in LaTeX format using \\PackageWarningNoLine command");
+} elsif (exists $args{'--version'}) {
+  debug('0.0.0');
+} else {
+  my ($file) = grep { not($_ =~ /^--.*$/) } @ARGV;
+  open(my $fh, '<', $file);
+  my $bib; { local $/; $bib = <$fh>; }
+  my @items = bibitems($bib);
+  debug((@items+0) . ' bibitems found in ' . $ARGV[0]);
+  for my $i (0..(@items+0 - 1)) {
+    my %item = %{ $items[$i] };
+    debug("Checking $item{':name'} (#$i)...");
+    foreach my $err (process_item(%item)) {
+      warning("$err, in the '$item{':name'}' bibitem");
+    }
+  }
+}
+
+# Print DEBUG message to the console.
+sub debug {
+  my ($txt) = @_;
+  if (exists $args{'--latex'}) {
+    print '% ';
+  }
+  print $txt . "\n";
+}
+
+# Print INFO message to the console.
+sub warning {
+  my ($txt) = @_;
+  if (exists $args{'--latex'}) {
+    print "\\PackageWarningNoLine{bibcop}{$txt}\n";
+  } else {
+    print $txt . "\n";
+  }
 }
 
 1;
