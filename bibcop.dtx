@@ -89,7 +89,8 @@
 % \section{Introduction}
 %
 % This package scans your |.bib| files for style errors and emits
-% warning messages if any issues are found:
+% warning messages if any issues are found (make sure you use it before
+% all other bibliography related packages):
 %\iffalse
 %<*verb>
 %\fi
@@ -110,6 +111,8 @@
 % If you use the |.sty| file (without installing it into the \TeX{} tree), don't forget
 % to also copy the |bibcop.pl| file --- it is the Perl script that does all the work
 % of checking your |.bib| files. The |.sty| is just a simple wrapper around it.
+
+% Make sure |\usepackage{bibcop}| stays before all other |\usepackage| commands.
 
 % \StopEventually{}
 
