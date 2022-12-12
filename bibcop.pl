@@ -415,7 +415,7 @@ if (@ARGV+0 eq 0 or exists $args{'--help'}) {
     "  --fix     Fix the errors and print a new version of the .bib file to the console\n" .
     "  --latex   Report errors in LaTeX format using \\PackageWarningNoLine command");
 } elsif (exists $args{'--version'}) {
-  debug('0.0.0');
+  debug('0.0.2');
 } else {
   my ($file) = grep { not($_ =~ /^--.*$/) } @ARGV;
   open(my $fh, '<', $file);

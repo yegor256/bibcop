@@ -16,7 +16,7 @@ checkruns = 2
 
 uploadconfig = {
   pkg = "bibcop",
-  version = "0.0.0",
+  version = "0.0.2",
   author = "Yegor Bugayenko",
   uploader = "Yegor Bugayenko",
   email = "yegor256@gmail.com",
