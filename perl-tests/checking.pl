@@ -28,6 +28,7 @@ use warnings;
 fails((':type' => 'book', 'title' => 'The TeX Book'));
 fails((':type' => 'book', 'author' => 'Donald Knuth'));
 fails((':type' => 'book', 'year' => '1984'));
+fails((':type' => 'misc', 'year' => '1984', 'author' => 'Jeff', 'title' => '{Comm. of the ACM}'));
 passes((
   ':type' => 'book',
   'author' => 'Donald Knuth',

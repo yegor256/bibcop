@@ -65,7 +65,7 @@ sub check_mandatory_keys {
 # Check that all major words are capitalized.
 sub check_capitalization {
   my (%item) = @_;
-  my %keys = map { $_ => 1 } qw/title booktitle/;
+  my %keys = map { $_ => 1 } qw/title booktitle journal/;
   my %minors = map { $_ => 1 } qw/in of at to by the a an and or as if up via yet nor but off on for/;
   foreach my $key (keys %item) {
     if (not exists $keys{$key}) {
@@ -87,6 +87,27 @@ sub check_capitalization {
       }
       if ($word =~ /^[a-z].*/) {
         return "All major words in the '$key' must be capitalized, while '$word' (no.$pos) is not"
+      }
+    }
+  }
+}
+
+# Check that titles don't have shortened words with a tailing dot.
+sub check_shortenings {
+  my (%item) = @_;
+  my %keys = map { $_ => 1 } qw/title booktitle journal/;
+  foreach my $key (keys %item) {
+    if (not exists $keys{$key}) {
+      next;
+    }
+    my $value = $item{$key};
+    my @words = only_words($value);
+    foreach my $word (@words) {
+      if (not $word =~ /^[A-Za-z]/) {
+        next;
+      }
+      if ($word =~ /^.*\.$/) {
+        return "Do not shorten the words in the '$key', such as '$word'"
       }
     }
   }
