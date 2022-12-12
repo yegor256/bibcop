@@ -149,8 +149,8 @@ sub check_booktile_of_inproceedings {
   if ($item{':type'} eq $key) {
     if (exists $item{'booktitle'}) {
       my @words = only_words($item{'booktitle'});
-      if (lc($words[0]) ne 'proceedings' or lc($words[1]) ne 'of') {
-        return "The '$key' must be start with 'Proceedings of ...'"
+      if (lc($words[0]) ne 'proceedings' or lc($words[1]) ne 'of' or lc($words[2]) ne 'the') {
+        return "The '$key' must be start with 'Proceedings of the ...'"
       }
     }
   }
