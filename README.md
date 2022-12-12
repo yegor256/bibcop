@@ -29,3 +29,7 @@ then run `l3build ctan` in the root directory.
 It should compile everything without errors. If not, submit an issue and wait.
 Otherwise, make your changes and then run `l3build ctan` again. If the build is
 still clean, submit a pull request.
+
+If you want to add a new check, add it as a Perl subroutine to the `bibcop.pl` file.
+Don't forget to add a test to one of the test files that stay in the `perl-tests/` directory.
+
