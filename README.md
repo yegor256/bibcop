@@ -26,10 +26,11 @@ Otherwise, you can download [`bibcop.sty`](https://raw.githubusercontent.com/yeg
 
 You can also download [bibcop.pl](https://raw.githubusercontent.com/yegor256/bibcop/master/bibcop.pl)
 and use it as a command line tool
-to check your `.bib` files and to auto-fix them:
+to check your `.bib` files and to auto-fix them
+(you should have [Perl](https://www.perl.org) installed):
 
 ```
-$ ./bibcop.pl --fix main.bib > fixed.bib
+$ perl bibcop.pl --fix main.bib > fixed.bib
 ```
 
 This command will read the `main.bib` file and create `fixed.bib`, which
