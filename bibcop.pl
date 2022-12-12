@@ -88,6 +88,17 @@ sub check_capitalization {
   }
 }
 
+# Check the right format of the year.
+sub check_year {
+  my (%item) = @_;
+  if (exists $item{'year'}) {
+    my $year = $item{'year'};
+    if (not $item{'year'} =~ /^[0-9]{3,4}$/) {
+      return "The format of the year is wrong: '$year'"
+    }
+  }
+}
+
 if (@ARGV+0 == 0) {
   print "The path of .bib file is required\n";
 } else {
