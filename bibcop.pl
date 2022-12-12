@@ -71,10 +71,7 @@ sub check_capitalization {
       next;
     }
     my $value = $item{$key};
-    $value =~ s/\s+/ /g;
-    $value =~ s/^\{//g;
-    $value =~ s/\}$//g;
-    my @words = split(/ /, $value);
+    my @words = only_words($value);
     my $pos = 0;
     foreach my $word (@words) {
       if (not $word =~ /^[A-Za-z]/) {
@@ -105,6 +102,20 @@ sub check_titles {
     my $title = $item{$key};
     if (not $title =~ /^\{.+\}$/) {
       return "The $key must be wrapped in double curled brackets"
+    }
+  }
+}
+
+# Check the right format of the 'booktitle' in the 'inproceedings' item.
+sub check_booktile_of_inproceedings {
+  my (%item) = @_;
+  my $key = 'inproceedings';
+  if ($item{':type'} eq $key) {
+    if (exists $item{'booktitle'}) {
+      my @words = only_words($item{'booktitle'});
+      if (lc($words[0]) ne 'proceedings' or lc($words[1]) ne 'of') {
+        return "The $key must be start with 'Proceedings of ...'"
+      }
     }
   }
 }
@@ -278,6 +289,15 @@ sub bibitems {
     $acc = $acc . $char;
   }
   return @items;
+}
+
+# Takes the text and returns only list of words seen there.
+sub only_words {
+  my ($tex) = @_;
+  $tex =~ s/\s+/ /g;
+  $tex =~ s/^\{+//g;
+  $tex =~ s/\}+$//g;
+  return split(/ /, $tex);
 }
 
 1;
