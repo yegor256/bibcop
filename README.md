@@ -6,7 +6,7 @@
 
 This LaTeX package checks the quality of your `.bib` file and
 emits warning message if any issues found. You may also like
-[biblint](https://github.com/Kingsford-Group/biblint) tool ---
+[biblint](https://github.com/Kingsford-Group/biblint) tool —
 it does almost the same but from the command line.
 
 First, [install it](https://en.wikibooks.org/wiki/LaTeX/Installing_Extra_Packages)

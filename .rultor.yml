@@ -14,6 +14,7 @@ release:
   script: |-
     l3build tag ${tag}
     l3build ctan --show-log-on-error
+    ./tests.pl
     texsc
     texqc
     git commit -am "version set to ${tag}"
