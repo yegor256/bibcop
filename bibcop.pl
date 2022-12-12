@@ -34,8 +34,8 @@ sub check_mandatory_keys {
   my (%item) = @_;
   my %keys = (
     'article' => ['doi', 'year', 'title', 'author', 'journal', 'volume', 'number', 'publisher?'],
-    'inproceedings' => ['booktitle', 'title', 'author', 'year', 'doi', 'pages', 'volume?'],
-    'book' => ['title', 'author', 'year', 'doi', 'publisher'],
+    'inproceedings' => ['doi', 'booktitle', 'title', 'author', 'year', 'pages', 'volume?'],
+    'book' => ['doi', 'title', 'author', 'year', 'publisher'],
     'misc' => ['title', 'author', 'year', 'eprint?', 'archivePrefix?', 'primaryClass?'],
   );
   my $type = $item{':type'};
@@ -395,7 +395,7 @@ sub bibitems {
 # Takes the text and returns only list of words seen there.
 sub only_words {
   my ($tex) = @_;
-  return split(/ /, clean_tex($tex));
+  return split(/[ \-]/, clean_tex($tex));
 }
 
 # Take a TeX string and return a cleaner one, without redundant spaces, brackets, etc.

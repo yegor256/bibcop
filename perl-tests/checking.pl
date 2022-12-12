@@ -37,6 +37,7 @@ fails((':type' => 'misc', 'year' => '1984', 'author' => 'Knuth', 'title' => '{CA
 fails((':type' => 'misc', 'year' => '1984', 'author' => 'Knuth', 'title' => '{CACM}', 'pages'=>'54--21'));
 fails((':type' => 'misc', 'year' => '1984', 'author' => 'Knuth', 'title' => '{The Article , a Good One}'));
 fails((':type' => 'misc', 'year' => '1984', 'author' => 'Knuth', 'title' => '{The Title}', 'doi' => 'http://dx.doi.org/1/1'));
+fails((':type' => 'misc', 'year' => '1984', 'author' => 'Knuth', 'title' => '{Object-oriented Programming}'));
 
 passes((
   ':type' => 'book',
