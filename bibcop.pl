@@ -381,7 +381,7 @@ sub bibitems {
       }
       $escape = 0;
     } else {
-      print "\\PackageWarningNoLine{bibcop}{Don't know what to do with '$char' at line #$lineno (s=$s)}\n";
+      print "\\PackageWarningNoLine{bibcop}{It is impossible to parse the .bib file, because I do not know what to do with '$char' at line #$lineno (s=$s)}\n";
       last;
     }
     if ($char eq ' ' and not($s =~ /quote|brackets/)) {
