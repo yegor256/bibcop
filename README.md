@@ -1,3 +1,5 @@
+<img src="https://raw.githubusercontent.com/yegor256/bibcop/master/logo.svg" height="92px"/>
+
 [![l3build](https://github.com/yegor256/bibcop/actions/workflows/l3build.yml/badge.svg)](https://github.com/yegor256/bibcop/actions/workflows/l3build.yml)
 [![CTAN](https://img.shields.io/ctan/v/bibcop)](https://ctan.org/pkg/bibcop)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/yegor256/bibcop/blob/master/LICENSE.txt)
