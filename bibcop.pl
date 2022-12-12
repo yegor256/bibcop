@@ -229,6 +229,9 @@ sub bibitems {
       print "\\PackageWarningNoLine{bibcop}{Don't know what to do with '$char' at line #$lineno (s=$s)}\n";
       last;
     }
+    if ($char eq ' ' and not($s =~ /quote|brackets/)) {
+      next;
+    }
     $acc = $acc . $char;
   }
   return @items;
