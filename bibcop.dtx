@@ -218,21 +218,68 @@ title = {{A Survey of Symbolic Execution Techniques}}
 %<*verb>
 %\fi
 \begin{verbatim}
-booktitle = {{1994 IEEE International Conference on Computer Languages}}
+booktitle = {{1994 IEEE International Conference on Computer Languages}},
 \end{verbatim}
 %\iffalse
 %</verb>
 %\fi
 % The year should only be mentioned in the |year| key, nowhere else.
+% In the |year| key only numbers are allowed:
+%\iffalse
+%<*verb>
+%\fi
+\begin{verbatim}
+year = {1994},
+\end{verbatim}
+%\iffalse
+%</verb>
+%\fi
+
+% \DescribeMacro{month}
+% The |month| may contain only a number:
+%\iffalse
+%<*verb>
+%\fi
+\begin{verbatim}
+month = {12},
+\end{verbatim}
+%\iffalse
+%</verb>
+%\fi
+
+% \DescribeMacro{volume}
+% The |volume| may contain only a number:
+%\iffalse
+%<*verb>
+%\fi
+\begin{verbatim}
+volume = {32},
+\end{verbatim}
+%\iffalse
+%</verb>
+%\fi
+
+% \DescribeMacro{pages}
+% The |pages| may contain either a number or two numbers separated by a double dash:
+%\iffalse
+%<*verb>
+%\fi
+\begin{verbatim}
+pages = {145--163},
+\end{verbatim}
+%\iffalse
+%</verb>
+%\fi
 
 % \DescribeMacro{proceedings}
-% The |booktitle| in the |inproceedings| bib item must always start with ``|Proceedings of the|'',
+% The |booktitle| in the |inproceedings| bib item must always start with ``|Proceedings| |of| |the|'',
 % as in this example:
 %\iffalse
 %<*verb>
 %\fi
 \begin{verbatim}
-booktitle = {{Proceedings of the International Conference on Computer Languages}}
+booktitle = {{Proceedings of the International
+  Conference on Computer Languages}},
 \end{verbatim}
 %\iffalse
 %</verb>
@@ -242,6 +289,7 @@ booktitle = {{Proceedings of the International Conference on Computer Languages}
 
 % \section{Implementation}
 % \changes{0.0.1}{2022/12/11}{First draft.}
+% \changes{0.0.2}{2022/12/12}{Documentation extended, more rules added.}
 
 % First, we include a few packages.
 % We need \href{https://ctan.org/pkg/iexec}{iexec} for executing Perl scripts:
