@@ -153,7 +153,7 @@ sub check_typography {
       next;
     }
     my $value = $item{$key};
-    if ($value =~ /.*\.$/) {
+    if ($value =~ /.*\.$/ and $key ne 'author') {
       return "The '$key' must not end with a dot"
     }
     if ($value =~ /.* ,.*/) {

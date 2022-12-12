@@ -7,7 +7,6 @@ o -n $?% >iexec.ret)...executed
 Package bibcop Warning: All minor words in the 'title' must be lower-cased, while 'To' (no.6) is not, in the 'dijkstra1968letters' bibitem.
 Package bibcop Warning: A mandatory 'doi' key for '@article' is missing among (author, journal, number, pages, publisher, title, volume, year), in the 'dijkstra1968letters' bibitem.
 Package bibcop Warning: The 'title' must be wrapped in double curled brackets, in the 'dijkstra1968letters' bibitem.
-Package bibcop Warning: The 'author' must not end with a dot, in the 'dijkstra1968letters' bibitem.
 ) iexec: The content of 'iexec.tmp' was included into the document
 runsystem(rm iexec.tmp)...executed
 runsystem(rm iexec.ret)...executed
