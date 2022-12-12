@@ -24,6 +24,19 @@ and then use in the preamble (if you use BibTeX, for example):
 
 Otherwise, you can download [`bibcop.sty`](https://raw.githubusercontent.com/yegor256/bibcop/gh-pages/bibcop/bibcop.sty) and add to your project.
 
+You can also download [bibcop.pl](https://raw.githubusercontent.com/yegor256/bibcop/master/bibcop.pl)
+and use it as a command line tool
+to check your `.bib` files and to auto-fix them:
+
+```
+$ ./bibcop.pl --fix main.bib > fixed.bib
+```
+
+This command will read the `main.bib` file and create `fixed.bib`, which
+will have the fixed and properly formatted content (well, to some extent).
+
+## How to Contribute
+
 If you want to contribute yourself, make a fork, then create a branch, 
 then run `l3build ctan` in the root directory.
 It should compile everything without errors. If not, submit an issue and wait.
