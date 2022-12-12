@@ -65,13 +65,16 @@ sub check_mandatory_keys {
 sub check_capitalization {
   my (%item) = @_;
   my %keys = map { $_ => 1 } qw/title booktitle/;
-  my %minors = map { $_ => 1 } qw/in of at to by the a an and or as if up via yet nor but off on/;
+  my %minors = map { $_ => 1 } qw/in of at to by the a an and or as if up via yet nor but off on for/;
   foreach my $key (keys %item) {
     if (not exists $keys{$key}) {
       next;
     }
     my $value = $item{$key};
-    my @words = split(/[^A-Za-z]/, $value);
+    $value =~ s/\s+/ /g;
+    $value =~ s/^\{//g;
+    $value =~ s/\}$//g;
+    my @words = split(/ /, $value);
     my $pos = 0;
     foreach my $word (@words) {
       if (not $word =~ /^[A-Za-z]/) {
