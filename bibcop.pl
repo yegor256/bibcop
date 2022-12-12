@@ -142,6 +142,20 @@ sub check_titles {
   }
 }
 
+# Check that no values have tailing dots.
+sub check_tailing_dots {
+  my (%item) = @_;
+  foreach my $key (keys %item) {
+    if ($key =~ /^:.*/) {
+      next;
+    }
+    my $value = $item{$key};
+    if ($value =~ /.*\.$/) {
+      return "The '$key' must not end with a dot"
+    }
+  }
+}
+
 # Check the year is not mentioned in titles.
 sub check_year_in_titles {
   my (%item) = @_;
