@@ -25,7 +25,7 @@ package bibcop;
 use strict;
 use warnings;
 
-my @i1 = bibitems('@misc{knuth1984, author={Donald Knuth}, Title="The TeX Book"}');
+my @i1 = bibitems('@misc{knuth1984, author  ={Donald Knuth}, Title="The TeX Book"}');
 # show(@i1);
 assert(@i1+0, 1);
 assert($i1[0]{':name'}, 'knuth1984');

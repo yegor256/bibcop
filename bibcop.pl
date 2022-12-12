@@ -99,6 +99,17 @@ sub check_year {
   }
 }
 
+# Check the right format of the month.
+sub check_month {
+  my (%item) = @_;
+  if (exists $item{'month'}) {
+    my $month = $item{'month'};
+    if (not $item{'month'} =~ /^[1-9]|10|11|12$/) {
+      return "The format of the month is wrong: '$month'"
+    }
+  }
+}
+
 if (@ARGV+0 == 0) {
   print "The path of .bib file is required\n";
 } else {
