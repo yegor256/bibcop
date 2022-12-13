@@ -1,0 +1,29 @@
+.TH bibcop 1 "0000-00-00"
+.SH NAME
+bibcop \- Style Checker and Fixer of .bib Files
+.SH SYNOPSIS
+bibcop [<options>] <.bib file path>
+.SH DESCRIPTION
+The bibcop tool is a Perl script for checking the quality of .bib
+files and automatically fixing found inconsistencies. It is not only
+a command line tool, but a LaTeX package, which can check the quality
+of a .bib file during the rendering of a LaTeX document. All found
+issues are reported as LaTeX warnings.
+.SH OPTIONS
+Various options apply 
+.IP --version
+Print the version of the tool
+.IP --help
+Print the introduction screen
+.IP --fix
+Autho-fix all issues and print a new content to the console
+.IP --latex
+Print everything in LaTeX format
+.SH BUGS
+.SH AUTHOR
+Yegor Bugayenko (yegor256@gmail.com)
+.PP
+Please log issues on the GitHub homepage:
+https://github.com/yegor256/bibcop/issues.
+.SH SEE ALSO
+See bibcop.pdf for more details.

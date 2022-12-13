@@ -8,9 +8,11 @@ checkengines = {"pdftex", "luatex", "xetex"}
 tagfiles = {"build.lua", "bibcop.dtx"}
 docfiles = {"bibcop.pl", "bibcop-logo.pdf"}
 checkfiles = {"bibcop.pl"}
+scriptfiles  = {"bibcop.pl"}
+scriptmanfiles = {"bibcop.1"}
 cleanfiles = {"build", "_docshots", "*.run.xml", "*.log", "*.bcf", "*.glo", "*.fls", "*.idx", "*.out", "*.fdb_latexmk", "*.aux", "*.sty", "*.zip", "bibcop.pdf", "*.bbl"}
 dynamicfiles = {"*.bbl"}
-tagfiles = {"bibcop.dtx", "bibcop.pl", "build.lua"}
+tagfiles = {"bibcop.dtx", "bibcop.pl", "build.lua", "bibcop.1"}
 typesetruns = 2
 checkruns = 2
 

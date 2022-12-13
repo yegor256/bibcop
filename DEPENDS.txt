@@ -1,3 +1,2 @@
 hard iexec
-hard fancyvrb
 hard verbatimcopy
