@@ -201,7 +201,7 @@ sub check_doi {
   my (%item) = @_;
   if (exists $item{'doi'}) {
     my $doi = $item{'doi'};
-    if (not $item{'doi'} =~ /^[0-9a-zA-Z.]+\/[0-9a-zA-Z._\-]+$/) {
+    if (not $doi =~ /^[0-9a-zA-Z.]+\/[0-9a-zA-Z._\-]+$/) {
       return "The format of the 'doi' is wrong"
     }
   }
@@ -212,7 +212,7 @@ sub check_year {
   my (%item) = @_;
   if (exists $item{'year'}) {
     my $year = $item{'year'};
-    if (not $item{'year'} =~ /^[0-9]{3,4}$/) {
+    if (not $year =~ /^[0-9]{3,4}$/) {
       return "The format of the 'year' is wrong"
     }
   }
@@ -223,7 +223,7 @@ sub check_month {
   my (%item) = @_;
   if (exists $item{'month'}) {
     my $month = $item{'month'};
-    if (not $item{'month'} =~ /^[1-9]|10|11|12$/) {
+    if (not $month =~ /^[1-9]|10|11|12$/) {
       return "The format of the 'month' is wrong"
     }
   }
@@ -234,7 +234,7 @@ sub check_volume {
   my (%item) = @_;
   if (exists $item{'volume'}) {
     my $volume = $item{'volume'};
-    if (not $item{'volume'} =~ /^[1-9][0-9]*$/) {
+    if (not $volume =~ /^[1-9][0-9]*$/) {
       return "The format of the 'volume' is wrong"
     }
   }
@@ -245,7 +245,7 @@ sub check_number {
   my (%item) = @_;
   if (exists $item{'number'}) {
     my $number = $item{'number'};
-    if (not $item{'number'} =~ /^[1-9][0-9]*$/) {
+    if (not $number =~ /^[1-9][0-9]*$/) {
       return "The format of the 'number' is wrong"
     }
   }
@@ -256,7 +256,7 @@ sub check_pages {
   my (%item) = @_;
   if (exists $item{'pages'}) {
     my $pages = $item{'pages'};
-    if (not $item{'pages'} =~ /^[1-9][0-9]*--[1-9][0-9]*|[1-9][0-9]*$/) {
+    if (not $pages =~ /^[1-9][0-9]*--[1-9][0-9]*|[1-9][0-9]*$/) {
       return "The format of the 'pages' is wrong"
     }
     my @parts = split(/--/, $pages);
