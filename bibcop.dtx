@@ -68,9 +68,9 @@
 \CodelineIndex
 \RecordChanges
 \begin{document}
-	\DocInput{bibcop.dtx}
-	\PrintChanges
-	\PrintIndex
+  \DocInput{bibcop.dtx}
+  \PrintChanges
+  \PrintIndex
 \end{document}
 %</driver>
 % \fi
@@ -338,12 +338,12 @@ booktitle = {{Proceedings of the International
 %    \begin{macrocode}
 \makeatletter
 \ifdefined\bibliography
-	\let\bibcop@oldbibliography\bibliography
-	\renewcommand\bibliography[1]{%
-	  \iexec{perl "./bibcop.tmp.pl" --latex '#1.bib'}%
+  \let\bibcop@oldbibliography\bibliography
+  \renewcommand\bibliography[1]{%
+    \iexec{perl "./bibcop.tmp.pl" --latex '#1.bib'}%
     \message{bibcop: style checking finished^^J}%
-	  \bibcop@oldbibliography{#1}%
-	}
+    \bibcop@oldbibliography{#1}%
+  }
 \fi
 \makeatother
 %    \end{macrocode}
@@ -354,12 +354,12 @@ booktitle = {{Proceedings of the International
 %    \begin{macrocode}
 \makeatletter
 \ifdefined\addbibresource
-	\let\bibcop@oldaddbibresource\addbibresource
-	\renewcommand\addbibresource[1]{%
-	  \iexec{perl "./bibcop.tmp.pl" --latex '#1'}%
+  \let\bibcop@oldaddbibresource\addbibresource
+  \renewcommand\addbibresource[1]{%
+    \iexec{perl "./bibcop.tmp.pl" --latex '#1'}%
     \message{bibcop: style checking finished^^J}%
-	  \bibcop@oldaddbibresource{#1}%
-	}
+    \bibcop@oldaddbibresource{#1}%
+  }
 \fi
 \makeatother
 %    \end{macrocode}
