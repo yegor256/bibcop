@@ -112,7 +112,8 @@
 % to also copy the |bibcop.pl| file --- it is the Perl script that does all the work
 % of checking your |.bib| files. The |.sty| is just a simple wrapper around it.
 
-% Make sure |\usepackage{bibcop}| stays before all other |\usepackage| commands, otherwise
+% Make sure |\usepackage{bibcop}| stays right after |\usepackage{biblatex}|
+% (if you use it), otherwise
 % you won't see any warnings from |bibcop|.
 
 % \section{The Rules}
@@ -336,12 +337,14 @@ booktitle = {{Proceedings of the International
 % Then, we re-define the |\bibliography| command:
 %    \begin{macrocode}
 \makeatletter
-\ifdefined\bibliography\else\gdef\bibliography#1{}\fi
-\let\bibcop@oldbibliography\bibliography
-\renewcommand\bibliography[1]{%
-  \iexec{perl "./bibcop.tmp.pl" --latex '#1.bib'}%
-  \bibcop@oldbibliography{#1}%
-}
+\ifdefined\bibliography
+	\let\bibcop@oldbibliography\bibliography
+	\renewcommand\bibliography[1]{%
+	  \iexec{perl "./bibcop.tmp.pl" --latex '#1.bib'}%
+    \message{bibcop: style checking finished^^J}%
+	  \bibcop@oldbibliography{#1}%
+	}
+\fi
 \makeatother
 %    \end{macrocode}
 % \end{macro}
@@ -350,12 +353,14 @@ booktitle = {{Proceedings of the International
 % Then, we re-define the |\addbibresource| command:
 %    \begin{macrocode}
 \makeatletter
-\ifdefined\addbibresource\else\gdef\addbibresource#1{}\fi
-\let\bibcop@oldaddbibresource\addbibresource
-\renewcommand\addbibresource[1]{%
-  \iexec{perl "./bibcop.tmp.pl" --latex '#1'}%
-  \bibcop@oldaddbibresource{#1}%
-}
+\ifdefined\addbibresource
+	\let\bibcop@oldaddbibresource\addbibresource
+	\renewcommand\addbibresource[1]{%
+	  \iexec{perl "./bibcop.tmp.pl" --latex '#1'}%
+    \message{bibcop: style checking finished^^J}%
+	  \bibcop@oldaddbibresource{#1}%
+	}
+\fi
 \makeatother
 %    \end{macrocode}
 % \end{macro}

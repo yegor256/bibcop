@@ -403,7 +403,7 @@ sub clean_tex {
   $tex =~ s/\s+/ /g;
   $tex =~ s/^\s+//g;
   $tex =~ s/\s+$//g;
-  while ($tex =~ s/^\{(.+)\}$/\1/g) {};
+  while ($tex =~ s/^\{(.+)\}$/$1/g) {};
   return $tex;
 }
 
