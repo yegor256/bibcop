@@ -61,21 +61,25 @@
 \message{bibcop: File with Perl script 'bibcop.pl' copied^^J}%
 
 \makeatletter
-\ifdefined\bibliography\else\gdef\bibliography#1{}\fi
+\ifdefined\bibliography
 \let\bibcop@oldbibliography\bibliography
 \renewcommand\bibliography[1]{%
   \iexec{perl "./bibcop.tmp.pl" --latex '#1.bib'}%
+    \message{bibcop: style checking finished^^J}%
   \bibcop@oldbibliography{#1}%
 }
+\fi
 \makeatother
 
 \makeatletter
-\ifdefined\addbibresource\else\gdef\addbibresource#1{}\fi
+\ifdefined\addbibresource
 \let\bibcop@oldaddbibresource\addbibresource
 \renewcommand\addbibresource[1]{%
   \iexec{perl "./bibcop.tmp.pl" --latex '#1'}%
+    \message{bibcop: style checking finished^^J}%
   \bibcop@oldaddbibresource{#1}%
 }
+\fi
 \makeatother
 
 
