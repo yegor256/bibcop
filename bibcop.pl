@@ -240,6 +240,17 @@ sub check_volume {
   }
 }
 
+# Check the right format of the 'number.'
+sub check_number {
+  my (%item) = @_;
+  if (exists $item{'number'}) {
+    my $number = $item{'number'};
+    if (not $item{'number'} =~ /^[1-9][0-9]*$/) {
+      return "The format of the 'number' is wrong"
+    }
+  }
+}
+
 # Check the right format of the 'pages.'
 sub check_pages {
   my (%item) = @_;
