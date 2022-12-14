@@ -59,6 +59,7 @@ require './bibcop.pl';
 require './perl-tests/parsing.pl';
 require './perl-tests/checking.pl';
 require './perl-tests/functions.pl';
+require './perl-tests/checks.pl';
 
 print "\033[0;32mGREAT!\033[0m All tests are green.\n";
 

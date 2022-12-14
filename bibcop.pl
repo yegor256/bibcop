@@ -151,16 +151,29 @@ sub check_titles {
 # Check that there are no spaces before commans.
 sub check_typography {
   my (%item) = @_;
+  my %symbols = (
+    '.' => 'dot',
+    ',' => 'comma',
+    ';' => 'semi-colon',
+    ':' => 'colon',
+    '!' => 'exclamation mark',
+    '?' => 'question mark',
+  );
+  my @bad_tails = [ '.', ',', ';', ':' ];
   foreach my $key (keys %item) {
     if ($key =~ /^:.*/) {
       next;
     }
     my $value = $item{$key};
-    if ($value =~ /.*\.$/ and $key ne 'author') {
-      return "The '$key' must not end with a dot"
+    foreach my $tail (@bad_tails) {
+      if ($value =~ /.*\Q$tail\e$/ and $key ne 'author') {
+        return "The '$key' must not end with a $symbols{$tail}"
+      }
     }
-    if ($value =~ /.* ,.*/) {
-      return "In the '$key', do not put a space before the comma"
+    foreach my $sym (keys %symbols) {
+      if ($value =~ /.* \Q$sym\E.*/) {
+        return "In the '$key', do not put a space before the $symbols{$sym}"
+      }
     }
   }
 }
