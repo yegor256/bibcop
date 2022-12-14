@@ -466,6 +466,17 @@ sub error {
 # Print DEBUG message to the console.
 sub debug {
   my ($txt) = @_;
+  if (exists $args{'--verbose'}) {
+    if (exists $args{'--latex'}) {
+      print '% ';
+    }
+    print $txt . "\n";
+  }
+}
+
+# Print INFO message to the console.
+sub info {
+  my ($txt) = @_;
   if (exists $args{'--latex'}) {
     print '% ';
   }
@@ -483,17 +494,18 @@ sub warning {
 }
 
 if (@ARGV+0 eq 0 or exists $args{'--help'} or exists $args{'-?'}) {
-  debug("Bibcop is a Style Checker of BibTeX Files\n\n" .
+  info("Bibcop is a Style Checker of BibTeX Files\n\n" .
     "Usage:\n" .
     "  bibcop [<options>] <.bib file path>\n\n" .
     "Options:\n" .
     "  -v, --version   Print the current version of the tool and exit\n" .
     "  -?, --help      Print this help screen\n" .
     "      --fix       Fix the errors and print a new version of the .bib file to the console\n" .
+    "      --verbose   Print supplementary debugging information\n" .
     "      --latex     Report errors in LaTeX format using \\PackageWarningNoLine command\n\n" .
     "If any issues, report to GitHub: https://github.com/yegor256/bibcop");
 } elsif (exists $args{'--version'} or exists $args{'-v'}) {
-  debug('0.0.0');
+  info('0.0.0');
 } else {
   my ($file) = grep { not($_ =~ /^--.*$/) } @ARGV;
   if (not $file) {
@@ -525,12 +537,12 @@ if (@ARGV+0 eq 0 or exists $args{'--help'} or exists $args{'-?'}) {
         }
         push(@lines, "  $tag = {$value},");
       }
-      debug("\@$type\{$entry{':name'},");
+      info("\@$type\{$entry{':name'},");
       my @sorted = sort @lines;
       foreach my $line (@sorted) {
-        debug($line);
+        info($line);
       }
-      debug("}\n");
+      info("}\n");
     }
   } else {
     debug((@entries+0) . ' entries found in ' . $file);
