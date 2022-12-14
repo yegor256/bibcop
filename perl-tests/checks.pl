@@ -35,6 +35,7 @@ check_fails($f, ('title' => 'A redundant space ! before the exclamation'));
 check_fails($f, ('title' => 'No spaces around the---triple dash'));
 check_fails($f, ('title' => 'Not enough spaces around the--- triple dash'));
 check_fails($f, ('title' => 'Not enough spaces around the ---triple dash'));
+check_fails($f, ('title' => 'Spaces around the double -- dash are not allowed'));
 check_passes($f, ('title' => 'Proper placement of, with no space in front of it'));
 check_passes($f, ('title' => 'Proper placement of. with no space in front of it'));
 check_passes($f, ('title' => 'Proper placement of: with no space in front of it'));
@@ -42,6 +43,7 @@ check_passes($f, ('title' => 'Proper placement of; with no space in front of it'
 check_passes($f, ('title' => 'Proper placement of? with no space in front of it'));
 check_passes($f, ('title' => 'Proper placement of! with no space in front of it'));
 check_passes($f, ('title' => 'Proper placement of --- with spaces around'));
+check_passes($f, ('title' => 'Proper placement of--with no spaces around'));
 
 $f = 'check_titles';
 check_fails($f, ('title' => 'The title is not surrounded by curled brackets'));

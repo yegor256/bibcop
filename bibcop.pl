@@ -159,9 +159,11 @@ sub check_typography {
     '!' => 'exclamation mark',
     '?' => 'question mark',
     '-' => 'dash',
+    '--' => 'double dash',
     '---' => 'triple dash',
   );
   my @spaces_around = ( '---' );
+  my @no_spaces_around = ( '--', '-' );
   my @no_space_before = ( '.', ',', ';', ':', '?', '!' );
   my @bad_tails = ( '.', ',', ';', ':', '-' );
   foreach my $tag (keys %entry) {
@@ -185,6 +187,11 @@ sub check_typography {
     foreach my $s (@spaces_around) {
       if ($value =~ /^.*[^\s]\Q$s\E.*$/ or $value =~ /^.*\Q$s\E[^\s].*$/) {
         return "In the '$tag', put spaces around a $symbols{$s}"
+      }
+    }
+    foreach my $s (@no_spaces_around) {
+      if ($value =~ /^.*\s\Q$s\E\s.*$/) {
+        return "In the '$tag', don't put spaces around a $symbols{$s}"
       }
     }
   }
