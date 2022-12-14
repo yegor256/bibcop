@@ -70,7 +70,7 @@ sub check_mandatory_tags {
 # Check that all major words are capitalized.
 sub check_capitalization {
   my (%entry) = @_;
-  my %tags = map { $_ => 1 } qw/title booktitle journal/;
+  my %tags = map { $_ => 1 } qw/title booktitle journal publisher organization/;
   my %minors = map { $_ => 1 } qw/in of at to by the a an and or as if up via yet nor but off on for into/;
   foreach my $tag (keys %entry) {
     if (not exists $tags{$tag}) {
