@@ -148,19 +148,26 @@ sub check_titles {
 }
 
 # Check the right format of the tags for arXiv.
+# See https://arxiv.org/help/arxiv_identifier
 sub check_arXiv {
   my (%entry) = @_;
   if (exists($entry{'archiveprefix'})) {
     if (not exists $entry{'eprint'}) {
       return "The 'eprint' is mandatory when 'archiveprefix' is there"
     }
-    if (not $entry{'eprint'} =~ /^[1-9][0-9]*\.[1-9][0-9]*$/) {
+    if (not $entry{'eprint'} =~ /^[0-9]{4}\.[1-9][0-9]{3,4}(v[0-9]+)?$/) {
       return "The 'eprint' must have two integers separated by a dot"
+    }
+    my $eprint = $entry{'eprint'};
+    my $year = substr($eprint, 0, 2);
+    my $month = substr($eprint, 2);
+    if ($month > 12) {
+      return "The month of the 'eprint' is wrong, can't be bigger than 12"
     }
     if (not exists $entry{'primaryclass'}) {
       return "The 'primaryclass' is mandatory when 'archiveprefix' is there"
     }
-    if (not $entry{'primaryclass'} =~ /^[a-z]{2}\.[A-Z]{2}$/) {
+    if (not $entry{'primaryclass'} =~ /^[a-z]{2,}\.[A-Z]{2}$/) {
       return "The 'primaryclass' must have two parts, like 'cs.PL'"
     }
   }
