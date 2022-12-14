@@ -487,10 +487,10 @@ if (@ARGV+0 eq 0 or exists $args{'--help'} or exists $args{'-?'}) {
     "Usage:\n" .
     "  bibcop [<options>] <.bib file path>\n\n" .
     "Options:\n" .
-    "  -v, --version Print the current version of the tool and exit\n" .
-    "  -?, --help    Print this help screen\n" .
-    "      --fix     Fix the errors and print a new version of the .bib file to the console\n" .
-    "      --latex   Report errors in LaTeX format using \\PackageWarningNoLine command\n\n" .
+    "  -v, --version   Print the current version of the tool and exit\n" .
+    "  -?, --help      Print this help screen\n" .
+    "      --fix       Fix the errors and print a new version of the .bib file to the console\n" .
+    "      --latex     Report errors in LaTeX format using \\PackageWarningNoLine command\n\n" .
     "If any issues, report to GitHub: https://github.com/yegor256/bibcop");
 } elsif (exists $args{'--version'} or exists $args{'-v'}) {
   debug('0.0.0');
