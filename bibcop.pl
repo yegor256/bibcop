@@ -158,21 +158,33 @@ sub check_typography {
     ':' => 'colon',
     '!' => 'exclamation mark',
     '?' => 'question mark',
+    '-' => 'dash',
+    '---' => 'triple dash',
   );
-  my @bad_tails = [ '.', ',', ';', ':' ];
+  my @spaces_around = ( '---' );
+  my @no_space_before = ( '.', ',', ';', ':', '?', '!' );
+  my @bad_tails = ( '.', ',', ';', ':', '-' );
   foreach my $key (keys %item) {
     if ($key =~ /^:.*/) {
       next;
     }
     my $value = $item{$key};
-    foreach my $tail (@bad_tails) {
-      if ($value =~ /.*\Q$tail\e$/ and $key ne 'author') {
-        return "The '$key' must not end with a $symbols{$tail}"
+    foreach my $s (@bad_tails) {
+      if ($s eq '.' and $key eq 'author') {
+        next;
+      }
+      if ($value =~ /^.*\Q$s\e$/) {
+        return "The '$key' must not end with a $symbols{$s}"
       }
     }
-    foreach my $sym (keys %symbols) {
-      if ($value =~ /.* \Q$sym\E.*/) {
-        return "In the '$key', do not put a space before the $symbols{$sym}"
+    foreach my $s (@no_space_before) {
+      if ($value =~ /^.*\s\Q$s\E.*$/) {
+        return "In the '$key', do not put a space before a $symbols{$s}"
+      }
+    }
+    foreach my $s (@spaces_around) {
+      if ($value =~ /^.*[^\s]\Q$s\E.*$/ or $value =~ /^.*\Q$s\E[^\s].*$/) {
+        return "In the '$key', put spaces around a $symbols{$s}"
       }
     }
   }

@@ -32,12 +32,16 @@ check_fails($f, ('title' => 'A redundant space ; before the semi'));
 check_fails($f, ('title' => 'A redundant space : before the colon'));
 check_fails($f, ('title' => 'A redundant space ? before the question'));
 check_fails($f, ('title' => 'A redundant space ! before the exclamation'));
+check_fails($f, ('title' => 'No spaces around the---triple dash'));
+check_fails($f, ('title' => 'Not enough spaces around the--- triple dash'));
+check_fails($f, ('title' => 'Not enough spaces around the ---triple dash'));
 check_passes($f, ('title' => 'Proper placement of, with no space in front of it'));
 check_passes($f, ('title' => 'Proper placement of. with no space in front of it'));
 check_passes($f, ('title' => 'Proper placement of: with no space in front of it'));
 check_passes($f, ('title' => 'Proper placement of; with no space in front of it'));
 check_passes($f, ('title' => 'Proper placement of? with no space in front of it'));
 check_passes($f, ('title' => 'Proper placement of! with no space in front of it'));
+check_passes($f, ('title' => 'Proper placement of --- with spaces around'));
 
 sub check_fails {
   my ($f, %item) = @_;
