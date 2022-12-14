@@ -326,7 +326,7 @@ sub process_entry {
 
 # Parse the incoming .bib file and return an array
 # of hash-maps, where each one is a bibentry.
-sub bibentries {
+sub entries {
   my ($bib) = @_;
   my @entries;
   my $s = 'top';
@@ -496,9 +496,12 @@ if (@ARGV+0 eq 0 or exists $args{'--help'} or exists $args{'-?'}) {
   debug('0.0.0');
 } else {
   my ($file) = grep { not($_ =~ /^--.*$/) } @ARGV;
+  if (not $file) {
+    error('File name must be specified');
+  }
   open(my $fh, '<', $file);
   my $bib; { local $/; $bib = <$fh>; }
-  my @entries = bibentries($bib);
+  my @entries = entries($bib);
   if (exists $args{'--fix'}) {
     for my $i (0..(@entries+0 - 1)) {
       my %entry = %{ $entries[$i] };
@@ -530,7 +533,7 @@ if (@ARGV+0 eq 0 or exists $args{'--help'} or exists $args{'-?'}) {
       debug("}\n");
     }
   } else {
-    debug((@entries+0) . ' bibentries found in ' . $file);
+    debug((@entries+0) . ' entries found in ' . $file);
     for my $i (0..(@entries+0 - 1)) {
       my %entry = %{ $entries[$i] };
       debug("Checking $entry{':name'} (#$i)...");
