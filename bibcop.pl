@@ -155,7 +155,7 @@ sub check_arXiv {
     if (not exists $entry{'eprint'}) {
       return "The 'eprint' is mandatory when 'archiveprefix' is there"
     }
-    if (not $entry{'eprint'} =~ /^[0-9]{4}\.[1-9][0-9]{3,4}(v[0-9]+)?$/) {
+    if (not $entry{'eprint'} =~ /^[0-9]{4}\.[0-9]{4,5}(v[0-9]+)?$/) {
       return "The 'eprint' must have two integers separated by a dot"
     }
     my $eprint = $entry{'eprint'};
