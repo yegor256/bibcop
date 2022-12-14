@@ -25,7 +25,7 @@ package bibcop;
 use strict;
 use warnings;
 
-my @i1 = bibentries('@misc{knuth1984, author  ={Donald Knuth}, Title="The TeX Book "}');
+my @i1 = entries('@misc{knuth1984, author  ={Donald Knuth}, Title="The TeX Book "}');
 # show(@i1);
 assert(@i1+0, 1);
 assert($i1[0]{':name'}, 'knuth1984');
@@ -33,31 +33,31 @@ assert($i1[0]{':type'}, 'misc');
 assert($i1[0]{'author'}, 'Donald Knuth');
 assert($i1[0]{'title'}, 'The TeX Book ');
 
-my @i2 = bibentries('@misc{patrick, author={{Patrick S\:{u}skind}},}');
+my @i2 = entries('@misc{patrick, author={{Patrick S\:{u}skind}},}');
 # show(@i2);
 assert(@i2+0, 1);
 assert($i2[0]{'author'}, '{Patrick S\:{u}skind}');
 
-my @i3 = bibentries('@misc{p1} @article{p2,author="Jeff"} ');
+my @i3 = entries('@misc{p1} @article{p2,author="Jeff"} ');
 # show(@i3);
 assert(@i3+0, 2);
 assert($i3[0]{':name'}, 'p1');
 assert($i3[1]{':name'}, 'p2');
 assert($i3[1]{'author'}, 'Jeff');
 
-my @i4 = bibentries('@misc{x1, year =   1989   }');
+my @i4 = entries('@misc{x1, year =   1989   }');
 # show(@i4);
 assert(@i4+0, 1);
 assert($i4[0]{'year'}, '1989');
 
-my @i5 = bibentries('@misc{x2,year=2021,}');
+my @i5 = entries('@misc{x2,year=2021,}');
 # show(@i5);
 assert(@i5+0, 1);
 assert($i5[0]{'year'}, '2021');
 
-bibentries('');
-bibentries('@misc{k1,a={{x}{y}{}},b="{f}{x}",}');
-bibentries('@article{k1_34} @misc{do43ss,Title=,Year=1998}');
-bibentries("\@article{t1}\n\n\n\@misc{ff,year=1998}");
+entries('');
+entries('@misc{k1,a={{x}{y}{}},b="{f}{x}",}');
+entries('@article{k1_34} @misc{do43ss,Title=,Year=1998}');
+entries("\@article{t1}\n\n\n\@misc{ff,year=1998}");
 
 1;
