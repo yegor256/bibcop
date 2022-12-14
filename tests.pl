@@ -35,23 +35,23 @@ sub assert {
   }
 }
 
-# Print item to console.
-sub show_item {
-  my (%item) = @_;
+# Print entry to console.
+sub show_entry {
+  my (%entry) = @_;
   print "{\n";
-  foreach my $k (keys %item) {
-    print "  $k = {$item{$k}}\n";
+  foreach my $k (keys %entry) {
+    print "  $k = {$entry{$k}}\n";
   }
   print "}\n";
 }
 
-# Print items to console.
+# Print entries to console.
 sub show {
-  my (@items) = @_;
-  print 'Total items: ' . (@items+0) . "\n";
-  for my $i (0..(@items+0 - 1)) {
-    my %item = %{ $items[$i] };
-    show_item(%item);
+  my (@entries) = @_;
+  print 'Total entries: ' . (@entries+0) . "\n";
+  for my $i (0..(@entries+0 - 1)) {
+    my %entry = %{ $entries[$i] };
+    show_entry(%entry);
   }
 }
 

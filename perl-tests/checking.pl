@@ -69,20 +69,20 @@ passes((
 ));
 
 sub fails {
-  my (%item) = @_;
-  my @errors = process_item(%item);
+  my (%entry) = @_;
+  my @errors = process_entry(%entry);
   if (@errors+0 eq 0) {
-    show_item(%item);
+    show_entry(%entry);
     print "No error here, why?\n";
     exit 1;
   }
 }
 
 sub passes {
-  my (%item) = @_;
-  my @errors = process_item(%item);
+  my (%entry) = @_;
+  my @errors = process_entry(%entry);
   if (@errors+0 gt 0) {
-    show_item(%item);
+    show_entry(%entry);
     foreach my $err (@errors) {
       print "$err\n";
     }

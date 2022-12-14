@@ -88,8 +88,8 @@
 
 % \section{Introduction}
 %
-% This package scans your |.bib| files for style errors and emits
-% warning messages if any issues are found (make sure you use it before
+% This package scans a |.bib| file for style errors and emits
+% warning messages if any issues are found (the package must be included before
 % all other bibliography related packages):
 %\iffalse
 %<*verb>
@@ -105,40 +105,41 @@
 %\iffalse
 %</verb>
 %\fi
-% You may see warnings in the \TeX{} log --- fix the issues in the |main.bib| file
-% and the warnings will disappear.
+% Some warnings may be printed in the \TeX{} log.
+% Once the issues in the |main.bib| file are fixed, the warnings disappear.
 
-% If you use the |.sty| file (without installing it into the \TeX{} tree), don't forget
-% to also copy the |bibcop.pl| file --- it is the Perl script that does all the work
+% If the |.sty| file is used directly (without installing it into the \TeX{} tree),
+% the |bibcop.pl| file must also be placed next to it --- it is the Perl script that does all the work
 % of checking your |.bib| files. The |.sty| is just a simple wrapper around it.
 
-% Make sure |\usepackage{bibcop}| stays right after |\usepackage{biblatex}|
-% (if you use it), otherwise
-% you won't see any warnings from |bibcop|.
+% The |\usepackage{bibcop}| must stay right after |\usepackage{biblatex}|
+% (if Bib\LaTeX{} is used), otherwise
+% there won't be any warnings from |bibcop|.
 
 % \section{The Rules}
 
-% This is a more or less complete list of rules we enforce on a |.bib| file:
+% This is a more or less complete list of rules enforced on a |.bib| file:
 
 % \DescribeMacro{types}
-% Only |@article|, |@book|, |@inproceedings|, and |@misc| types of bib items are allowed.
+% Only |@article|, |@book|, |@inproceedings|, and |@misc| types of \BibTeX{} entries are allowed.
 % Everything else, like |@manual|, |@phdthesis|, and many others are simply prohibited.
 % The mentioned four should be enough for everything.
 
-% \DescribeMacro{keys}
-% There are pretty limited lists of allowed keys for each type of bib item. The keys
+% \DescribeMacro{tags}
+% There are pretty limited lists of allowed tags for each type of \BibTeX{} entry. The tags
 % that are not in the list are prohibited to use.
 
 % \DescribeMacro{doi}
-% Every bib item must have the |doi| key, which is a unique
+% Every \BibTeX{} entry must have the |doi| tag, which is a unique
 % \href{https://www.doi.org}{Digital Object Identifier}
 % of the material that you reference. It seems to be a good practice, in order to avoid ambiguity,
-% to always mention the DOI. I would also recommend to use \href{https://ctan.org/pkg/iexec}{doi} package,
+% to always mention the DOI.
+% It also recommended to use the \href{https://ctan.org/pkg/iexec}{doi} package,
 % in order to make all ``|doi|'' fields turned into hyper links.
 
 % \DescribeMacro{caps}
-% In |title|, |booktitle|, and |journal| keys, all major words must be capitalized,
-% as it is \href{https://apastyle.apa.org/style-grammar-guidelines/capitalization/title-case}{recommended by APA}:
+% In the |title|, |booktitle|, and |journal| tags, all major words must be capitalized,
+% as it is \href{https://apastyle.apa.org/style-grammar-guidelines/capitalization/title-case}{recommended} by APA:
 %\iffalse
 %<*verb>
 %\fi
@@ -151,9 +152,9 @@ title = {A Preliminary Architecture for a Basic Data-Flow Processor}
 % Here, the leading ``|A|'' is capital because it opens the title.
 % The word ``|for|'' and the article ``|a|'' are minor words, that's why they are in lower case.
 % Both parts of the composite word ``|Data-Flow|'' are capitalized.
-% Sometimes you need to violate this rule and use custom capitalization, as it is done
-% by the author of the paper. In order to do this, wrap the words with custom capitalization
-% in curled brackets, for example:
+% Sometimes this rule may need to be violated, when there is custom capitalization, as it is done
+% by the author of the paper. In order to do this, the words with custom capitalization
+% must be wrapped in curled brackets, for example:
 %\iffalse
 %<*verb>
 %\fi
@@ -190,7 +191,7 @@ author = {Knuth, Donald E. and others}
 % When first names are shortened to a single letter, it has to have a tailing dot.
 
 % \DescribeMacro{shorts}
-% It is not allowed to shorten any words, for example this is illegal:
+% It is not allowed to shorten any words aside from the |author| tag, for example this is illegal:
 %\iffalse
 %<*verb>
 %\fi
@@ -212,7 +213,7 @@ journal = {Journal of Logic and Computation}
 %\fi
 
 % \DescribeMacro{brackets}
-% The |title|, |booktitle|, and |journal| must be wrapped with double brackets, for example:
+% The |title|, |booktitle|, and |journal| must be wrapped in double brackets, for example:
 %\iffalse
 %<*verb>
 %\fi
@@ -237,8 +238,8 @@ booktitle = {{1994 IEEE International Conference on Computer Languages}},
 %\iffalse
 %</verb>
 %\fi
-% The year should only be mentioned in the |year| key, nowhere else.
-% In the |year| key only numbers are allowed:
+% The year should only be mentioned in the |year| tag, nowhere else.
+% In the |year| tag only numbers are allowed:
 %\iffalse
 %<*verb>
 %\fi
@@ -298,7 +299,7 @@ pages = {145--163},
 %\fi
 
 % \DescribeMacro{proceedings}
-% The |booktitle| in the |@inproceedings| bib item must always start with ``|Proceedings| |of| |the|'',
+% The |booktitle| in the |@inproceedings| entry must always start with ``|Proceedings| |of| |the|'',
 % as in this example:
 %\iffalse
 %<*verb>
@@ -312,7 +313,7 @@ booktitle = {{Proceedings of the International
 %\fi
 
 % \DescribeMacro{typography}
-% All keys in each bibitem are checked for obeying the basic typography rules:
+% All tags in each \BibTeX{} entry are checked for obeying the basic typography rules:
 % \begin{itemize}
 %   \item No spaces are allowed in front of a comma, a semi-colon, a colon, a dot, a question mark, and an exclamation mark;
 %   \item A text may not end with a dot, a comma, a semi-colon, a colon, or a dash;

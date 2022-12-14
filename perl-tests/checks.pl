@@ -80,22 +80,22 @@ check_passes($f, ('pages' => '123'));
 check_passes($f, ('pages' => '42--43'));
 
 sub check_fails {
-  my ($f, %item) = @_;
+  my ($f, %entry) = @_;
   no strict 'refs';
-  my $error = $f->(%item);
+  my $error = $f->(%entry);
   if ($error eq '') {
-    show_item(%item);
+    show_entry(%entry);
     print "$f reported no error here, why?\n";
     exit 1;
   }
 }
 
 sub check_passes {
-  my ($f, %item) = @_;
+  my ($f, %entry) = @_;
   no strict 'refs';
-  my $error = $f->(%item);
+  my $error = $f->(%entry);
   if ($error ne '') {
-    show_item(%item);
+    show_entry(%entry);
     print "$error\n";
     print "$f reported an error here, why?\n";
     exit 1;
