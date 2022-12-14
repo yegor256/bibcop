@@ -159,10 +159,11 @@ sub check_arXiv {
       return "The 'eprint' must have two integers separated by a dot"
     }
     my $eprint = $entry{'eprint'};
-    my $year = substr($eprint, 0, 2);
-    my $month = substr($eprint, 2);
+    my ($head, $tail) = split(/\./, $eprint);
+    my $year = substr($head, 0, 2);
+    my $month = substr($head, 2);
     if ($month > 12) {
-      return "The month of the 'eprint' is wrong ($month), can't be bigger than 12"
+      return "The month '$month' of the 'eprint' is wrong, it can't be bigger than 12"
     }
     if (not exists $entry{'primaryclass'}) {
       return "The 'primaryclass' is mandatory when 'archiveprefix' is there"

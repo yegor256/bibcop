@@ -86,7 +86,7 @@ check_fails($f, ('archiveprefix' => 'arXiv'));
 check_fails($f, ('archiveprefix' => 'arXiv', 'eprint' => '2111.13384'));
 check_fails($f, ('archiveprefix' => 'arXiv', 'eprint' => 'abc', 'primaryclass' => 'cs.PL'));
 check_fails($f, ('archiveprefix' => 'arXiv', 'eprint' => '2111.13384', 'primaryclass' => 'hello'));
-check_passes($f, ('archiveprefix' => 'arXiv', 'eprint' => '2111.13384', 'primaryclass' => 'cs.PL'));
+check_passes($f, ('archiveprefix' => 'arXiv', 'eprint' => '2112.13384', 'primaryclass' => 'cs.PL'));
 
 sub check_fails {
   my ($f, %entry) = @_;
