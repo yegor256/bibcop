@@ -577,7 +577,7 @@ if (@ARGV+0 eq 0 or exists $args{'--help'} or exists $args{'-?'}) {
       my %entry = %{ $entries[$i] };
       debug("Checking $entry{':name'} (#$i)...");
       foreach my $err (process_entry(%entry)) {
-        warning("$err, in the '$entry{':name'}' bibentry");
+        warning("$err, in the '$entry{':name'}' bib entry");
       }
     }
   }
