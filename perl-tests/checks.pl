@@ -43,6 +43,25 @@ check_passes($f, ('title' => 'Proper placement of? with no space in front of it'
 check_passes($f, ('title' => 'Proper placement of! with no space in front of it'));
 check_passes($f, ('title' => 'Proper placement of --- with spaces around'));
 
+$f = 'check_titles';
+check_fails($f, ('title' => 'The title is not surrounded by curled brackets'));
+check_passes($f, ('title' => '{This title is surrounded}'));
+
+$f = 'check_shortenings';
+check_fails($f, ('journal' => 'J. Log. Comp.'));
+check_passes($f, ('booktitle' => 'Communications of the ACM'));
+
+$f = 'check_author';
+check_fails($f, ('author' => 'Donald E. Knuth'));
+check_fails($f, ('author' => 'Knuth, Donald E'));
+check_fails($f, ('author' => 'Knuth, Donald E. et al.'));
+check_passes($f, ('author' => 'Knuth'));
+check_passes($f, ('author' => 'Knuth and others'));
+check_passes($f, ('author' => 'Knuth and Duane'));
+check_passes($f, ('author' => 'Knuth, Donald E.'));
+check_passes($f, ('author' => 'Knuth, Donald E. and others'));
+check_passes($f, ('author' => 'Knuth, Donald E. and Duane, Bibby'));
+
 sub check_fails {
   my ($f, %item) = @_;
   no strict 'refs';
