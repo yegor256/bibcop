@@ -81,6 +81,13 @@ check_fails($f, ('pages' => '32--12'));
 check_passes($f, ('pages' => '123'));
 check_passes($f, ('pages' => '42--43'));
 
+$f = 'check_arXiv';
+check_fails($f, ('archiveprefix' => 'arXiv'));
+check_fails($f, ('archiveprefix' => 'arXiv', 'eprint' => '2111.13384'));
+check_fails($f, ('archiveprefix' => 'arXiv', 'eprint' => 'abc', 'primaryclass' => 'cs.PL'));
+check_fails($f, ('archiveprefix' => 'arXiv', 'eprint' => '2111.13384', 'primaryclass' => 'hello'));
+check_passes($f, ('archiveprefix' => 'arXiv', 'eprint' => '2111.13384', 'primaryclass' => 'cs.PL'));
+
 sub check_fails {
   my ($f, %entry) = @_;
   no strict 'refs';

@@ -147,6 +147,25 @@ sub check_titles {
   }
 }
 
+# Check the right format of the tags for arXiv.
+sub check_arXiv {
+  my (%entry) = @_;
+  if (exists($entry{'archiveprefix'})) {
+    if (not exists $entry{'eprint'}) {
+      return "The 'eprint' is mandatory when 'archiveprefix' is there"
+    }
+    if (not $entry{'eprint'} =~ /^[1-9][0-9]*\.[1-9][0-9]*$/) {
+      return "The 'eprint' must have two integers separated by a dot"
+    }
+    if (not exists $entry{'primaryclass'}) {
+      return "The 'primaryclass' is mandatory when 'archiveprefix' is there"
+    }
+    if (not $entry{'primaryclass'} =~ /^[a-z]{2}\.[A-Z]{2}$/) {
+      return "The 'primaryclass' must have two parts, like 'cs.PL'"
+    }
+  }
+}
+
 # Check that no values have tailing dots.
 # Check that there are no spaces before commans.
 sub check_typography {
