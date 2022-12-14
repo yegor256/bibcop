@@ -65,9 +65,19 @@ check_passes($f, ('author' => 'Knuth, Donald E. and Duane, Bibby'));
 $f = 'check_capitalization';
 check_fails($f, ('title' => 'The TeX book'));
 check_fails($f, ('title' => 'Data Flow Languages And Architecture'));
+check_fails($f, ('title' => 'Object-oriented Programming'));
 check_passes($f, ('title' => 'The TeX Book'));
 check_passes($f, ('title' => 'Data Flow Languages and Architecture'));
 check_passes($f, ('title' => 'A Preliminary Architecture for a Basic Data-Flow Processor'));
+
+$f = 'check_pages';
+check_fails($f, ('pages' => '1a'));
+check_fails($f, ('pages' => '40A'));
+check_fails($f, ('pages' => '10-24'));
+check_fails($f, ('pages' => '32--32'));
+check_fails($f, ('pages' => '32--12'));
+check_passes($f, ('pages' => '123'));
+check_passes($f, ('pages' => '42--43'));
 
 sub check_fails {
   my ($f, %item) = @_;
@@ -75,7 +85,7 @@ sub check_fails {
   my $error = $f->(%item);
   if ($error eq '') {
     show_item(%item);
-    print "No error here, why?\n";
+    print "$f reported no error here, why?\n";
     exit 1;
   }
 }
@@ -87,7 +97,7 @@ sub check_passes {
   if ($error ne '') {
     show_item(%item);
     print "$error\n";
-    print "Error here, why?\n";
+    print "$f reported an error here, why?\n";
     exit 1;
   }
 }

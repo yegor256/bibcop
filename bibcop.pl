@@ -281,11 +281,14 @@ sub check_pages {
   my (%item) = @_;
   if (exists $item{'pages'}) {
     my $pages = $item{'pages'};
-    if (not $pages =~ /^[1-9][0-9]*--[1-9][0-9]*|[1-9][0-9]*$/) {
+    if (not $pages =~ /^([1-9][0-9]*--[1-9][0-9]*|[1-9][0-9]*)$/) {
       return "The format of the 'pages' is wrong"
     }
     my @parts = split(/--/, $pages);
     if (@parts+0 eq 2) {
+      if ($parts[0] eq $parts[1]) {
+        return "The 'pages' mentions the same page twice, just use it once"
+      }
       if ($parts[0] gt $parts[1]) {
         return "The 'pages' are in the wrong order"
       }
