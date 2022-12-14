@@ -37,7 +37,7 @@ This command will read the `main.bib` file and create `fixed.bib`, which
 will have the fixed and properly formatted content (well, to some extent).
 
 If you install the package using [`tlmgr`](https://www.tug.org/texlive/tlmgr.html),
-you should be able to use `bibcop` directly without Perl:
+you should be able to use `bibcop` directly, without the necessity to mention Perl:
 
 ```
 $ tlgmr install bibcop
