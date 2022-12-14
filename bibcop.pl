@@ -482,14 +482,16 @@ sub warning {
   }
 }
 
-if (@ARGV+0 eq 0 or exists $args{'--help'}) {
+if (@ARGV+0 eq 0 or exists $args{'--help'} or exists $args{'-?'}) {
   debug("Bibcop is a Style Checker of .bib Files\n" .
-    "Usage: bibcop [<options>] <.bib file path>\n" .
-    "  --version Print the current version of the tool and exit\n" .
-    "  --help    Print this help screen\n" .
-    "  --fix     Fix the errors and print a new version of the .bib file to the console\n" .
-    "  --latex   Report errors in LaTeX format using \\PackageWarningNoLine command");
-} elsif (exists $args{'--version'}) {
+    "Usage:\n" .
+    "  bibcop [<options>] <.bib file path>\n\n" .
+    "Options:\n" .
+    "  -v, --version Print the current version of the tool and exit\n" .
+    "  -?, --help    Print this help screen\n" .
+    "      --fix     Fix the errors and print a new version of the .bib file to the console\n" .
+    "      --latex   Report errors in LaTeX format using \\PackageWarningNoLine command");
+} elsif (exists $args{'--version'} or exists $args{'-v'}) {
   debug('0.0.0');
 } else {
   my ($file) = grep { not($_ =~ /^--.*$/) } @ARGV;
