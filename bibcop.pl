@@ -162,7 +162,7 @@ sub check_arXiv {
     my $year = substr($eprint, 0, 2);
     my $month = substr($eprint, 2);
     if ($month > 12) {
-      return "The month of the 'eprint' is wrong, can't be bigger than 12"
+      return "The month of the 'eprint' is wrong ($month), can't be bigger than 12"
     }
     if (not exists $entry{'primaryclass'}) {
       return "The 'primaryclass' is mandatory when 'archiveprefix' is there"
