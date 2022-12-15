@@ -181,7 +181,7 @@ sub check_org_in_booktitle {
   if (exists($entry{'booktitle'})) {
     my $title = $entry{'booktitle'};
     foreach my $o (@orgs) {
-      if ($title =~ /^.*\Q$s\E.*$/) {
+      if ($title =~ /^.*\Q$o\E.*$/) {
         return "The '$o' organization must not be mentioned in the booktitle, use 'publisher' tag instead"
       }
     }
@@ -512,9 +512,10 @@ sub debug {
   my ($txt) = @_;
   if (exists $args{'--verbose'}) {
     if (exists $args{'--latex'}) {
-      print '% ';
+      print "\\message{bibcop: $txt^^J}\n";
+    } else {
+      print $txt . "\n";
     }
-    print $txt . "\n";
   }
 }
 
