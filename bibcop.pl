@@ -34,7 +34,7 @@ my %args = map { $_ => 1 } @ARGV;
 
 # Only these tags are allowed and only these types of entries.
 my %blessed = (
-  'article' => ['doi', 'year', 'title', 'author', 'journal', 'volume', 'number', 'publisher?'],
+  'article' => ['doi', 'year', 'title', 'author', 'journal', 'volume', 'number', 'publisher?', 'pages?'],
   'inproceedings' => ['doi', 'booktitle', 'title', 'author', 'year', 'pages?', 'organization?', 'volume?'],
   'book' => ['doi', 'title', 'author', 'year', 'publisher'],
   'misc' => ['title', 'author', 'year', 'eprint?', 'archiveprefix?', 'primaryclass?', 'publisher?', 'organization?', 'doi?'],
@@ -174,6 +174,23 @@ sub check_arXiv {
   }
 }
 
+# Check that organization is not mentioned in the booktitle.
+sub check_org_in_booktitle {
+  my (%entry) = @_;
+  my @orgs = ( 'ACM', 'IEEE' );
+  if (exists($entry{'booktitle'})) {
+    my $title = $entry{'booktitle'};
+    foreach my $o (@orgs) {
+      if ($title =~ /^.*\Q$s\E.*$/) {
+        return "The '$o' organization must not be mentioned in the booktitle, use 'publisher' tag instead"
+      }
+    }
+    if ($title =~ /^.*(ACM|IEEE).*$/) {
+      return "Don't mention the"
+    }
+  }
+}
+
 # Check that no values have tailing dots.
 # Check that there are no spaces before commans.
 sub check_typography {
@@ -202,7 +219,7 @@ sub check_typography {
       if ($s eq '.' and $tag eq 'author') {
         next;
       }
-      if ($value =~ /^.*\Q$s\e$/) {
+      if ($value =~ /^.*\Q$s\E$/) {
         return "The '$tag' must not end with a $symbols{$s}"
       }
     }

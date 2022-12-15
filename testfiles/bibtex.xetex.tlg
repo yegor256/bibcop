@@ -2,12 +2,12 @@ This is a generated file for the l3build validation system.
 Don't change this file in any respect.
 LaTeX Warning: Citation `dijkstra1968letters' on page 1 undefined on input line ....
 runsystem((perl "./bibcop.tmp.pl" --latex 'main.bib') > iexec.tmp 2>&1; /bin/echo -n $?% >iexec.ret)...executed.
-(iexec.tmp
-Package bibcop Warning: All minor words in the 'title' must be lower-cased, while 'To' (no.6) is not, in the 'dijkstra1968letters' bib entry.
-Package bibcop Warning: A mandatory 'doi' tag for '@article' is missing among (author, journal, number, pages, publisher, title, volume, year), in the 'dijkstra1968letters' bib entry.
-Package bibcop Warning: The 'title' must be wrapped in double curled brackets, in the 'dijkstra1968letters' bib entry.
-) iexec: The content of 'iexec.tmp' was included into the document
-runsystem(rm iexec.tmp)...executed.
-runsystem(rm iexec.ret)...executed.
-bibcop: style checking finished
-(bibtex.bbl)
+iexec: See the content of 'iexec.tmp' after failure:
+Global symbol "$s" requires explicit package name (did you forget to declare "my $s"?) at ./bibcop.tmp.pl line 184.
+BEGIN not safe after errors--compilation aborted at ./bibcop.tmp.pl line 362.
+<EOF>
+! Package iexec Error: Execution failure, the exit code was 255.
+See the iexec package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+l. ...\bibliography{main}
