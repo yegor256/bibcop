@@ -116,6 +116,22 @@
 % (if Bib\LaTeX{} is used), otherwise
 % there won't be any warnings from |bibcop|.
 
+% \section{Package Options}
+
+% It's possible to configure the behavior of the package with the help of a few package options:
+
+% \DescribeMacro{verbose}
+% The |verbose| package option prints all debugging messages to the \TeX{} log:
+%\iffalse
+%<*verb>
+%\fi
+\begin{verbatim}
+\usepackage[verbose]{bibcop}
+\end{verbatim}
+%\iffalse
+%</verb>
+%\fi
+
 % \section{The Rules}
 
 % This is a more or less complete list of rules enforced on a |.bib| file:
@@ -343,11 +359,22 @@ booktitle = {{Proceedings of the International
 % \changes{0.0.2}{2022/12/12}{Documentation extended, more rules added.}
 % \changes{0.0.4}{2022/12/14}{Extra checks for the typography, together with more extensive Perl testing.}
 % \changes{0.0.4}{2022/12/14}{The \texttt{--verbose} option introduced, to enable debugging information only on demand.}
+% \changes{0.0.4}{2022/12/15}{Package options introduced, the \texttt{verbose} option enables detailed logging inside the \TeX{} log.}
 
 % First, we include a few packages.
 % We need \href{https://ctan.org/pkg/iexec}{iexec} for executing Perl scripts:
 %    \begin{macrocode}
 \RequirePackage{iexec}
+%    \end{macrocode}
+
+% Then, we process package options:
+%    \begin{macrocode}
+\RequirePackage{pgfopts}
+\pgfkeys{
+  /bibcop/.cd,
+  verbose/.store in=\bibcop@verbose,
+}
+\ProcessPgfPackageOptions{/bibcop}
 %    \end{macrocode}
 
 % \begin{macro}{bibcop.pl}
@@ -367,7 +394,9 @@ booktitle = {{Proceedings of the International
 \ifdefined\bibliography
   \let\bibcop@oldbibliography\bibliography
   \renewcommand\bibliography[1]{%
-    \iexec{perl "./bibcop.tmp.pl" --latex '#1.bib'}%
+    \iexec{perl "./bibcop.tmp.pl"\space
+      \ifdefined\bibcop@verbose--verbose\fi\space
+      --latex '#1.bib'}%
     \message{bibcop: style checking finished^^J}%
     \bibcop@oldbibliography{#1}%
   }
@@ -383,7 +412,9 @@ booktitle = {{Proceedings of the International
 \ifdefined\addbibresource
   \let\bibcop@oldaddbibresource\addbibresource
   \renewcommand\addbibresource[1]{%
-    \iexec{perl "./bibcop.tmp.pl" --latex '#1'}%
+    \iexec{perl "./bibcop.tmp.pl"\space
+      \ifdefined\bibcop@verbose--verbose\fi\space
+      --latex '#1'}%
     \message{bibcop: style checking finished^^J}%
     \bibcop@oldaddbibresource{#1}%
   }

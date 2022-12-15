@@ -1,6 +1,6 @@
 \input{regression-test.tex}
 \documentclass{article}
-\usepackage{bibcop}
+\usepackage[verbose]{bibcop}
 \begin{document}
 
 \START

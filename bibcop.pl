@@ -593,7 +593,7 @@ if (@ARGV+0 eq 0 or exists $args{'--help'} or exists $args{'-?'}) {
     debug((@entries+0) . ' entries found in ' . $file);
     for my $i (0..(@entries+0 - 1)) {
       my %entry = %{ $entries[$i] };
-      debug("Checking $entry{':name'} (#$i)...");
+      debug("Checking $entry{':name'} (no.$i)...");
       foreach my $err (process_entry(%entry)) {
         warning("$err, in the '$entry{':name'}' bib entry");
       }
