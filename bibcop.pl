@@ -459,7 +459,7 @@ sub entries {
       }
       $escape = 0;
     } else {
-      print "\\PackageWarningNoLine{bibcop}{It is impossible to parse the .bib file, because I do not know what to do with '$char' at line #$lineno (s=$s)}\n";
+      warning("It is impossible to parse the .bib file, because I do not know what to do with '$char' at line #$lineno (s=$s)");
       last;
     }
     if ($char eq ' ' and not($s =~ /quote|brackets/)) {
@@ -503,7 +503,11 @@ sub listed_tags {
 # Print ERROR message to the console and die.
 sub error {
   my ($txt) = @_;
-  print $txt . "\n";
+  if (exists $args{'--latex'}) {
+    print "\\PackageError{bibcop}{$txt}\n";
+  } else {
+    print $txt . "\n";
+  }
   exit 1;
 }
 
