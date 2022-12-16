@@ -30,6 +30,7 @@ assert_exec('-v', qr/0\.0\.0/s);
 assert_exec('--help', qr/--version /s);
 assert_exec('-?', qr/--version /s);
 assert_exec('./test-files/test.bib', qr/\QThe 'title' must be wrapped\E/s);
+assert_exec('--latex ./test-files/test.bib', qr/\Q\PackageWarningNoLine{bibcop}{The 'title' must be wrapped\E/s);
 assert_exec('--fix ./test-files/test.bib', qr/\Q{{The TeX Book}}\E/s);
 
 sub assert_exec {
