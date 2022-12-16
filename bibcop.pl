@@ -425,24 +425,24 @@ sub entries {
       $entry{':name'} = $acc;
       $s = 'body';
     } elsif ($char eq '=' and $s eq 'tag') {
-      $tag = $acc;
+      $tag = lc($acc);
       $s = 'value';
       $acc = '';
     } elsif ($char eq ',' and $s eq 'value') {
-      if (not exists $entry{lc($tag)}) {
+      if (not exists $entry{$tag}) {
         my $tex = substr($acc, 1);
         $tex =~ s/\s//g;
-        $entry{lc($tag)} = $tex;
+        $entry{$tag} = $tex;
       }
       $s = 'body';
     } elsif ($char eq '}' and $s eq 'body') {
       push(@entries, { %entry });
       $s = 'top';
     } elsif ($char eq '}' and $s eq 'value') {
-      if (not exists $entry{lc($tag)}) {
+      if (not exists $entry{$tag}) {
         my $tex = substr($acc, 1);
         $tex =~ s/\s//g;
-        $entry{lc($tag)} = $tex;
+        $entry{$tag} = $tex;
       }
       push(@entries, { %entry });
       $s = 'top';
@@ -454,7 +454,7 @@ sub entries {
       $s = 'quote';
       $acc = '';
     } elsif ($char eq '"' and $s eq 'quote') {
-      $entry{lc($tag)} = substr($acc, 1);
+      $entry{$tag} = substr($acc, 1);
       $s = 'value';
     } elsif ($s eq 'quote') {
       # nothing
@@ -470,7 +470,7 @@ sub entries {
       } elsif ($char eq '}' and $escape ne 1) {
         $nest = $nest - 1;
         if ($nest eq 0) {
-          $entry{lc($tag)} = substr($acc, 1);
+          $entry{$tag} = substr($acc, 1);
           $s = 'value';
         }
       }
