@@ -526,10 +526,11 @@ sub error {
   my ($txt) = @_;
   if (exists $args{'--latex'}) {
     print "\\PackageError{bibcop}{$txt}\n";
+    exit 0;
   } else {
-    print $txt . "\n";
+    print STDERR $txt . "\n";
+    exit 1;
   }
-  exit 1;
 }
 
 # Print DEBUG message to the console.
@@ -581,7 +582,7 @@ if (@ARGV+0 eq 0 or exists $args{'--help'} or exists $args{'-?'}) {
   if (not $file) {
     error('File name must be specified');
   }
-  open(my $fh, '<', $file);
+  open(my $fh, '<', $file) or error('Cannot open file: ' . $file);
   my $bib; { local $/; $bib = <$fh>; }
   my @entries = entries($bib);
   if (exists $args{'--fix'}) {
