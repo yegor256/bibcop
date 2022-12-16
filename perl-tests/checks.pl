@@ -90,6 +90,11 @@ check_fails($f, ('archiveprefix' => 'arXiv', 'eprint' => 'abc', 'primaryclass' =
 check_fails($f, ('archiveprefix' => 'arXiv', 'eprint' => '2111.13384', 'primaryclass' => 'hello'));
 check_passes($f, ('archiveprefix' => 'arXiv', 'eprint' => '2112.13384', 'primaryclass' => 'cs.PL'));
 
+$f = 'check_unescaped_symbols';
+check_fails($f, ('title' => 'Story & Story'));
+check_passes($f, ('title' => 'Story \& Story'));
+check_passes($f, ('title' => 'Story {&} Story'));
+
 sub check_fails {
   my ($f, %entry) = @_;
   no strict 'refs';

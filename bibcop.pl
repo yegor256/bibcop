@@ -347,6 +347,23 @@ sub check_pages {
   }
 }
 
+# Check unescaped symbols.
+sub check_unescaped_symbols {
+  my (%entry) = @_;
+  my @symbols = ( '&' );
+  foreach my $tag (keys %entry) {
+    if ($tag =~ /^:.*/) {
+      next;
+    }
+    my $value = $entry{$tag};
+    foreach my $s (@symbols) {
+      if ($value =~ /^(.*[^\\]|)\Q$s\E.*$/) {
+        return "The '$tag' contains a dangerous unescaped symbol"
+      }
+    }
+  }
+}
+
 # Check one entry.
 sub process_entry {
   my (%entry) = @_;
