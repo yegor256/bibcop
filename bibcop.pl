@@ -425,7 +425,11 @@ sub entries {
       $entry{':name'} = $acc;
       $s = 'body';
     } elsif ($char eq '=' and $s eq 'tag') {
-      $tag = lc($acc);
+      my $t = lc($acc);
+      if (exists $entry{$t}) {
+        warning("The tag '$t' is seen more than once");
+      }
+      $tag = $t;
       $s = 'value';
       $acc = '';
     } elsif ($char eq ',' and $s eq 'value') {

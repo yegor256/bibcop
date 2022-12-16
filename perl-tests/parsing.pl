@@ -55,6 +55,16 @@ my @i5 = entries('@misc{x2,year=2021,}');
 assert(@i5+0, 1);
 assert($i5[0]{'year'}, '2021');
 
+my @i6 = entries('@misc{x2,year=2021,year=1989}');
+# show(@i6);
+assert(@i6+0, 1);
+assert($i6[0]{'year'}, '2021');
+
+# These are all parsing errors
+assert(entries('no bibs')+0, 0);
+assert(entries('@misc{---}')+0, 0);
+assert(entries('@misc{hello, ??}')+0, 0);
+
 entries('');
 entries('@misc{k1,a={{x}{y}{}},b="{f}{x}",}');
 entries('@article{k1_34} @misc{do43ss,Title=,Year=1998}');
