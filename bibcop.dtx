@@ -205,6 +205,16 @@ author = {Knuth, Donald E. and others}
 %</verb>
 %\fi
 % When first names are shortened to a single letter, it has to have a tailing dot.
+% If you have a special pronounciation of the author, you can wrap it in curled brackets and Bibcop will ignore it:
+%\iffalse
+%<*verb>
+%\fi
+\begin{verbatim}
+author = {{Some author} and {I}}
+\end{verbatim}
+%\iffalse
+%</verb>
+%\fi
 
 % \DescribeMacro{shorts}
 % It is not allowed to shorten any words aside from the |author| tag, for example this is illegal:
