@@ -25,23 +25,33 @@ package bibcop;
 use strict;
 use warnings;
 
-assert_exec('--version', qr/0\.0\.0/s);
-assert_exec('-v', qr/0\.0\.0/s);
-assert_exec('--help', qr/--version /s);
-assert_exec('-?', qr/--version /s);
-assert_exec('./test-files/test.bib', qr/\QThe 'title' must be wrapped\E/s);
-assert_exec('--latex ./test-files/test.bib', qr/\Q\PackageWarningNoLine{bibcop}{The 'title' must be wrapped\E/s);
-assert_exec('--fix ./test-files/test.bib', qr/\Q{{The TeX Book}}\E/s);
+assert_exec('--version', 0, qr/0\.0\.0/s);
+assert_exec('-v', 0, qr/0\.0\.0/s);
+assert_exec('--help', 0, qr/--version /s);
+assert_exec('-?', 0, qr/--version /s);
+assert_exec('./test-files/test.bib', 0, qr/\QThe 'title' must be wrapped\E/s);
+assert_exec('--latex ./test-files/test.bib', 0, qr/\Q\PackageWarningNoLine{bibcop}{The 'title' must be wrapped\E/s);
+assert_exec('--fix ./test-files/test.bib', 0, qr/\Q{{The TeX Book}}\E/s);
+
+assert_exec('missing-file.bib', 256, qr/\QCannot open file: missing-file.bib\E/s);
+assert_exec('--fix', 256, qr/\QFile name must be specified\E/s);
 
 sub assert_exec {
-  my ($cmd, $re) = @_;
+  my ($cmd, $e, $re) = @_;
   my $args = "./bibcop.pl ${cmd}";
   my $stdout = `$args 2>&1`;
+  my $exit = $?;
+  if ($exit ne $e) {
+    print "$stdout\n";
+    print "Exit code is $exit (not $e)\n";
+    exit 1;
+  }
   if (not $stdout =~ $re) {
     print "$stdout\n";
     print "Doesn't match $re\n";
     exit 1;
   }
 }
+
 
 1;
