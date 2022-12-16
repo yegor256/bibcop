@@ -108,6 +108,11 @@
 % Some warnings may be printed in the \TeX{} log.
 % Once the issues in the |main.bib| file are fixed, the warnings disappear.
 
+% Bibcop doesn't pay much attention the formatting of the |.bib| file. It doesn't emit
+% warnings if a comma is missed after the last tag in a \BibTeX{} entry or the tags
+% and their equation symbols are not aligned. Instead, Bibcop is focused on the content
+% of the tags and their possible inconsistencies.
+
 % If the |.sty| file is used directly (without installing it into the \TeX{} tree),
 % the |bibcop.pl| file must also be placed next to it --- it is the Perl script that does all the work
 % of checking your |.bib| files. The |.sty| is just a simple wrapper around it.
