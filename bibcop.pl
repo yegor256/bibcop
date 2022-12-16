@@ -404,10 +404,15 @@ sub entries {
     } elsif ($char eq "\n") {
       # ignore the EOL
       $lineno = $lineno + 1;
-    } elsif ($char eq '@' and $s eq 'top') {
-      %entry = ();
-      $s = 'start';
-      $acc = '';
+    } elsif ($s eq 'top') {
+      if ($char eq '@') {
+        %entry = ();
+        $s = 'start';
+        $acc = '';
+      } else {
+        warning("Each BibTeX entry must start with '\@', what is '$char'?");
+        last;
+      }
     } elsif ($char =~ /[a-z]/ and $s eq 'start') {
       # @article
     } elsif ($char eq '{' and $s eq 'start') {
@@ -590,7 +595,7 @@ if (@ARGV+0 eq 0 or exists $args{'--help'} or exists $args{'-?'}) {
       my %entry = %{ $entries[$i] };
       my $type = $entry{':type'};
       if (not exists $blessed{$type}) {
-        error("I don't know what to do with \@$type type of bibentry");
+        error("I don't know what to do with \@$type type of BibTeX entry");
       }
       my $tags = $blessed{$entry{':type'}};
       my %allowed = map { $_ => 1 } @$tags;
@@ -621,7 +626,7 @@ if (@ARGV+0 eq 0 or exists $args{'--help'} or exists $args{'-?'}) {
       my %entry = %{ $entries[$i] };
       debug("Checking $entry{':name'} (no.$i)...");
       foreach my $err (process_entry(%entry)) {
-        warning("$err, in the '$entry{':name'}' bib entry");
+        warning("$err, in the '$entry{':name'}' entry");
       }
     }
   }
