@@ -29,6 +29,7 @@ assert_exec('--version', qr/0\.0\.0/s);
 assert_exec('-v', qr/0\.0\.0/s);
 assert_exec('--help', qr/--version /s);
 assert_exec('-?', qr/--version /s);
+assert_exec('--fix ./test-files/test.bib', qr/\{\{The TeX Book\}\}/s);
 
 sub assert_exec {
   my ($cmd, $re) = @_;
