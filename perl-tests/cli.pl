@@ -1,4 +1,3 @@
-#!/usr/bin/perl
 # (The MIT License)
 #
 # Copyright (c) 2022 Yegor Bugayenko
@@ -23,44 +22,23 @@
 
 package bibcop;
 
-use warnings;
 use strict;
+use warnings;
 
-# Assert on the value and exit if error.
-sub assert {
-  my ($l, $r) = @_;
-  if ($l ne $r) {
-    print "'$l' ne '$r'\n";
+assert_exec('--version', qr/0\.0\.0/s);
+assert_exec('-v', qr/0\.0\.0/s);
+assert_exec('--help', qr/--version /s);
+assert_exec('-?', qr/--version /s);
+
+sub assert_exec {
+  my ($cmd, $re) = @_;
+  my $args = "./bibcop.pl ${cmd}";
+  my $stdout = `$args 2>&1`;
+  if (not $stdout =~ $re) {
+    print "$stdout\n";
+    print "Doesn't match $re\n";
     exit 1;
   }
 }
 
-# Print entry to console.
-sub show_entry {
-  my (%entry) = @_;
-  print "{\n";
-  foreach my $k (keys %entry) {
-    print "  $k = {$entry{$k}}\n";
-  }
-  print "}\n";
-}
-
-# Print entries to console.
-sub show {
-  my (@entries) = @_;
-  print 'Total entries: ' . (@entries+0) . "\n";
-  for my $i (0..(@entries+0 - 1)) {
-    my %entry = %{ $entries[$i] };
-    show_entry(%entry);
-  }
-}
-
-require './bibcop.pl';
-require './perl-tests/parsing.pl';
-require './perl-tests/checking.pl';
-require './perl-tests/functions.pl';
-require './perl-tests/checks.pl';
-require './perl-tests/cli.pl';
-
-print "\033[0;32mGREAT!\033[0m All tests are green.\n";
-
+1;
