@@ -357,8 +357,8 @@ sub check_unescaped_symbols {
     }
     my $value = $entry{$tag};
     foreach my $s (@symbols) {
-      if ($value =~ /^(.*[^\\]|)\Q$s\E.*$/) {
-        return "The '$tag' contains a dangerous unescaped symbol"
+      if ($value =~ /^(.*[^\\{]|)\Q$s\E.*$/) {
+        return "The '$tag' contains a dangerous unescaped symbol (wrap it in curled brackets if you really need it)"
       }
     }
   }
