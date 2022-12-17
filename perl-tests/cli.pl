@@ -33,7 +33,8 @@ assert_exec('./test-files/test.bib', 0, qr/\QThe 'title' must be wrapped\E/s);
 assert_exec('--verbose ./test-files/test.bib', 0, qr/\QChecking knuth1974\E/s);
 assert_exec('--latex ./test-files/test.bib', 0, qr/\Q\PackageWarningNoLine{bibcop}{The 'title' must be wrapped\E/s);
 assert_exec('--fix ./test-files/test.bib', 0, qr/\Q{{The TeX Book}}\E/s);
-assert_exec('--verbose README.md', 0, qr/\QEach BibTeX entry must start with '@'\E/s);
+assert_exec('README.md', 0, qr/\QEach BibTeX entry must start with '@'\E/s);
+assert_exec('--verbose README.md', 0, qr/\Q0 entries found in README.md\E/s);
 
 assert_exec('missing-file.bib', 256, qr/\QCannot open file: missing-file.bib\E/s);
 assert_exec('--fix', 256, qr/\QFile name must be specified\E/s);
