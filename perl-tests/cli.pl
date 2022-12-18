@@ -41,7 +41,7 @@ assert_exec('--fix', 256, qr/\QFile name must be specified\E/s);
 
 sub assert_exec {
   my ($cmd, $e, $re) = @_;
-  my $args = "./bibcop.pl ${cmd} 2>&1";
+  my $args = "perl ./bibcop.pl ${cmd} 2>&1";
   my $stdout = `$args 2>&1`;
   my $exit = $?;
   if ($exit ne $e) {
