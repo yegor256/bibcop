@@ -25,8 +25,8 @@ package bibcop;
 use strict;
 use warnings;
 
-assert_exec('--version', 0, qr/\Q0.0.0\E/s);
-assert_exec('-v', 0, qr/\Q0.0.0\E/s);
+assert_exec('--version', 0, qr/[0-9]+\.[0-9]+\.[0-9]+/s);
+assert_exec('-v', 0, qr/[0-9]+\.[0-9]+\.[0-9]+/s);
 assert_exec('--help', 0, qr/\Q--version \E/s);
 assert_exec('-?', 0, qr/\QUsage:\E/s);
 assert_exec('./test-files/test.bib', 0, qr/\QThe 'title' must be wrapped\E/s);
