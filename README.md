@@ -8,7 +8,7 @@ This LaTeX package checks the quality of your `.bib` file and
 emits warning message if any issues found. You may also like
 [biblint](https://github.com/Kingsford-Group/biblint) and
 [biblatex-check](https://github.com/pezmc/biblatex-check) tools —
-they does almost the same but from the command line.
+they do _almost_ the same but from the command line.
 
 First, [install it](https://en.wikibooks.org/wiki/LaTeX/Installing_Extra_Packages)
 from [CTAN](https://ctan.org/pkg/bibcop)
