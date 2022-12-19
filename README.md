@@ -5,7 +5,7 @@
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/yegor256/bibcop/blob/master/LICENSE.txt)
 
 This LaTeX package checks the quality of your `.bib` file and
-emits warning message if any issues found. You may also like
+emits warning message if any issues are found. You may also like
 [biblint](https://github.com/Kingsford-Group/biblint) and
 [biblatex-check](https://github.com/pezmc/biblatex-check) tools —
 they do _almost_ the same but from the command line.
