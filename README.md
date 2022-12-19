@@ -23,9 +23,9 @@ and then use in the preamble (if you use BibTeX, for example):
 \end{document}
 ```
 
-Otherwise, you can download [`bibcop.sty`](https://raw.githubusercontent.com/yegor256/bibcop/gh-pages/bibcop/bibcop.sty) and add to your project.
+Otherwise, you can download [`bibcop.sty`](https://raw.githubusercontent.com/yegor256/bibcop/gh-pages/bibcop/bibcop.sty) and add to your project (together with [`bibcop.pl`](https://raw.githubusercontent.com/yegor256/bibcop/master/bibcop.pl)!).
 
-You can also download [bibcop.pl](https://raw.githubusercontent.com/yegor256/bibcop/master/bibcop.pl)
+You can also download [`bibcop.pl`](https://raw.githubusercontent.com/yegor256/bibcop/master/bibcop.pl)
 and use it as a command line tool
 to check your `.bib` files and to auto-fix them
 (you should have [Perl](https://www.perl.org) installed):
