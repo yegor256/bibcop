@@ -530,7 +530,7 @@ sub listed_tags {
 sub error {
   my ($txt) = @_;
   if (exists $args{'--latex'}) {
-    print "\\PackageError{bibcop}{$txt}\n";
+    print "\\PackageError{bibcop}{$txt}{}\n";
     exit 0;
   } else {
     print STDERR $txt . "\n";
