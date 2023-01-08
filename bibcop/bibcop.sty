@@ -74,10 +74,8 @@
 \makeatletter
 \ifdefined\bibcop@script\else
   \IfFileExists{bibcop.pl}
-    {\gdef\bibcop@script{./bibcop.pl}}
-    {\IfFileExists{../../../scripts/bibcop/bibcop.pl}
-      {\gdef\bibcop@script{../../../scripts/bibcop/bibcop.pl}}
-      {\PackageError{bibcop}{'bibcop.pl' file not found}{}}}
+    {\gdef\bibcop@script{perl ./bibcop.pl}}
+    {\gdef\bibcop@script{bibcop}}
 \fi
 \message{bibcop: The Perl script is at '\bibcop@script'^^J}%
 \makeatother
@@ -86,7 +84,7 @@
 \ifdefined\bibliography
   \let\bibcop@oldbibliography\bibliography
   \renewcommand\bibliography[1]{%
-    \iexec{perl "\bibcop@script"\space
+    \iexec{\bibcop@script\space
       \ifdefined\bibcop@verbose--verbose\fi\space
       --latex '#1.bib'}%
     \message{bibcop: style checking finished^^J}%
@@ -99,7 +97,7 @@
 \ifdefined\addbibresource
   \let\bibcop@oldaddbibresource\addbibresource
   \renewcommand\addbibresource[1]{%
-    \iexec{perl "\bibcop@script"\space
+    \iexec{\bibcop@script\space
       \ifdefined\bibcop@verbose--verbose\fi\space
       --latex '#1'}%
     \message{bibcop: style checking finished^^J}%
