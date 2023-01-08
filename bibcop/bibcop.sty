@@ -60,24 +60,33 @@
 
 
 
+
 \RequirePackage{iexec}
 
 \RequirePackage{pgfopts}
 \pgfkeys{
   /bibcop/.cd,
   verbose/.store in=\bibcop@verbose,
+  script/.store in = \bibcop@script,
 }
 \ProcessPgfPackageOptions{/bibcop}
 
-\RequirePackage{verbatimcopy}
-\VerbatimCopy{bibcop.pl}{bibcop.tmp.pl}
-\message{bibcop: File with Perl script 'bibcop.pl' copied^^J}%
+\makeatletter
+\ifdefined\bibcop@script\else
+  \IfFileExists{bibcop.pl}
+    {\gdef\bibcop@script{./bibcop.pl}}
+    {\IfFileExists{../../../scripts/bibcop/bibcop.pl}
+      {\gdef\bibcop@script{../../../scripts/bibcop/bibcop.pl}}
+      {\PackageError{bibcop}{'bibcop.pl' file not found}{}}}
+\fi
+\message{bibcop: The Perl script is at '\bibcop@script'^^J}%
+\makeatother
 
 \makeatletter
 \ifdefined\bibliography
   \let\bibcop@oldbibliography\bibliography
   \renewcommand\bibliography[1]{%
-    \iexec{perl "./bibcop.tmp.pl"\space
+    \iexec{perl "\bibcop@script"\space
       \ifdefined\bibcop@verbose--verbose\fi\space
       --latex '#1.bib'}%
     \message{bibcop: style checking finished^^J}%
@@ -90,7 +99,7 @@
 \ifdefined\addbibresource
   \let\bibcop@oldaddbibresource\addbibresource
   \renewcommand\addbibresource[1]{%
-    \iexec{perl "./bibcop.tmp.pl"\space
+    \iexec{perl "\bibcop@script"\space
       \ifdefined\bibcop@verbose--verbose\fi\space
       --latex '#1'}%
     \message{bibcop: style checking finished^^J}%
