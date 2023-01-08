@@ -37,6 +37,7 @@ assert_exec('README.md', 0, qr/\QEach BibTeX entry must start with '@'\E/s);
 assert_exec('--verbose README.md', 0, qr/\Q0 entries found in README.md\E/s);
 
 assert_exec('missing-file.bib', 256, qr/\QCannot open file: missing-file.bib\E/s);
+assert_exec('--latex missing-file.bib', 0, qr/\Q\PackageError{bibcop}{Cannot open file: missing-file.bib}{}\E/s);
 assert_exec('--fix', 256, qr/\QFile name must be specified\E/s);
 
 sub assert_exec {
