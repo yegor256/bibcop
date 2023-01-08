@@ -137,6 +137,18 @@
 %</verb>
 %\fi
 
+% \DescribeMacro{script}
+% The package depends on the |bibcop.pl| file, which is a Perl script that does all the work. This file is supposed to be located either in the current directory or in the |texmf-dist/scripts/bibcop/| directory. Using the |script| option the location of the script may be explicitly defined (it is not recommended to use this option unless there is a special demand for it):
+%\iffalse
+%<*verb>
+%\fi
+\begin{verbatim}
+\usepackage[script=my-perl-script.pl]{bibcop}
+\end{verbatim}
+%\iffalse
+%</verb>
+%\fi
+
 % \section{The Rules}
 
 % This is a more or less complete list of rules enforced on a |.bib| file:
@@ -388,17 +400,24 @@ booktitle = {{Proceedings of the International
 \pgfkeys{
   /bibcop/.cd,
   verbose/.store in=\bibcop@verbose,
+  script/.store in = \bibcop@script,
 }
 \ProcessPgfPackageOptions{/bibcop}
 %    \end{macrocode}
 
 % \begin{macro}{bibcop.pl}
-% Then, we copy the Perl script using |\VerbatimCopy| from
-% \href{https://ctan.org/pkg/verbatimcopy}{verbatimcopy}:
+% Then, we find the Perl script:
 %    \begin{macrocode}
-\RequirePackage{verbatimcopy}
-\VerbatimCopy{bibcop.pl}{bibcop.tmp.pl}
-\message{bibcop: File with Perl script 'bibcop.pl' copied^^J}%
+\makeatletter
+\ifdefined\bibcop@script\else
+  \IfFileExists{bibcop.pl}
+    {\gdef\bibcop@script{./bibcop.pl}}
+    {\IfFileExists{../../../scripts/bibcop/bibcop.pl}
+      {\gdef\bibcop@script{../../../scripts/bibcop/bibcop.pl}}
+      {\PackageError{bibcop}{'bibcop.pl' file not found}{}}}
+\fi
+\message{bibcop: The Perl script is at '\bibcop@script'^^J}%
+\makeatother
 %    \end{macrocode}
 % \end{macro}
 
@@ -409,7 +428,7 @@ booktitle = {{Proceedings of the International
 \ifdefined\bibliography
   \let\bibcop@oldbibliography\bibliography
   \renewcommand\bibliography[1]{%
-    \iexec{perl "./bibcop.tmp.pl"\space
+    \iexec{perl "\bibcop@script"\space
       \ifdefined\bibcop@verbose--verbose\fi\space
       --latex '#1.bib'}%
     \message{bibcop: style checking finished^^J}%
@@ -427,7 +446,7 @@ booktitle = {{Proceedings of the International
 \ifdefined\addbibresource
   \let\bibcop@oldaddbibresource\addbibresource
   \renewcommand\addbibresource[1]{%
-    \iexec{perl "./bibcop.tmp.pl"\space
+    \iexec{perl "\bibcop@script"\space
       \ifdefined\bibcop@verbose--verbose\fi\space
       --latex '#1'}%
     \message{bibcop: style checking finished^^J}%
