@@ -205,10 +205,17 @@ sub check_typography {
     '-' => 'dash',
     '--' => 'double dash',
     '---' => 'triple dash',
+    '(' => 'opening bracket',
+    ')' => 'closing bracket',
+    '[' => 'opening square bracket',
+    ']' => 'closing square bracket',
   );
   my @spaces_around = ( '---' );
   my @no_spaces_around = ( '--', '-' );
-  my @no_space_before = ( '.', ',', ';', ':', '?', '!' );
+  my @no_space_before = ( '.', ',', ';', ':', '?', '!', ')', ']' );
+  my @no_space_after = ( '(', '[' );
+  my @space_before = ( '(', '[' );
+  my @space_after = ( ')', ']' );
   my @bad_tails = ( '.', ',', ';', ':', '-' );
   foreach my $tag (keys %entry) {
     if ($tag =~ /^:.*/) {
@@ -226,6 +233,22 @@ sub check_typography {
     foreach my $s (@no_space_before) {
       if ($value =~ /^.*\s\Q$s\E.*$/) {
         return "In the '$tag', do not put a space before a $symbols{$s}"
+      }
+    }
+    foreach my $s (@no_space_after) {
+      if ($value =~ /^.*\Q$s\E\s.*$/) {
+        return "In the '$tag', do not put a space after a $symbols{$s}"
+      }
+    }
+    foreach my $s (@space_before) {
+      if ($value =~ /^.*[^\s]\Q$s\E.*$/) {
+        return "In the '$tag', put a space before a $symbols{$s}"
+      }
+    }
+    foreach my $s (@space_after) {
+      my $p = join('', @no_space_before);
+      if ($value =~ /^.*\Q$s\E[^\s\Q$p\E].*$/) {
+        return "In the '$tag', put a space after a $symbols{$s}"
       }
     }
     foreach my $s (@spaces_around) {
