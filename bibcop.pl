@@ -508,7 +508,7 @@ sub entries {
       }
       $escape = 0;
     } else {
-      warning("It is impossible to parse the .bib file, because I do not know what to do with '$char' at line #$lineno (s=$s)");
+      warning("It is impossible to parse the .bib file, because I do not know what to do with '$char' at line no.$lineno (s=$s)");
       last;
     }
     if ($char eq ' ' and not($s =~ /quote|brackets/)) {
