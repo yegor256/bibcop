@@ -65,9 +65,10 @@ assert(entries('no bibs')+0, 0);
 assert(entries('@misc{---}')+0, 0);
 assert(entries('@misc{hello, ??}')+0, 0);
 
-entries('');
-entries('@misc{k1,a={{x}{y}{}},b="{f}{x}",}');
-entries('@article{k1_34} @misc{do43ss,Title=,Year=1998}');
-entries("\@article{t1}\n\n\n\@misc{ff,year=1998}");
+assert(entries('')+0, 0);
+assert(entries('@misc{k1,a={{x}{y}{}},b="{f}{x}",}')+0, 1);
+assert(entries('@article{k1_34} @misc{do43ss,Title=,Year=1998}')+0, 2);
+assert(entries("\@article{t1}\n\n\n\@misc{ff,year=1998}")+0, 2);
+assert(entries('@misc{42i-88/7.7,a=hello}')+0, 1);
 
 1;

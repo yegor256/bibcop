@@ -442,10 +442,10 @@ sub entries {
       $entry{':type'} = substr($acc, 1);
       $acc = '';
       $s = 'body';
-    } elsif ($char =~ /[a-zA-Z]/ and $s eq 'body') {
+    } elsif ($char =~ /[a-zA-Z0-9]/ and $s eq 'body') {
       $acc = '';
       $s = 'tag';
-    } elsif ($char =~ /[a-zA-Z0-9_]/ and $s eq 'tag') {
+    } elsif ($char =~ /[a-zA-Z0-9_\.\-\/]/ and $s eq 'tag') {
       # reading the tag
     } elsif ($char =~ /[a-zA-Z0-9]/ and $s eq 'value') {
       # reading the value without quotes or brackets
