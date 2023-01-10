@@ -264,6 +264,24 @@ sub check_typography {
   }
 }
 
+# Check that no values have non-ASCII symbols.
+sub check_ascii {
+  my (%entry) = @_;
+  foreach my $tag (keys %entry) {
+    if ($tag =~ /^:.*/) {
+      next;
+    }
+    my $value = $entry{$tag};
+    for my $pos (0..length($value)-1) {
+      my $char = substr($value, $pos, 1);
+      my $ord = ord($char);
+      if ($ord < 20 or $ord > 0x7f) {
+        return "In the '$tag', don't use Unicode symbol '0x" . (sprintf '%04x', $ord) . "'"
+      }
+    }
+  }
+}
+
 # Check the year is not mentioned in titles.
 sub check_year_in_titles {
   my (%entry) = @_;

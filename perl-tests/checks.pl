@@ -25,7 +25,10 @@ package bibcop;
 use strict;
 use warnings;
 
-my $f = 'check_typography';
+my $f = 'check_ascii';
+check_fails($f, ('title' => 'привет'));
+
+$f = 'check_typography';
 check_fails($f, ('title' => 'A redundant space , before the comma'));
 check_fails($f, ('title' => 'A redundant space . before the dot'));
 check_fails($f, ('title' => 'A redundant space ; before the semi'));
