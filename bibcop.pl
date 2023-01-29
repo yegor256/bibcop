@@ -435,6 +435,7 @@ sub entries {
   my %entry;
   my $acc = '';
   my $tag = '';
+  my $interrupted = ''; # where the comment interrupted the proceeding (state name)
   my $lineno = 0;
   my $nest = 0;
   my $escape = 0;
@@ -442,9 +443,17 @@ sub entries {
     my $char = substr($bib, $pos, 1);
     if ($char eq ' ') {
       # ignore the white space
+    } elsif ($char eq '%' and not($s eq 'quote')) {
+      $interrupted = $s;
+      $s = 'comment';
     } elsif ($char eq "\n") {
       # ignore the EOL
       $lineno = $lineno + 1;
+      if ($s eq 'comment') {
+        $s = $interrupted;
+      }
+    } elsif ($s eq 'comment') {
+      # ignore the comment
     } elsif ($s eq 'top') {
       if ($char eq '@') {
         %entry = ();

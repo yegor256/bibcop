@@ -60,6 +60,10 @@ my @i6 = entries('@misc{x2,year=2021,year=1989}');
 assert(@i6+0, 1);
 assert($i6[0]{'year'}, '2021');
 
+my @i7 = entries("\% a comment\n \@misc{x7}\n");
+# show(@i7);
+assert(@i7+0, 1);
+
 # These are all parsing errors
 assert(entries('no bibs')+0, 0);
 assert(entries('@misc{---}')+0, 0);
