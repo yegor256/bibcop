@@ -36,7 +36,7 @@ my %args = map { $_ => 1 } @ARGV;
 my %blessed = (
   'article' => ['doi', 'year', 'title', 'author', 'journal', 'volume', 'number', 'publisher?', 'pages?'],
   'inproceedings' => ['doi', 'booktitle', 'title', 'author', 'year', 'pages?', 'organization?', 'volume?'],
-  'book' => ['doi', 'title', 'author', 'year', 'publisher'],
+  'book' => ['title', 'author', 'year', 'publisher', 'doi?'],
   'misc' => ['title', 'author', 'year', 'eprint?', 'archiveprefix?', 'primaryclass?', 'publisher?', 'organization?', 'doi?', 'url?'],
 );
 
@@ -232,33 +232,33 @@ sub check_typography {
     }
     foreach my $s (@no_space_before) {
       if ($value =~ /^.*\s\Q$s\E.*$/) {
-        return "In the '$tag', do not put a space before a $symbols{$s}"
+        return "In the '$tag', do not put a space before the $symbols{$s}"
       }
     }
     foreach my $s (@no_space_after) {
       if ($value =~ /^.*\Q$s\E\s.*$/) {
-        return "In the '$tag', do not put a space after a $symbols{$s}"
+        return "In the '$tag', do not put a space after the $symbols{$s}"
       }
     }
     foreach my $s (@space_before) {
       if ($value =~ /^.*[^\s]\Q$s\E.*$/) {
-        return "In the '$tag', put a space before a $symbols{$s}"
+        return "In the '$tag', put a space before the $symbols{$s}"
       }
     }
     foreach my $s (@space_after) {
       my $p = join('', @no_space_before);
       if ($value =~ /^.*\Q$s\E[^\s\Q$p\E].*$/) {
-        return "In the '$tag', put a space after a $symbols{$s}"
+        return "In the '$tag', put a space after the $symbols{$s}"
       }
     }
     foreach my $s (@spaces_around) {
       if ($value =~ /^.*[^\s]\Q$s\E.*$/ or $value =~ /^.*\Q$s\E[^\s].*$/) {
-        return "In the '$tag', put spaces around a $symbols{$s}"
+        return "In the '$tag', put spaces around the $symbols{$s}"
       }
     }
     foreach my $s (@no_spaces_around) {
       if ($value =~ /^.*\s\Q$s\E\s.*$/) {
-        return "In the '$tag', don't put spaces around a $symbols{$s}"
+        return "In the '$tag', don't put spaces around the $symbols{$s}"
       }
     }
   }
