@@ -25,10 +25,10 @@ package bibcop;
 use strict;
 use warnings;
 
-my @i1 = entries('@misc{knuth1984, author  ={Donald Knuth}, Title="The TeX Book "}');
+my @i1 = entries('@misc{knuth-1984:x, author  ={Donald Knuth}, Title="The TeX Book "}');
 # show(@i1);
 assert(@i1+0, 1);
-assert($i1[0]{':name'}, 'knuth1984');
+assert($i1[0]{':name'}, 'knuth-1984:x');
 assert($i1[0]{':type'}, 'misc');
 assert($i1[0]{'author'}, 'Donald Knuth');
 assert($i1[0]{'title'}, 'The TeX Book ');
