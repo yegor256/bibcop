@@ -100,6 +100,10 @@ check_fails($f, ('pages' => '32--12'));
 check_passes($f, ('pages' => '123'));
 check_passes($f, ('pages' => '42--43'));
 
+$f = 'check_type_capitalization';
+check_fails($f, (':type' => 'Article'));
+check_passes($f, (':type' => 'article'));
+
 $f = 'check_arXiv';
 check_fails($f, ('archiveprefix' => 'arXiv'));
 check_fails($f, ('archiveprefix' => 'arXiv', 'eprint' => '2111.13384'));

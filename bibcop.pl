@@ -264,6 +264,15 @@ sub check_typography {
   }
 }
 
+# Check that the type is small letters.
+sub check_type_capitalization {
+  my (%entry) = @_;
+  my $type = $entry{':type'};
+  if (not $type =~ /^[a-z]+$/) {
+    return "The type '$type' must be lower-cased"
+  }
+}
+
 # Check that no values have non-ASCII symbols.
 sub check_ascii {
   my (%entry) = @_;
@@ -463,7 +472,7 @@ sub entries {
         warning("Each BibTeX entry must start with '\@', what is '$char'?");
         last;
       }
-    } elsif ($char =~ /[a-z]/ and $s eq 'start') {
+    } elsif ($char =~ /[a-zA-Z]/ and $s eq 'start') {
       # @article
     } elsif ($char eq '{' and $s eq 'start') {
       $entry{':type'} = substr($acc, 1);
