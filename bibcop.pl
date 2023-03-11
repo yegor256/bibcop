@@ -241,7 +241,7 @@ sub check_typography {
       }
     }
     foreach my $s (@space_before) {
-      if ($value =~ /^.*[^\s]\Q$s\E.*$/) {
+      if ($value =~ /^.*[^\{\s]\Q$s\E.*$/) {
         return "In the '$tag', put a space before the $symbols{$s}"
       }
     }

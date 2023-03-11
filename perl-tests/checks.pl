@@ -47,6 +47,7 @@ check_fails($f, ('title' => 'No spaces around the---triple dash'));
 check_fails($f, ('title' => 'Not enough spaces around the--- triple dash'));
 check_fails($f, ('title' => 'Not enough spaces around the ---triple dash'));
 check_fails($f, ('title' => 'Spaces around the double -- dash are not allowed'));
+check_passes($f, ('title' => 'Proper space before the {(bracket)}'));
 check_passes($f, ('title' => '{No spaces after the last in the text closing (bracket)}'));
 check_passes($f, ('title' => 'No spaces after the last in the text closing (bracket)'));
 check_passes($f, ('title' => 'Proper placement of, with no space in front of it'));
