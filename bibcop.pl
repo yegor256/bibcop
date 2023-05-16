@@ -445,6 +445,12 @@ sub fix_author {
   return join(' and ', @authors);
 }
 
+sub fix_number {
+  my ($value) = @_;
+  $value =~ s/^0+//g;
+  return $value;
+}
+
 # Parse the incoming .bib file and return an array
 # of hash-maps, where each one is a bibentry.
 sub entries {

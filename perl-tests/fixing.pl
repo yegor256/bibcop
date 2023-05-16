@@ -31,6 +31,10 @@ fixes('author', ' Knuth, Donald E   and others ', 'Knuth, Donald E. and others')
 fixes('author', 'Knuth, Donald E.', 'Knuth, Donald E.');
 fixes('author', 'Jerome, K Jerome', 'Jerome, K. Jerome');
 
+fixes('number', '02', '2');
+fixes('number', '007', '7');
+fixes('number', '16', '16');
+
 sub fixes {
   my ($tag, $before, $expected) = @_;
   my $fixer = "fix_$tag";
