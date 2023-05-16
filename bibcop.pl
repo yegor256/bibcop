@@ -743,14 +743,14 @@ if (@ARGV+0 eq 0 or exists $args{'--help'} or exists $args{'-?'}) {
           next;
         }
         my $value = clean_tex($entry{$tag});
-        if ($tag =~ /title|booktitle|journal/) {
-          $value = '{' . $value . '}';
-        }
         my $fixer = "fix_$tag";
         my $fixed = $value;
         if (defined &{$fixer}) {
           no strict 'refs';
           $value = $fixer->($value);
+        }
+        if ($tag =~ /title|booktitle|journal/) {
+          $value = '{' . $value . '}';
         }
         push(@lines, "  $tag = {$value},");
       }
