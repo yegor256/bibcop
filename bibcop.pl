@@ -435,6 +435,11 @@ sub process_entry {
   return @errors;
 }
 
+sub fix_author {
+  my ($value) = @_;
+  return $value;
+}
+
 # Parse the incoming .bib file and return an array
 # of hash-maps, where each one is a bibentry.
 sub entries {
@@ -669,6 +674,11 @@ if (@ARGV+0 eq 0 or exists $args{'--help'} or exists $args{'-?'}) {
         my $value = clean_tex($entry{$tag});
         if ($tag =~ /title|booktitle|journal/) {
           $value = '{' . $value . '}';
+        }
+        my $fixer = "fix_$tag";
+        my $fixed = $value;
+        if (defined &{$fixer}) {
+          $value = $fixer->($value);
         }
         push(@lines, "  $tag = {$value},");
       }

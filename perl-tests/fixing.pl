@@ -1,4 +1,3 @@
-#!/usr/bin/perl
 # (The MIT License)
 #
 # Copyright (c) 2022-2023 Yegor Bugayenko
@@ -23,45 +22,20 @@
 
 package bibcop;
 
-use warnings;
 use strict;
+use warnings;
 
-# Assert on the value and exit if error.
-sub assert {
-  my ($l, $r) = @_;
-  if ($l ne $r) {
-    print "'$l' ne '$r'\n";
+fixes('author', 'Knuth, Donald E', 'Knuth, Donald E.');
+
+sub fixes {
+  my ($tag, $before, $expected) = @_;
+  my $fixer = "fix_$tag";
+  no strict 'refs';
+  my $after = $fixer->($before);
+  if ($after ne $expected) {
+    print "Didn't fix \"$before\" into \"$expected\", but into \"$after\" instead\n";
     exit 1;
   }
 }
 
-# Print entry to console.
-sub show_entry {
-  my (%entry) = @_;
-  print "{\n";
-  foreach my $k (keys %entry) {
-    print "  $k = {$entry{$k}}\n";
-  }
-  print "}\n";
-}
-
-# Print entries to console.
-sub show {
-  my (@entries) = @_;
-  print 'Total entries: ' . (@entries+0) . "\n";
-  for my $i (0..(@entries+0 - 1)) {
-    my %entry = %{ $entries[$i] };
-    show_entry(%entry);
-  }
-}
-
-require './bibcop.pl';
-require './perl-tests/parsing.pl';
-require './perl-tests/checking.pl';
-require './perl-tests/fixing.pl';
-require './perl-tests/functions.pl';
-require './perl-tests/checks.pl';
-require './perl-tests/cli.pl';
-
-print "\033[0;32mGREAT!\033[0m All tests are green.\n";
-
+1;
