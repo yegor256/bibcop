@@ -40,6 +40,8 @@ my %blessed = (
   'misc' => ['title', 'author', 'year', 'eprint?', 'archiveprefix?', 'primaryclass?', 'publisher?', 'organization?', 'doi?', 'url?'],
 );
 
+my %minors = map { $_ => 1 } qw/in of at to by the a an and or as if up via yet nor but off on for into/;
+
 # Check the presence of mandatory tags.
 sub check_mandatory_tags {
   my (%entry) = @_;
@@ -71,7 +73,6 @@ sub check_mandatory_tags {
 sub check_capitalization {
   my (%entry) = @_;
   my %tags = map { $_ => 1 } qw/title booktitle journal publisher organization/;
-  my %minors = map { $_ => 1 } qw/in of at to by the a an and or as if up via yet nor but off on for into/;
   foreach my $tag (keys %entry) {
     if (not exists $tags{$tag}) {
       next;
@@ -448,6 +449,62 @@ sub fix_author {
 sub fix_number {
   my ($value) = @_;
   $value =~ s/^0+//g;
+  return $value;
+}
+
+sub fix_capitalization {
+  my ($value) = @_;
+  my @words = split(/\s+/, $value);
+  my $pos = 0;
+  foreach my $word (@words) {
+    $pos += 1;
+    if (not $word =~ /^[A-Za-z]/) {
+      next;
+    }
+    if (exists $minors{$word}) {
+      next;
+    }
+    if (exists $minors{lc($word)} and $pos gt 1) {
+      $word = lc($word);
+      next;
+    }
+    if ($word =~ /^[a-z].*/) {
+      $word =~ s/^([a-z])/\U\1/g;
+    }
+    if (index($word, '-') != -1) {
+      $word =~ s/-([a-z])/-\U\1/g;
+    }
+  }
+  return join(' ', @words);
+}
+
+sub fix_title {
+  my ($value) = @_;
+  $value = fix_capitalization($value);
+  return $value;
+}
+
+sub fix_booktitle {
+  my ($value) = @_;
+  $value = fix_capitalization($value);
+  return $value;
+}
+
+sub fix_journal {
+  my ($value) = @_;
+  $value = fix_capitalization($value);
+  return $value;
+}
+
+sub fix_publisher {
+  my ($value) = @_;
+  $value = fix_capitalization($value);
+  return $value;
+}
+
+sub fix_organization {
+  my ($value) = @_;
+  $value = fix_capitalization($value);
   return $value;
 }
 

@@ -5,4 +5,4 @@ runsystem((perl ./bibcop.pl --verbose --latex 'main.bib') > iexec.tmp 2>&1; /bin
 (iexec.tmp
 ! Undefined control sequence.
 l. ...\1
-       better written as $1 at ./bibcop.pl line 443. 
+       better written as $1 at ./bibcop.pl line 444. 
