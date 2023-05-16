@@ -441,7 +441,7 @@ sub fix_author {
   my @authors = split(/\s?and\s?/, $value);
   foreach my $author (@authors) {
     $author =~ s/^\s+|\s+$//g;
-    $author =~ s/ ([A-Z])($| )/ \1.\2/g;
+    $author =~ s/ ([A-Z])($| )/ $1.$2/g;
   }
   return join(' and ', @authors);
 }
@@ -469,10 +469,10 @@ sub fix_capitalization {
       next;
     }
     if ($word =~ /^[a-z].*/) {
-      $word =~ s/^([a-z])/\U\1/g;
+      $word =~ s/^([a-z])/\U$1/g;
     }
     if (index($word, '-') != -1) {
-      $word =~ s/-([a-z])/-\U\1/g;
+      $word =~ s/-([a-z])/-\U$1/g;
     }
   }
   return join(' ', @words);
@@ -487,6 +487,9 @@ sub fix_title {
 sub fix_booktitle {
   my ($value) = @_;
   $value = fix_capitalization($value);
+  if (index($value, 'Proceedings ') != 0) {
+    $value = 'Proceedings of the ' . $value;
+  }
   return $value;
 }
 
