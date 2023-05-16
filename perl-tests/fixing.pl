@@ -38,6 +38,12 @@ fixes('title', 'Executing a program on the MIT Tagged-token Dataflow architectur
 fixes('booktitle', 'Proceedings of IEEE Symposium on Art', 'Proceedings of IEEE Symposium on Art');
 fixes('booktitle', 'Symposium on Computers', 'Proceedings of the Symposium on Computers');
 
+fixes('pages', '13', '13');
+fixes('pages', '100-110', '100--110');
+fixes('pages', '2---33', '2--33');
+fixes('pages', '22—23', '22--23');
+fixes('pages', '05---07', '5--7');
+
 fixes('number', '02', '2');
 fixes('number', '007', '7');
 fixes('number', '16', '16');

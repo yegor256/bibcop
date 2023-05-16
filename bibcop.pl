@@ -484,6 +484,17 @@ sub fix_title {
   return $value;
 }
 
+sub fix_pages {
+  my ($value) = @_;
+  if ($value =~ /^[1-9][0-9]*$/) {
+    return $value;
+  }
+  my ($left, $right) = split(/---|-|—|\s/, $value);
+  $left =~ s/^0+//g;
+  $right =~ s/^0+//g;
+  return $left . '--' . $right;
+}
+
 sub fix_booktitle {
   my ($value) = @_;
   $value = fix_capitalization($value);
