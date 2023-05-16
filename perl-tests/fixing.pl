@@ -26,6 +26,10 @@ use strict;
 use warnings;
 
 fixes('author', 'Knuth, Donald E', 'Knuth, Donald E.');
+fixes('author', 'Knuth, Donald E and Duane, Bibby', 'Knuth, Donald E. and Duane, Bibby');
+fixes('author', ' Knuth, Donald E   and others ', 'Knuth, Donald E. and others');
+fixes('author', 'Knuth, Donald E.', 'Knuth, Donald E.');
+fixes('author', 'Jerome, K Jerome', 'Jerome, K. Jerome');
 
 sub fixes {
   my ($tag, $before, $expected) = @_;

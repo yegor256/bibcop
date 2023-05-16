@@ -437,7 +437,12 @@ sub process_entry {
 
 sub fix_author {
   my ($value) = @_;
-  return $value;
+  my @authors = split(/\s?and\s?/, $value);
+  foreach my $author (@authors) {
+    $author =~ s/^\s+|\s+$//g;
+    $author =~ s/ ([A-Z])($| )/ \1.\2/g;
+  }
+  return join(' and ', @authors);
 }
 
 # Parse the incoming .bib file and return an array
@@ -678,6 +683,7 @@ if (@ARGV+0 eq 0 or exists $args{'--help'} or exists $args{'-?'}) {
         my $fixer = "fix_$tag";
         my $fixed = $value;
         if (defined &{$fixer}) {
+          no strict 'refs';
           $value = $fixer->($value);
         }
         push(@lines, "  $tag = {$value},");
