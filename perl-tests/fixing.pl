@@ -35,7 +35,7 @@ fixes('title', 'The TeX Book', 'The TeX Book');
 fixes('title', 'Executing a program on the MIT architecture', 'Executing a Program on the MIT Architecture');
 fixes('title', 'Executing a program on the MIT Tagged-token Dataflow architecture', 'Executing a Program on the MIT Tagged-Token Dataflow Architecture');
 
-fixes('booktitle', 'Proceedings of IEEE Symposium on Art', 'Proceedings of IEEE Symposium on Art');
+fixes('booktitle', 'Proceedings Of IEEE Symposium On Art', 'Proceedings of IEEE Symposium on Art');
 fixes('booktitle', 'Symposium on Computers', 'Proceedings of the Symposium on Computers');
 
 fixes('pages', '13', '13');
