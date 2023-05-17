@@ -102,6 +102,7 @@ check_fails($f, ('pages' => '32--32'));
 check_fails($f, ('pages' => '32--12'));
 check_passes($f, ('pages' => '123'));
 check_passes($f, ('pages' => '42--43'));
+check_passes($f, ('pages' => '89--100'));
 
 $f = 'check_type_capitalization';
 check_fails($f, (':type' => 'Article'));

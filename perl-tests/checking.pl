@@ -55,7 +55,7 @@ passes((
   'year' => '1984',
   'volume' => '32',
   'doi' => '10.5555/1102013',
-  'pages' => '22--33'
+  'pages' => '89--100'
 ));
 passes((
   ':type' => 'inproceedings',

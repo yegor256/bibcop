@@ -391,8 +391,8 @@ sub check_pages {
       if ($parts[0] eq $parts[1]) {
         return "The 'pages' mentions the same page twice, just use it once"
       }
-      if ($parts[0] gt $parts[1]) {
-        return "The 'pages' are in the wrong order"
+      if ($parts[0] > $parts[1]) {
+        return "The 'pages' are in the wrong order, since $parts[0] is greater than $parts[1]"
       }
     }
   }
