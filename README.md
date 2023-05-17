@@ -12,7 +12,7 @@ they do _almost_ the same but from the command line.
 
 First, [install it](https://en.wikibooks.org/wiki/LaTeX/Installing_Extra_Packages)
 from [CTAN](https://ctan.org/pkg/bibcop)
-and then use in the preamble (if you use BibTeX, for example):
+and then use in the preamble (if you use [BibTeX](http://www.bibtex.org/), for example):
 
 ```tex
 \documentclass{article}
