@@ -85,6 +85,7 @@ check_passes($f, ('author' => 'Knuth, Donald E.'));
 check_passes($f, ('author' => 'Knuth, Donald E. and others'));
 check_passes($f, ('author' => 'Knuth, Donald E. and Duane, Bibby'));
 check_passes($f, ('author' => '{Some Weird Author} and {I}'));
+check_passes($f, ('author' => '{\'A}lvarez, Carlos and Jim{\'e}nez-Gonz{\'a}lez, Daniel'));
 
 $f = 'check_capitalization';
 check_fails($f, ('title' => 'The TeX book'));

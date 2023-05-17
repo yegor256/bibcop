@@ -101,14 +101,21 @@ sub check_capitalization {
 # Check that the 'author' is formatted correctly.
 sub check_author {
   my (%entry) = @_;
-  if (exists $entry{'author'} and not $entry{'author'} =~ /^\{.+\}$/) {
-    my $author = clean_tex($entry{'author'});
-    if (not $author =~ /^[A-Z][^ ]+(,( [A-Z][^ ]+)+)?( and [A-Z][^ ]+(,( [A-Z][^ ]+)+)?)*( and others)?$/) {
-      return "The format of the 'author' is wrong, use something like 'Knuth, Donald E. and Duane, Bibby'"
-    }
-    if ($author =~ /.*[A-Z]([ ,]|$).*/) {
-      return "A shortened name must have a tailing dot, as in 'Knuth, Donald E.'"
-    }
+  if (not exists $entry{'author'}) {
+    return;
+  }
+  if ($entry{'author'} =~ /^\{.+\}$/) {
+    return;
+  }
+  my $author = clean_tex($entry{'author'});
+  if (index($author, '{') != -1) {
+    return;
+  }
+  if (not $author =~ /^[A-Z][^ ]+(,( [A-Z][^ ]+)+)?( and [A-Z][^ ]+(,( [A-Z][^ ]+)+)?)*( and others)?$/) {
+    return "The format of the 'author' is wrong, use something like 'Knuth, Donald E. and Duane, Bibby'"
+  }
+  if ($author =~ /.*[A-Z]([ ,]|$).*/) {
+    return "A shortened name must have a tailing dot, as in 'Knuth, Donald E.'"
   }
 }
 
