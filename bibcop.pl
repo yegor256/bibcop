@@ -731,6 +731,10 @@ if (@ARGV+0 eq 0 or exists $args{'--help'} or exists $args{'-?'}) {
     "  -?, --help      Print this help screen\n" .
     "      --fix       Fix the errors and print a new version of the .bib file to the console\n" .
     "      --verbose   Print supplementary debugging information\n" .
+    "      --no:XXX    Disable one of the following checks (e.g. --no:wraps):\n" .
+    "                    caps    All major words in titles and book titles must be capitalized\n" .
+    "                    wraps   Double curly braces are required around titles and book titles\n" .
+    "                    doi     The presence of the 'doi' tag is mandatory in all entries\n" .
     "      --latex     Report errors in LaTeX format using \\PackageWarningNoLine command\n\n" .
     "If any issues, report to GitHub: https://github.com/yegor256/bibcop");
 } elsif (exists $args{'--version'} or exists $args{'-v'}) {

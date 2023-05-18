@@ -149,6 +149,24 @@
 %</verb>
 %\fi
 
+% \DescribeMacro{no*}
+% It's possible to suppress certain checks, by using one of the |no*| package options:
+%\iffalse
+%<*verb>
+%\fi
+\begin{verbatim}
+\usepackage[nodoi,nowraps]{bibcop}
+\end{verbatim}
+%\iffalse
+%</verb>
+%\fi
+% The following options are available:
+% \begin{itemize}
+% \item |nocaps| disables the major words capitalization requirement for all titles and book titles;
+% \item |nowraps| disables the requirement for double curly braces in all titles and book titles;
+% \item |nodoi| disables the requirement for the |doi| tag in all entries.
+% \end{itemize}
+
 % \section{The Rules}
 
 % This is a more or less complete list of rules enforced on a |.bib| file:
@@ -403,6 +421,9 @@ booktitle = {{Proceedings of the International
 \RequirePackage{pgfopts}
 \pgfkeys{
   /bibcop/.cd,
+  nocaps/.store in=\bibcop@nocaps,
+  nodoi/.store in=\bibcop@nodoi,
+  nowraps/.store in=\bibcop@nowraps,
   verbose/.store in=\bibcop@verbose,
   script/.store in = \bibcop@script,
 }
@@ -423,6 +444,22 @@ booktitle = {{Proceedings of the International
 %    \end{macrocode}
 % \end{macro}
 
+% \begin{macro}{\bibcop@exec}
+% Then, we define a supplementary command to exec the Perl script:
+%    \begin{macrocode}
+\makeatletter
+\newcommand\bibcop@exec[1]{
+  \iexec{\bibcop@script\space
+    \ifdefined\bibcop@verbose--verbose\fi\space
+    \ifdefined\bibcop@nodoi--no:doi\fi\space
+    \ifdefined\bibcop@nocaps--no:caps\fi\space
+    \ifdefined\bibcop@nowraps--no:wraps\fi\space
+    --latex '#1'}%
+  \message{bibcop: style checking finished for #1^^J}%
+}
+\makeatother
+
+
 % \begin{macro}{\bibliography}
 % Then, we re-define the |\bibliography| command:
 %    \begin{macrocode}
@@ -430,10 +467,7 @@ booktitle = {{Proceedings of the International
 \ifdefined\bibliography
   \let\bibcop@oldbibliography\bibliography
   \renewcommand\bibliography[1]{%
-    \iexec{\bibcop@script\space
-      \ifdefined\bibcop@verbose--verbose\fi\space
-      --latex '#1.bib'}%
-    \message{bibcop: style checking finished^^J}%
+    \bibcop@exec{#1.bib}%
     \bibcop@oldbibliography{#1}%
   }
 \fi
@@ -448,10 +482,7 @@ booktitle = {{Proceedings of the International
 \ifdefined\addbibresource
   \let\bibcop@oldaddbibresource\addbibresource
   \renewcommand\addbibresource[1]{%
-    \iexec{\bibcop@script\space
-      \ifdefined\bibcop@verbose--verbose\fi\space
-      --latex '#1'}%
-    \message{bibcop: style checking finished^^J}%
+    \bibcop@exec{#1}%
     \bibcop@oldaddbibresource{#1}%
   }
 \fi
