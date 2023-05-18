@@ -65,7 +65,7 @@ check_passes($f, ('title' => 'Proper formatting of (brackets)? with no space aft
 check_passes($f, ('title' => 'Proper formatting of (brackets): with no space after it'));
 check_passes($f, ('title' => 'Proper formatting of (brackets); with no space after it'));
 
-$f = 'check_titles';
+$f = 'check_wrapping';
 check_fails($f, ('title' => 'The title is not surrounded by curled brackets'));
 check_passes($f, ('title' => '{This title is surrounded}'));
 

@@ -144,7 +144,7 @@ sub check_shortenings {
 }
 
 # Check the right format of the 'title' and 'booktitle.'
-sub check_titles {
+sub check_wrapping {
   if (exists $args{'--no:wraps'}) {
     return;
   }
