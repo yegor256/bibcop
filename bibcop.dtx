@@ -162,10 +162,11 @@
 %\fi
 % The following options are available:
 % \begin{itemize}
-% \item |nocaps| disables the major words capitalization requirement for all titles and book titles;
-% \item |nowraps| disables the requirement for double curly braces in all titles and book titles;
-% \item |nodoi| disables the requirement for the |doi| tag in all entries.
-% \item |inproc| disables the requirement for the |booktitle| tag in |@inproceedings| entries to start with ``Proceedings of the''.
+% \item |nocaps| allows arbitrary capitalization in titles;
+% \item |nowraps| allows titles to have no double curly braces;
+% \item |nodoi| allows the absence of the |doi| tag in all entries;
+% \item |noinproc| allows the |booktitle| tag in |@inproceedings| entries to not start with ``Proceedings of the'';
+% \item |noorg| allows mentioning of ACM/IEEE in the |booktitle| tag.
 % \end{itemize}
 
 % \section{The Rules}
@@ -424,6 +425,7 @@ booktitle = {{Proceedings of the International
 \RequirePackage{pgfopts}
 \pgfkeys{
   /bibcop/.cd,
+  noorg/.store in=\bibcop@noorg,
   noinproc/.store in=\bibcop@noinproc,
   nocaps/.store in=\bibcop@nocaps,
   nodoi/.store in=\bibcop@nodoi,
@@ -455,6 +457,7 @@ booktitle = {{Proceedings of the International
 \newcommand\bibcop@exec[1]{
   \iexec{\bibcop@script\space
     \ifdefined\bibcop@verbose--verbose\fi\space
+    \ifdefined\bibcop@noinproc--no:org\fi\space
     \ifdefined\bibcop@noinproc--no:inproc\fi\space
     \ifdefined\bibcop@nodoi--no:doi\fi\space
     \ifdefined\bibcop@nocaps--no:caps\fi\space

@@ -190,6 +190,9 @@ sub check_arXiv {
 
 # Check that organization is not mentioned in the booktitle.
 sub check_org_in_booktitle {
+  if (exists $args{'--no:org'}) {
+    return;
+  }
   my (%entry) = @_;
   my @orgs = ( 'ACM', 'IEEE' );
   if (exists($entry{'booktitle'})) {
@@ -754,6 +757,7 @@ if (@ARGV+0 eq 0 or exists $args{'--help'} or exists $args{'-?'}) {
     "                    wraps   Double curly braces are required around titles and booktitles\n" .
     "                    doi     The presence of the 'doi' tag is mandatory in all entries\n" .
     "                    inproc  The booktitle of \@inproceedings must start with 'Proceedings of the'\n" .
+    "                    org     The booktitle may not mention ACM or IEEE\n" .
     "      --latex     Report errors in LaTeX format using \\PackageWarningNoLine command\n\n" .
     "If any issues, report to GitHub: https://github.com/yegor256/bibcop");
 } elsif (exists $args{'--version'} or exists $args{'-v'}) {
