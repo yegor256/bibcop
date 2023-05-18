@@ -44,6 +44,9 @@ my %minors = map { $_ => 1 } qw/in of at to by the a an and or as if up via yet 
 
 # Check the presence of mandatory tags.
 sub check_mandatory_tags {
+  if (exists $args{'--no:tags'}) {
+    return;
+  }
   my (%entry) = @_;
   my $type = $entry{':type'};
   my $mandatory = $blessed{$type};
@@ -753,6 +756,7 @@ if (@ARGV+0 eq 0 or exists $args{'--help'} or exists $args{'-?'}) {
     "      --fix       Fix the errors and print a new version of the .bib file to the console\n" .
     "      --verbose   Print supplementary debugging information\n" .
     "      --no:XXX    Disable one of the following checks (e.g. --no:wraps):\n" .
+    "                    tags    Only some tags are allowed, while some of them are mandatory\n" .
     "                    caps    All major words in titles and booktitles must be capitalized\n" .
     "                    wraps   Double curly braces are required around titles and booktitles\n" .
     "                    doi     The presence of the 'doi' tag is mandatory in all entries\n" .

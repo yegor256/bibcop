@@ -161,12 +161,13 @@
 %</verb>
 %\fi
 % The following options are available:
-% \begin{itemize}
+% \begin{itemize}\setlength\itemsep{0pt}
 % \item |nocaps| allows arbitrary capitalization in titles;
 % \item |nowraps| allows titles to have no double curly braces;
 % \item |nodoi| allows the absence of the |doi| tag in all entries;
 % \item |noinproc| allows the |booktitle| tag in |@inproceedings| entries to not start with ``Proceedings of the'';
-% \item |noorg| allows mentioning of ACM/IEEE in the |booktitle| tag.
+% \item |noorg| allows mentioning of ACM/IEEE in the |booktitle| tag;
+% \item |notags| allows any tags and allow to miss important tags.
 % \end{itemize}
 
 % \section{The Rules}
@@ -425,6 +426,7 @@ booktitle = {{Proceedings of the International
 \RequirePackage{pgfopts}
 \pgfkeys{
   /bibcop/.cd,
+  notags/.store in=\bibcop@notags,
   noorg/.store in=\bibcop@noorg,
   noinproc/.store in=\bibcop@noinproc,
   nocaps/.store in=\bibcop@nocaps,
@@ -457,6 +459,7 @@ booktitle = {{Proceedings of the International
 \newcommand\bibcop@exec[1]{
   \iexec{\bibcop@script\space
     \ifdefined\bibcop@verbose--verbose\fi\space
+    \ifdefined\bibcop@notags--no:tags\fi\space
     \ifdefined\bibcop@noinproc--no:org\fi\space
     \ifdefined\bibcop@noinproc--no:inproc\fi\space
     \ifdefined\bibcop@nodoi--no:doi\fi\space
