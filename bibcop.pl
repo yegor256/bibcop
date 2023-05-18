@@ -71,6 +71,9 @@ sub check_mandatory_tags {
 
 # Check that all major words are capitalized.
 sub check_capitalization {
+  if (exists $args{'--no:caps'}) {
+    return;
+  }
   my (%entry) = @_;
   my %tags = map { $_ => 1 } qw/title booktitle journal publisher organization/;
   foreach my $tag (keys %entry) {
@@ -142,6 +145,9 @@ sub check_shortenings {
 
 # Check the right format of the 'title' and 'booktitle.'
 sub check_titles {
+  if (exists $args{'--no:wraps'}) {
+    return;
+  }
   my (%entry) = @_;
   my @tags = qw/title booktitle/;
   foreach my $tag (@tags) {
@@ -332,6 +338,9 @@ sub check_booktile_of_inproceedings {
 
 # Check the right format of the 'doi.'
 sub check_doi {
+  if (exists $args{'--no:doi'}) {
+    return;
+  }
   my (%entry) = @_;
   if (exists $entry{'doi'}) {
     my $doi = $entry{'doi'};
@@ -436,7 +445,7 @@ sub process_entry {
   foreach my $check (@sorted) {
     no strict 'refs';
     my $err = $check->(%entry);
-    if ($err ne '') {
+    if (defined $err and $err ne '') {
       push(@errors, $err);
     }
   }
