@@ -117,11 +117,19 @@ sub check_author {
   if (index($author, '{') != -1) {
     return;
   }
-  if (not $author =~ /^[A-Z][^ ]+(,( [A-Z][^ ]+)+)?( and [A-Z][^ ]+(,( [A-Z][^ ]+)+)?)*( and others)?$/) {
-    return "The format of the 'author' is wrong, use something like 'Knuth, Donald E. and Duane, Bibby'"
-  }
-  if ($author =~ /.*[A-Z]([ ,]|$).*/) {
-    return "A shortened name must have a tailing dot, as in 'Knuth, Donald E.'"
+  my @authors = split(/\s+and\s+/, $author);
+  my $pos = 0;
+  for my $a (@authors) {
+    $pos += 1;
+    if ($a eq 'others') {
+      next;
+    }
+    if (not $a =~ /^[A-Z][^ .]+( [A-Z][^ .]+)*(,( [A-Z][^ ]+)+)?$/) {
+      return "The format of the $pos-th 'author' is wrong, use something like 'Knuth, Donald E. and Duane, Bibby'"
+    }
+    if ($author =~ /.*[A-Z]([ ,]|$).*/) {
+      return "A shortened name must have a tailing dot in $pos-th 'author', as in 'Knuth, Donald E.'"
+    }
   }
 }
 
