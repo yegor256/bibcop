@@ -62,11 +62,15 @@
 
 
 
+
 \RequirePackage{iexec}
 
 \RequirePackage{pgfopts}
 \pgfkeys{
   /bibcop/.cd,
+  nocaps/.store in=\bibcop@nocaps,
+  nodoi/.store in=\bibcop@nodoi,
+  nowraps/.store in=\bibcop@nowraps,
   verbose/.store in=\bibcop@verbose,
   script/.store in = \bibcop@script,
 }
@@ -82,13 +86,22 @@
 \makeatother
 
 \makeatletter
+\newcommand\bibcop@exec[1]{
+  \iexec{\bibcop@script\space
+    \ifdefined\bibcop@verbose--verbose\fi\space
+    \ifdefined\bibcop@nodoi--no:doi\fi\space
+    \ifdefined\bibcop@nocaps--no:caps\fi\space
+    \ifdefined\bibcop@nowraps--no:wraps\fi\space
+    --latex '#1'}%
+  \message{bibcop: style checking finished for #1^^J}%
+}
+\makeatother
+
+\makeatletter
 \ifdefined\bibliography
   \let\bibcop@oldbibliography\bibliography
   \renewcommand\bibliography[1]{%
-    \iexec{\bibcop@script\space
-      \ifdefined\bibcop@verbose--verbose\fi\space
-      --latex '#1.bib'}%
-    \message{bibcop: style checking finished^^J}%
+    \bibcop@exec{#1.bib}%
     \bibcop@oldbibliography{#1}%
   }
 \fi
@@ -98,10 +111,7 @@
 \ifdefined\addbibresource
   \let\bibcop@oldaddbibresource\addbibresource
   \renewcommand\addbibresource[1]{%
-    \iexec{\bibcop@script\space
-      \ifdefined\bibcop@verbose--verbose\fi\space
-      --latex '#1'}%
-    \message{bibcop: style checking finished^^J}%
+    \bibcop@exec{#1}%
     \bibcop@oldaddbibresource{#1}%
   }
 \fi
