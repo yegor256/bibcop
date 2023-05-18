@@ -165,6 +165,7 @@
 % \item |nocaps| disables the major words capitalization requirement for all titles and book titles;
 % \item |nowraps| disables the requirement for double curly braces in all titles and book titles;
 % \item |nodoi| disables the requirement for the |doi| tag in all entries.
+% \item |inproc| disables the requirement for the |booktitle| tag in |@inproceedings| entries to start with ``Proceedings of the''.
 % \end{itemize}
 
 % \section{The Rules}
@@ -215,6 +216,7 @@ title = {Structured Programming {with} Go {To} Statements}
 %\iffalse
 %</verb>
 %\fi
+% This rule may be disabled by the |nocaps| package option.
 
 % \DescribeMacro{author}
 % The |author| must contain a list of authors separated by ``|and|''. Each author
@@ -372,6 +374,7 @@ booktitle = {{Proceedings of the International
 %\iffalse
 %</verb>
 %\fi
+% This rule may be disabled by the |noinproc| package option.
 
 % \DescribeMacro{arXiv}
 % If the |archivePrefix| is present, the |eprint| and the |primaryClass| must also be present and must adhere to the formatting principles of \href{https://arxiv.org/help/arxiv_identifier}{arXiv identifiers}:
@@ -421,6 +424,7 @@ booktitle = {{Proceedings of the International
 \RequirePackage{pgfopts}
 \pgfkeys{
   /bibcop/.cd,
+  noinproc/.store in=\bibcop@noinproc,
   nocaps/.store in=\bibcop@nocaps,
   nodoi/.store in=\bibcop@nodoi,
   nowraps/.store in=\bibcop@nowraps,
@@ -451,6 +455,7 @@ booktitle = {{Proceedings of the International
 \newcommand\bibcop@exec[1]{
   \iexec{\bibcop@script\space
     \ifdefined\bibcop@verbose--verbose\fi\space
+    \ifdefined\bibcop@noinproc--no:inproc\fi\space
     \ifdefined\bibcop@nodoi--no:doi\fi\space
     \ifdefined\bibcop@nocaps--no:caps\fi\space
     \ifdefined\bibcop@nowraps--no:wraps\fi\space
