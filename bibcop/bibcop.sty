@@ -68,6 +68,7 @@
 \RequirePackage{pgfopts}
 \pgfkeys{
   /bibcop/.cd,
+  noorg/.store in=\bibcop@noorg,
   noinproc/.store in=\bibcop@noinproc,
   nocaps/.store in=\bibcop@nocaps,
   nodoi/.store in=\bibcop@nodoi,
@@ -90,6 +91,7 @@
 \newcommand\bibcop@exec[1]{
   \iexec{\bibcop@script\space
     \ifdefined\bibcop@verbose--verbose\fi\space
+    \ifdefined\bibcop@noinproc--no:org\fi\space
     \ifdefined\bibcop@noinproc--no:inproc\fi\space
     \ifdefined\bibcop@nodoi--no:doi\fi\space
     \ifdefined\bibcop@nocaps--no:caps\fi\space
