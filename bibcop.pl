@@ -355,8 +355,14 @@ sub check_year {
   my (%entry) = @_;
   if (exists $entry{'year'}) {
     my $year = $entry{'year'};
-    if (not $year =~ /^[0-9]{3,4}$/) {
-      return "The format of the 'year' is wrong"
+    if ($year =~ /^\{.+\}$/) {
+      return;
+    }
+    if (not $year =~ /^[0-9]+$/) {
+      return "The format of the 'year' is wrong, may only contain numbers or must be wrapped in curly braces"
+    }
+    if (not $year =~ /^[0-9]{4}$/) {
+      return "Exactly four digits must be present in the 'year', or it must be wrapped in curly braces"
     }
   }
 }

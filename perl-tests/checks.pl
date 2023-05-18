@@ -95,6 +95,14 @@ check_passes($f, ('title' => 'The TeX Book'));
 check_passes($f, ('title' => 'Data Flow Languages and Architecture'));
 check_passes($f, ('title' => 'A Preliminary Architecture for a Basic Data-Flow Processor'));
 
+$f = 'check_year';
+check_fails($f, ('year' => 'hello'));
+check_fails($f, ('year' => '20019'));
+check_fails($f, ('year' => '2009-2011'));
+check_passes($f, ('year' => '{400 BC}'));
+check_passes($f, ('year' => '2022'));
+check_passes($f, ('year' => '1612'));
+
 $f = 'check_pages';
 check_fails($f, ('pages' => '1a'));
 check_fails($f, ('pages' => '40A'));
