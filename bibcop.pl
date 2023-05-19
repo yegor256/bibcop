@@ -98,7 +98,7 @@ sub check_capitalization {
         if (not $words[$pos - 2] =~ /^.*:$/) {
           next;
         }
-        return "The minor word in the '$tag' must be upper-cased, becuase it follows the colon"
+        return "The minor word in the '$tag' must be upper-cased, because it follows the colon"
       }
       if (exists $minors{lc($word)}) {
         if ($pos eq 1) {
@@ -107,10 +107,10 @@ sub check_capitalization {
         if ($words[$pos - 2] =~ /^.*:$/) {
           next;
         }
-        return "All minor words in the '$tag' must be lower-cased, while '$word' (no.$pos) is not"
+        return "All minor words in the '$tag' must be lower-cased, while @{[as_position($pos)]} word '$word' is not"
       }
       if ($word =~ /^[a-z].*/) {
-        return "All major words in the '$tag' must be capitalized, while '$word' (no.$pos) is not"
+        return "All major words in the '$tag' must be capitalized, while @{[as_position($pos)]} word '$word' is not"
       }
     }
   }
@@ -137,10 +137,10 @@ sub check_author {
       next;
     }
     if (not $a =~ /^[A-Z][^ .]+( [A-Z][^ .]+)*(,( [A-Z][^ ]+)+)?$/) {
-      return "The format of the $pos-th 'author' is wrong, use something like 'Knuth, Donald E. and Duane, Bibby'"
+      return "The format of @{[as_position($pos)]} 'author' is wrong, use something like 'Knuth, Donald E. and Duane, Bibby'"
     }
     if ($author =~ /.*[A-Z]([ ,]|$).*/) {
-      return "A shortened name must have a tailing dot in $pos-th 'author', as in 'Knuth, Donald E.'"
+      return "A shortened name must have a tailing dot in @{[as_position($pos)]} 'author', as in 'Knuth, Donald E.'"
     }
   }
 }
@@ -707,6 +707,22 @@ sub clean_tex {
   $tex =~ s/\s+$//g;
   while ($tex =~ s/^\{(.+)\}$/$1/g) {};
   return $tex;
+}
+
+# Turn a number into a position, like 1 -> 1st, 2 -> 2nd, 3 -> 3rd, 4 -> 4th, and so on.
+sub as_position {
+  my ($i) = @_;
+  my $txt;
+  if ($i == 1) {
+    $txt = '1st';
+  } elsif ($i == 2) {
+    $txt = '2nd';
+  } elsif ($i == 3) {
+    $txt = '3rd';
+  } else {
+    $txt = "${i}th";
+  }
+  return "the $txt";
 }
 
 # Take a bibentry and print all its tags as a comma-separated string.

@@ -4,7 +4,7 @@ LaTeX Warning: Citation `dijkstra1968letters' on page 1 undefined on input line 
 runsystem((perl ./bibcop.pl --verbose       --latex 'main.bib') > iexec.tmp 2>&1; /bin/echo -n $?% >iexec.ret)...executed.
 (iexec.tmp bibcop: 1 entries found in main.bib
 bibcop: Checking dijkstra1968letters (no.0)...
-Package bibcop Warning: All minor words in the 'title' must be lower-cased, while 'To' (no.6) is not, in the 'dijkstra1968letters' entry.
+Package bibcop Warning: All minor words in the 'title' must be lower-cased, while the 6th word 'To' is not, in the 'dijkstra1968letters' entry.
 Package bibcop Warning: A mandatory 'doi' tag for '@article' is missing among (author, journal, number, pages, publisher, title, volume, year), in the 'dijkstra1968letters' entry.
 Package bibcop Warning: The 'title' must be wrapped in double curled brackets, in the 'dijkstra1968letters' entry.
 bibcop: 3 problem(s) found
