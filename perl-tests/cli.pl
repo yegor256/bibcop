@@ -30,7 +30,7 @@ assert_exec('-v', 0, qr/[0-9]+\.[0-9]+\.[0-9]+/s);
 assert_exec('--help', 0, qr/\Q--version \E/s);
 assert_exec('-?', 0, qr/\QUsage:\E/s);
 assert_exec('./test-files/test.bib', 1, qr/\QThe 'title' must be wrapped\E/s);
-assert_exec('--no:wraps ./test-files/test.bib', 0, qr//s);
+assert_exec('--no:wraps ./test-files/test.bib', 0, qr/^$/s);
 assert_exec('--verbose ./test-files/test.bib', 1, qr/\QChecking knuth1974\E/s);
 assert_exec('--latex ./test-files/test.bib', 0, qr/\Q\PackageWarningNoLine{bibcop}{The 'title' must be wrapped\E/s);
 assert_exec('--fix ./test-files/test.bib', 0, qr/\Q{{The TeX Book}}\E/s);
