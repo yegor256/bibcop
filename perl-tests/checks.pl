@@ -149,7 +149,7 @@ sub check_passes {
   my ($f, %entry) = @_;
   no strict 'refs';
   my $error = $f->(%entry);
-  if ($error ne '') {
+  if (defined $error and $error ne '') {
     show_entry(%entry);
     print "$error\n";
     print "$f reported an error here, why?\n";

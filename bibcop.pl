@@ -95,7 +95,7 @@ sub check_capitalization {
         if ($pos eq 1) {
           return "The minor word in the '$tag' must be upper-cased since it is the first one"
         }
-        if (not @words[$pos - 2] =~ /^.*:$/) {
+        if (not $words[$pos - 2] =~ /^.*:$/) {
           next;
         }
         return "The minor word in the '$tag' must be upper-cased, becuase it follows the colon"
@@ -104,7 +104,7 @@ sub check_capitalization {
         if ($pos eq 1) {
           next;
         }
-        if (@words[$pos - 2] =~ /^.*:$/) {
+        if ($words[$pos - 2] =~ /^.*:$/) {
           next;
         }
         return "All minor words in the '$tag' must be lower-cased, while '$word' (no.$pos) is not"
@@ -728,11 +728,10 @@ sub error {
   my ($txt) = @_;
   if (exists $args{'--latex'}) {
     print "\\PackageError{bibcop}{$txt}{}\n";
-    exit 0;
   } else {
     print STDERR $txt . "\n";
-    exit 1;
   }
+  fail();
 }
 
 # Print DEBUG message to the console.
@@ -763,6 +762,14 @@ sub warning {
     print "\\PackageWarningNoLine{bibcop}{$txt}\n";
   } else {
     print $txt . "\n";
+  }
+}
+
+sub fail {
+  if (exists $args{'--latex'}) {
+    exit(0);
+  } else {
+    exit(1);
   }
 }
 
@@ -832,12 +839,18 @@ if (@ARGV+0 eq 0 or exists $args{'--help'} or exists $args{'-?'}) {
     }
   } else {
     debug((@entries+0) . ' entries found in ' . $file);
+    my $found = 0;
     for my $i (0..(@entries+0 - 1)) {
       my %entry = %{ $entries[$i] };
       debug("Checking $entry{':name'} (no.$i)...");
       foreach my $err (process_entry(%entry)) {
         warning("$err, in the '$entry{':name'}' entry");
+        $found += 1;
       }
+    }
+    if ($found gt 0) {
+      debug("$found problem(s) found");
+      fail();
     }
   }
 }
