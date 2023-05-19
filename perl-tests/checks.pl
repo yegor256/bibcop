@@ -93,9 +93,12 @@ $f = 'check_capitalization';
 check_fails($f, ('title' => 'The TeX book'));
 check_fails($f, ('title' => 'Data Flow Languages And Architecture'));
 check_fails($f, ('title' => 'Object-oriented Programming'));
+check_fails($f, ('title' => 'Cilk: an Efficient Multithreaded Runtime System'));
+check_fails($f, ('title' => 'in the Database'));
 check_passes($f, ('title' => 'The TeX Book'));
 check_passes($f, ('title' => 'Data Flow Languages and Architecture'));
 check_passes($f, ('title' => 'A Preliminary Architecture for a Basic Data-Flow Processor'));
+check_passes($f, ('title' => 'Cilk: An Efficient Multithreaded Runtime System'));
 
 $f = 'check_year';
 check_fails($f, ('year' => 'hello'));

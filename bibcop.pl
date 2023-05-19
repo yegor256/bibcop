@@ -92,9 +92,21 @@ sub check_capitalization {
       }
       $pos = $pos + 1;
       if (exists $minors{$word}) {
-        next;
+        if ($pos eq 1) {
+          return "The minor word in the '$tag' must be upper-cased since it is the first one"
+        }
+        if (not @words[$pos - 2] =~ /^.*:$/) {
+          next;
+        }
+        return "The minor word in the '$tag' must be upper-cased, becuase it follows the colon"
       }
-      if (exists $minors{lc($word)} and $pos gt 1) {
+      if (exists $minors{lc($word)}) {
+        if ($pos eq 1) {
+          next;
+        }
+        if (@words[$pos - 2] =~ /^.*:$/) {
+          next;
+        }
         return "All minor words in the '$tag' must be lower-cased, while '$word' (no.$pos) is not"
       }
       if ($word =~ /^[a-z].*/) {
