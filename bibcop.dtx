@@ -414,7 +414,6 @@ booktitle = {{Proceedings of the International
 % \changes{0.0.4}{2022/12/14}{The \texttt{--verbose} option introduced, to enable debugging information only on demand.}
 % \changes{0.0.4}{2022/12/15}{Package options introduced, the \texttt{verbose} option enables detailed logging inside the \TeX{} log.}
 % \changes{0.0.6}{2023/01/08}{The \texttt{script} package option introduced, to enable explicit configuration of the location of the \texttt{bibcop.pl} Perl script.}
-% \changes{0.0.12}{2023/05/20}{A few package options introduced to give users an ability to disable certain style rules: \texttt{nocaps}, \texttt{nowraps}, \texttt{notags}, \texttt{noorg}, \texttt{noinproc}, and \texttt{nodoi}. Also, a command line scripts gets a new set of options, which start from \texttt{--no:}, for example \texttt{--no:caps}.}
 
 % First, we include a few packages.
 % We need \href{https://ctan.org/pkg/iexec}{iexec} for executing Perl scripts:
@@ -423,6 +422,7 @@ booktitle = {{Proceedings of the International
 %    \end{macrocode}
 
 % Then, we process package options:
+% \changes{0.0.12}{2023/05/20}{A few package options introduced to give users an ability to disable certain style rules: \texttt{nocaps}, \texttt{nowraps}, \texttt{notags}, \texttt{noorg}, \texttt{noinproc}, and \texttt{nodoi}. Also, a command line scripts gets a new set of options, which start from \texttt{--no:}, for example \texttt{--no:caps}.}
 %    \begin{macrocode}
 \RequirePackage{pgfopts}
 \pgfkeys{
