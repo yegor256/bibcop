@@ -83,19 +83,20 @@ sub check_capitalization {
     if (not exists $tags{$tag}) {
       next;
     }
+    my $tailed = qr/^.+(:|\?)$/;
     my $value = $entry{$tag};
     my @words = only_words($value);
     my $pos = 0;
     foreach my $word (@words) {
+      $pos = $pos + 1;
       if (not $word =~ /^[A-Za-z]/) {
         next;
       }
-      $pos = $pos + 1;
       if (exists $minors{$word}) {
         if ($pos eq 1) {
           return "The minor word in the '$tag' must be upper-cased since it is the first one"
         }
-        if (not $words[$pos - 2] =~ /^.*:$/) {
+        if (not $words[$pos - 2] =~ $tailed) {
           next;
         }
         return "The minor word in the '$tag' must be upper-cased, because it follows the colon"
@@ -104,7 +105,7 @@ sub check_capitalization {
         if ($pos eq 1) {
           next;
         }
-        if ($words[$pos - 2] =~ /^.*:$/) {
+        if ($words[$pos - 2] =~ $tailed) {
           next;
         }
         return "All minor words in the '$tag' must be lower-cased, while @{[as_position($pos)]} word '$word' is not"
