@@ -124,6 +124,11 @@ $f = 'check_type_capitalization';
 check_fails($f, (':type' => 'Article'));
 check_passes($f, (':type' => 'article'));
 
+$f = 'check_doi';
+check_fails($f, ('doi' => 'hello, world!'));
+check_passes($f, ('doi' => '10.1016/0743-7315(91)90016-3'));
+check_passes($f, ('doi' => '10.1145/359576.359579'));
+
 $f = 'check_arXiv';
 check_fails($f, ('archiveprefix' => 'arXiv'));
 check_fails($f, ('archiveprefix' => 'arXiv', 'eprint' => '2111.13384'));

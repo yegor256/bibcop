@@ -261,6 +261,9 @@ sub check_typography {
     if ($tag =~ /^:.*/) {
       next;
     }
+    if ($tag eq 'doi') {
+      next;
+    }
     my $value = $entry{$tag};
     foreach my $s (@bad_tails) {
       if ($s eq '.' and $tag eq 'author') {

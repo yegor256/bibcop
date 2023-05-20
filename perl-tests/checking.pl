@@ -64,7 +64,7 @@ passes((
   'booktitle' => '{Proceedings of the ICCQ}',
   'year' => '1984',
   'volume' => '32',
-  'doi' => '10.5555/1102013_82a-44',
+  'doi' => '10.1016/0743-7315(91)90016-3',
   'pages' => '22--33'
 ));
 
