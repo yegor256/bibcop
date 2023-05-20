@@ -26,6 +26,8 @@ use strict;
 use warnings;
 
 my $f = 'check_ascii';
+check_passes($f, ('title' => "me \n and \n you"));
+check_fails($f, ('title' => ''));
 check_fails($f, ('title' => 'привет'));
 
 $f = 'check_typography';

@@ -41,7 +41,7 @@ fails((':type' => 'misc', 'year' => '1984', 'author' => 'Knuth', 'title' => '{Ob
 
 passes((
   ':type' => 'book',
-  'author' => 'Knuth, Donald E. and Duane, Bibby',
+  'author' => "Knuth, Donald E. \n and Duane, Bibby",
   'title' => '{The TeX Book}',
   'year' => '1984',
   'doi' => '10.5555/1102013',

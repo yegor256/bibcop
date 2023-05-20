@@ -324,7 +324,13 @@ sub check_ascii {
     for my $pos (0..length($value)-1) {
       my $char = substr($value, $pos, 1);
       my $ord = ord($char);
-      if ($ord < 20 or $ord > 0x7f) {
+      if ($ord == 8 || $ord == 10 || $ord == 13) {
+        next;
+      }
+      if ($ord < 20) {
+        return "In the '$tag', don't use control symbol '0x" . (sprintf '%04x', $ord) . "'"
+      }
+      if ($ord > 0x7f) {
         return "In the '$tag', don't use Unicode symbol '0x" . (sprintf '%04x', $ord) . "'"
       }
     }
