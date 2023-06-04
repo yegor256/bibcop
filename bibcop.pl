@@ -56,6 +56,9 @@ sub check_mandatory_tags {
     }
     if (not(exists $entry{$tag})) {
       my $listed = listed_tags(%entry);
+      if ($tag eq 'doi' and exists $args{'--no:doi'}) {
+        next;
+      }
       return "A mandatory '$tag' tag for '\@$type' is missing among $listed"
     }
   }
