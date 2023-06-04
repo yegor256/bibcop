@@ -499,7 +499,7 @@ sub process_entry {
 
 sub fix_author {
   my ($value) = @_;
-  my @authors = split(/\s?and\s?/, $value);
+  my @authors = split(/\s+and\s+/, $value);
   foreach my $author (@authors) {
     $author =~ s/^\s+|\s+$//g;
     $author =~ s/ ([A-Z])($| )/ $1.$2/g;
