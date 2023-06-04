@@ -866,7 +866,7 @@ if (@ARGV+0 eq 0 or exists $args{'--help'} or exists $args{'-?'}) {
       foreach my $line (@sorted) {
         $fixed = $fixed . $line . "\n";
       }
-      $fixed = $fixed . "}\n";
+      $fixed = $fixed . "}\n\n";
     }
     if (exists $args{'-i'} or exists $args{'--in-place'}) {
       open(my $out, '>', $file) or error('Cannot open file for writing: ' . $file);
