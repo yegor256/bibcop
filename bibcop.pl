@@ -807,6 +807,7 @@ if (@ARGV+0 eq 0 or exists $args{'--help'} or exists $args{'-?'}) {
     "  -v, --version   Print the current version of the tool and exit\n" .
     "  -?, --help      Print this help screen\n" .
     "      --fix       Fix the errors and print a new version of the .bib file to the console\n" .
+    "  -i, --in-place  When used together with --fix, modifies the file in place, doesn't print it to the console\n" .
     "      --verbose   Print supplementary debugging information\n" .
     "      --no:XXX    Disable one of the following checks (e.g. --no:wraps):\n" .
     "                    tags    Only some tags are allowed, while some of them are mandatory\n" .
@@ -828,11 +829,15 @@ if (@ARGV+0 eq 0 or exists $args{'--help'} or exists $args{'-?'}) {
   my $bib; { local $/; $bib = <$fh>; }
   my @entries = entries($bib);
   if (exists $args{'--fix'}) {
+    my $fixed = '';
     for my $i (0..(@entries+0 - 1)) {
       my %entry = %{ $entries[$i] };
       my $type = $entry{':type'};
       if (not exists $blessed{$type}) {
         error("I don't know what to do with \@$type type of BibTeX entry");
+      }
+      if (not exists $entry{':name'}) {
+        error("I don't know what to do with an entry without a name");
       }
       my $tags = $blessed{$entry{':type'}};
       my %allowed = map { $_ => 1 } @$tags;
@@ -856,12 +861,19 @@ if (@ARGV+0 eq 0 or exists $args{'--help'} or exists $args{'-?'}) {
         }
         push(@lines, "  $tag = {$value},");
       }
-      info("\@$type\{$entry{':name'},");
+      $fixed = $fixed . "\@$type\{$entry{':name'},\n";
       my @sorted = sort @lines;
       foreach my $line (@sorted) {
-        info($line);
+        $fixed = $fixed . $line . "\n";
       }
-      info("}\n");
+      $fixed = $fixed . "}\n";
+    }
+    if (exists $args{'-i'} or exists $args{'--in-place'}) {
+      open(my $out, '>', $file) or error('Cannot open file for writing: ' . $file);
+      print $out $fixed;
+      close($out);
+    } else {
+      info($fixed);
     }
   } else {
     debug((@entries+0) . ' entries found in ' . $file);
