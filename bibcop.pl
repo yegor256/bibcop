@@ -795,7 +795,7 @@ sub info {
 sub warning {
   my ($txt) = @_;
   if (exists $args{'--latex'}) {
-    print "\\PackageWarningNoLine{bibcop}{$txt}\n";
+    print "\\PackageWarningNoLine{bibcop}{" . escape_tex($txt) . "}\n";
   } else {
     print $txt . "\n";
   }
