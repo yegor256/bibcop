@@ -755,7 +755,7 @@ sub listed_tags {
 # Make sure the text can safely be rendered in TeX.
 sub escape_tex {
   my ($tex) = @_;
-  $tex =~ s/[^a-zA-Z0-9-.+)(:; ]/?/g;
+  $tex =~ s/[^a-zA-Z0-9-.,+)(:; '"]/?/g;
   return $tex;
 }
 
