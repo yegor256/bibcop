@@ -752,11 +752,18 @@ sub listed_tags {
   return '(' . join(', ', @sorted) . ')';
 }
 
+# Make sure the text can safely be rendered in TeX.
+sub escape_tex {
+  my ($tex) = @_;
+  $tex =~ s/[^a-zA-Z0-9-.+)(:; ]/?/g;
+  return $tex;
+}
+
 # Print ERROR message to the console and die.
 sub error {
   my ($txt) = @_;
   if (exists $args{'--latex'}) {
-    print "\\PackageError{bibcop}{$txt}{}\n";
+    print "\\PackageError{bibcop}{" . escape_tex($txt). "}{}\n";
   } else {
     print STDERR $txt . "\n";
   }
@@ -768,7 +775,7 @@ sub debug {
   my ($txt) = @_;
   if (exists $args{'--verbose'}) {
     if (exists $args{'--latex'}) {
-      print "\\message{bibcop: $txt^^J}\n";
+      print "\\message{bibcop: " . escape_tex($txt) . "^^J}\n";
     } else {
       print $txt . "\n";
     }
