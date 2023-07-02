@@ -63,3 +63,5 @@ $ perl tests.pl
 ```
 
 You should see the `GREAT!` message.
+
+Copyright (c) 2022-2023 Yegor Bugayenko, MIT License
