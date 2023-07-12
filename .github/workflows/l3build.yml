@@ -21,7 +21,7 @@ jobs:
           packages: scheme-basic xetex ffcode libertine microtype hypdoc l3build href-ul newtx biblatex biber verbatimcopy pgfopts
       - run: l3build ctan --show-log-on-error --halt-on-error
       - run: ./tests.pl
-      - uses: JamesIves/github-pages-deploy-action@v4.4.2
+      - uses: JamesIves/github-pages-deploy-action@v4.4.3
         with:
           branch: gh-pages
           folder: build/distrib/tds/tex/latex
