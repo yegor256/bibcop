@@ -1,3 +1,7 @@
 hard iexec
 hard pgfopts
 soft href-ul
+soft biblatex
+soft libertine
+soft microtype
+soft bibtex
