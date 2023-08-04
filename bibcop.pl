@@ -620,7 +620,7 @@ sub entries {
         $s = 'start';
         $acc = '';
       } else {
-        warning("Each BibTeX entry must start with '\@', what is '$char'?");
+        warning("Each BibTeX entry must start with '\@', what is '$char' at line no.$lineno?");
         last;
       }
     } elsif ($char =~ /[a-zA-Z]/ and $s eq 'start') {
