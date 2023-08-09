@@ -642,7 +642,7 @@ sub entries {
     } elsif ($char eq '=' and $s eq 'tag') {
       my $t = lc($acc);
       if (exists $entry{$t}) {
-        warning("The tag '$t' is seen more than once");
+        warning("The tag '$t' is seen more than once at line no.$lineno");
       }
       $tag = $t;
       $s = 'value';
