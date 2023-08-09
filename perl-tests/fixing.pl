@@ -31,6 +31,7 @@ fixes('author', ' Knuth, Donald E   and others ', 'Knuth, Donald E. and others')
 fixes('author', 'Knuth, Donald E.', 'Knuth, Donald E.');
 fixes('author', 'Jerome, K Jerome', 'Jerome, K. Jerome');
 fixes('author', 'Landin, Peter J.', 'Landin, Peter J.');
+fixes('author', 'Brandon, Lucia', 'Brandon, Lucia');
 
 fixes('title', 'The TeX Book', 'The TeX Book');
 fixes('title', 'Executing A program On The MIT architecture', 'Executing a Program on the MIT Architecture');
