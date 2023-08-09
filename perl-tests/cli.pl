@@ -40,6 +40,7 @@ assert_exec('--verbose README.md', 0, qr/\Q0 entries found in README.md\E/s);
 assert_exec('missing-file.bib', 1, qr/\QCannot open file: missing-file.bib\E/s);
 assert_exec('--latex missing-file.bib', 0, qr/\Q\PackageError{bibcop}{Cannot open file: missing-file.bib}{}\E/s);
 assert_exec('--fix', 1, qr/\QFile name must be specified\E/s);
+assert_exec('-i', 1, qr/\QFile name must be specified\E/s);
 
 sub assert_exec {
   my ($cmd, $e, $re) = @_;

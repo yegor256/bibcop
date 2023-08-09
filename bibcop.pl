@@ -831,7 +831,7 @@ if (@ARGV+0 eq 0 or exists $args{'--help'} or exists $args{'-?'}) {
 } elsif (exists $args{'--version'} or exists $args{'-v'}) {
   info('0.0.0');
 } else {
-  my ($file) = grep { not($_ =~ /^--.*$/) } @ARGV;
+  my ($file) = grep { not($_ =~ /^-.*$/) } @ARGV;
   if (not $file) {
     error('File name must be specified');
   }
