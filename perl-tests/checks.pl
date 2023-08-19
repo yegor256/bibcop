@@ -102,6 +102,7 @@ check_passes($f, ('title' => 'Data Flow Languages and Architecture'));
 check_passes($f, ('title' => 'A Preliminary Architecture for a Basic Data-Flow Processor'));
 check_passes($f, ('title' => 'Cilk: An Efficient Multithreaded Runtime System'));
 check_passes($f, ('title' => 'Can Programming Be Liberated From the {von} Neumann Style? A Functional Style and Its Algebra of Programs'));
+check_passes($f, ('title' => 'An Empirical Study of in C Code From GitHub'));
 
 $f = 'check_year';
 check_fails($f, ('year' => 'hello'));

@@ -40,6 +40,7 @@ my %blessed = (
   'misc' => ['title', 'author', 'year', 'eprint?', 'archiveprefix?', 'primaryclass?', 'publisher?', 'organization?', 'doi?', 'url?'],
 );
 
+# See https://research.arizona.edu/faq/what-do-you-mean-when-you-say-use-title-case-proposalproject-titles
 my %minors = map { $_ => 1 } qw/in of at to by the a an and or as if up via yet nor but off on for into/;
 
 # Check the presence of mandatory tags.
