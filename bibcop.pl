@@ -605,8 +605,10 @@ sub entries {
     if ($char eq ' ') {
       # ignore the white space
     } elsif ($char eq '%' and not($s eq 'quote')) {
-      $interrupted = $s;
-      $s = 'comment';
+      if ($pos eq 0 or substr($bib, $pos - 1, 1) ne '\\') {
+        $interrupted = $s;
+        $s = 'comment';
+      }
     } elsif ($char eq "\n") {
       # ignore the EOL
       $lineno = $lineno + 1;

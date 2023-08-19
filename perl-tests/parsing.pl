@@ -64,6 +64,10 @@ my @i7 = entries("\% a comment\n \@misc{7}\n");
 # show(@i7);
 assert(@i7+0, 1);
 
+my @i8 = entries("\@misc{foo33, title={It's 100\\% true!}}\n");
+# show(@i8);
+assert(@i8+0, 1);
+
 # These are all parsing errors
 assert(entries('no bibs')+0, 0);
 assert(entries('@misc{---}')+0, 0);
