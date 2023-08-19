@@ -12,7 +12,9 @@ jobs:
         os: [ubuntu-20.04, macos-12]
     steps:
       - uses: actions/checkout@v3
-      - run: sudo apt-get -y install ghostscript
+      - run: |
+          sudo apt-get --fix-missing update
+          sudo apt-get -y install ghostscript
         if: matrix.os == 'ubuntu-20.04'
       - uses: teatimeguest/setup-texlive-action@v2.6.2
         with:
