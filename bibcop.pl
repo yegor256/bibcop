@@ -554,7 +554,7 @@ sub fix_pages {
   if ($value =~ /^[1-9][0-9]*$/) {
     return $value;
   }
-  my ($left, $right) = split(/---|--|-|—|–|\s/, $value);
+  my ($left, $right) = split(/---|--|-|–|—|\s/, $value);
   $left =~ s/^0+//g;
   $right =~ s/^0+//g;
   if ($left eq '') {
