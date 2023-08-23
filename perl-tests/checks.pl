@@ -130,6 +130,7 @@ $f = 'check_doi';
 check_fails($f, ('doi' => 'hello, world!'));
 check_passes($f, ('doi' => '10.1016/0743-7315(91)90016-3'));
 check_passes($f, ('doi' => '10.1145/359576.359579'));
+check_passes($f, ('doi' => '10.1049/ic:19950710'));
 # https://onlinelibrary.wiley.com/doi/abs/10.1002/(SICI)1096-908X(199701)9:1%3C47::AID-SMR142%3E3.0.CO;2-V
 check_passes($f, ('doi' => '10.1002/(SICI)1096-908X(199701)9:1<47::AID-SMR142>3.0.CO;2-V'));
 
