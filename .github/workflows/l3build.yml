@@ -22,6 +22,7 @@ jobs:
           package-file: DEPENDS.txt
       - run: l3build ctan --show-log-on-error --halt-on-error
       - run: ./tests.pl
+      - run: sed -i "s/0\.0\.0/$(date +%Y-%m-%d-%H-%M)/g" build/distrib/tds/tex/latex/bibcop.pl
       - uses: JamesIves/github-pages-deploy-action@v4.4.3
         with:
           branch: gh-pages
