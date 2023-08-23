@@ -920,4 +920,5 @@ if (@ARGV+0 eq 0 or exists $args{'--help'} or exists $args{'-?'}) {
   }
 }
 
+# In order to finish it with success:
 1;
