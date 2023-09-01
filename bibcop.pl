@@ -556,13 +556,16 @@ sub fix_pages {
     return $value;
   }
   my ($left, $right) = split(/---|--|-|–|—|\s/, $value);
-  $left =~ s/^0+//g;
-  $right =~ s/^0+//g;
   if ($left eq '') {
     $left = $right;
   }
   if ($right eq '') {
     $right = $left;
+  }
+  $left =~ s/^0+//g;
+  $right =~ s/^0+//g;
+  if ($left !~ /^[0-9]*$/ or $right !~ /^[0-9]*$/) {
+    return $value;
   }
   if ($left + 0 gt $right + 0) {
     my $tmp = $left;

@@ -42,6 +42,10 @@ fixes('booktitle', 'Symposium on Computers', 'Proceedings of the Symposium on Co
 
 fixes('pages', '13', '13');
 fixes('pages', '13-', '13');
+fixes('pages', '13--', '13');
+fixes('pages', '-13', '13');
+fixes('pages', '--13', '13');
+fixes('pages', 'abc1', 'abc1');
 fixes('pages', '196--230', '196--230');
 fixes('pages', '100-110', '100--110');
 fixes('pages', '117–128', '117--128');
