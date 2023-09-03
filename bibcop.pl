@@ -21,7 +21,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-# 2023-09-01 14.18.22
+# 2023-09-03 12.54.54
 package bibcop;
 
 use warnings;
@@ -132,9 +132,6 @@ sub check_author {
     return;
   }
   my $author = clean_tex($entry{'author'});
-  if (index($author, '{') != -1) {
-    return;
-  }
   my @authors = split(/\s+and\s+/, $author);
   my $pos = 0;
   for my $a (@authors) {
@@ -142,11 +139,25 @@ sub check_author {
     if ($a eq 'others') {
       next;
     }
-    if (not $a =~ /^[A-Z][^ .]+( [A-Z][^ .]+)*(,( [A-Z][^ ]+)+)?$/) {
-      return "The format of @{[as_position($pos)]} 'author' is wrong, use something like 'Knuth, Donald E. and Duane, Bibby'"
+    if (index($a, ' ') != -1 and index($a, ',') == -1) {
+      return "The last name should go first, all other names must follow, after a comma in @{[as_position($pos)]} 'author', as in 'Knuth, Donald E.'";
     }
-    if ($author =~ /.*[A-Z]([ ,]|$).*/) {
-      return "A shortened name must have a tailing dot in @{[as_position($pos)]} 'author', as in 'Knuth, Donald E.'"
+    my $npos = 0;
+    for my $name (split(/[ ,]+/, $a)) {
+      $npos += 1;
+      if (index($name, '{') != -1) {
+        next;
+      }
+      if ($name =~ /^[A-Z]\.$/) {
+        next;
+      }
+      if ($name =~ /^[A-Z][^.]+$/) {
+        next
+      }
+      if ($name =~ /^[A-Z]$/) {
+        return "A shortened name must have a tailing dot in @{[as_position($pos)]} 'author', as in 'Knuth, Donald E.'";
+      }
+      return "In @{[as_position($pos)]} 'author' @{[as_position($npos)]} name looks suspicious ($name), use something like 'Knuth, Donald E. and Duane, Bibby'";
     }
   }
 }
@@ -850,7 +861,7 @@ if (@ARGV+0 eq 0 or exists $args{'--help'} or exists $args{'-?'}) {
     "      --latex     Report errors in LaTeX format using \\PackageWarningNoLine command\n\n" .
     "If any issues, report to GitHub: https://github.com/yegor256/bibcop");
 } elsif (exists $args{'--version'} or exists $args{'-v'}) {
-  info('14.18.22 2023-09-01');
+  info('12.54.54 2023-09-03');
 } else {
   my ($file) = grep { not($_ =~ /^-.*$/) } @ARGV;
   if (not $file) {
