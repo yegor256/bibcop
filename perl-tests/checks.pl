@@ -81,6 +81,7 @@ check_fails($f, ('author' => 'Donald E. Knuth'));
 check_fails($f, ('author' => 'Knuth, Donald E'));
 check_fails($f, ('author' => 'Knuth, Donald E. et al.'));
 check_fails($f, ('author' => 'Monsalve Diaz, Jose M'));
+check_fails($f, ('author' => 'Gomez, Aidan N and Kaiser, {\L}ukasz'));
 check_passes($f, ('author' => 'Knuth'));
 check_passes($f, ('author' => 'Knuth and others'));
 check_passes($f, ('author' => 'Knuth and Duane'));
