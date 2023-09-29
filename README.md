@@ -10,7 +10,7 @@ emits warning message if any issues are found. You may also like
 [biblatex-check](https://github.com/pezmc/biblatex-check) tools —
 they do _almost_ the same but from the command line.
 
-Read [this blog post]()https://www.yegor256.com/2023/09/05/style-checker-for-bibtex-files.html, 
+Read [this blog post](https://www.yegor256.com/2023/09/05/style-checker-for-bibtex-files.html), 
 in order to understand the motivation behind this package.
 
 First, [install it](https://en.wikibooks.org/wiki/LaTeX/Installing_Extra_Packages)
