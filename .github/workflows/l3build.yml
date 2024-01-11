@@ -9,13 +9,13 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-20.04, macos-12]
+        os: [ubuntu-22.04, macos-12]
     steps:
       - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4
       - run: |
           sudo apt-get --fix-missing update
           sudo apt-get -y install ghostscript
-        if: matrix.os == 'ubuntu-20.04'
+        if: matrix.os == 'ubuntu-22.04'
       - uses: teatimeguest/setup-texlive-action@v3.0.0
         with:
           update-all-packages: true
@@ -30,10 +30,10 @@ jobs:
           sed -i "s/0000-00-00/$(date +%Y-%m-%d)/g" build/gh-pages/bibcop.pl
           sed -i "s/0\.0\.0/$(date +%H.%M.%S)/g" build/gh-pages/bibcop.sty
           sed -i "s/0000-00-00/$(date +%Y-%m-%d)/g" build/gh-pages/bibcop.sty
-        if: github.ref == 'refs/heads/master' && matrix.os == 'ubuntu-20.04'
+        if: github.ref == 'refs/heads/master' && matrix.os == 'ubuntu-22.04'
       - uses: JamesIves/github-pages-deploy-action@v4.5.0
         with:
           branch: gh-pages
           folder: build/gh-pages
           clean: true
-        if: github.ref == 'refs/heads/master' && matrix.os == 'ubuntu-20.04'
+        if: github.ref == 'refs/heads/master' && matrix.os == 'ubuntu-22.04'
