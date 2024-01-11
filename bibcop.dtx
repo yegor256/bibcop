@@ -454,20 +454,27 @@ booktitle = {{Proceedings of the International
 % \end{macro}
 
 % \begin{macro}{\bibcop@exec}
+% \changes{0.0.16}{2024/01/11}{When \texttt{-shell-escape} is not set, there is no validation performed.}
 % Then, we define a supplementary command to execute the Perl script:
 %    \begin{macrocode}
+\RequirePackage{shellesc}
 \makeatletter
 \newcommand\bibcop@exec[1]{
-  \iexec{\bibcop@script\space
-    \ifdefined\bibcop@verbose--verbose\fi\space
-    \ifdefined\bibcop@notags--no:tags\fi\space
-    \ifdefined\bibcop@noinproc--no:org\fi\space
-    \ifdefined\bibcop@noinproc--no:inproc\fi\space
-    \ifdefined\bibcop@nodoi--no:doi\fi\space
-    \ifdefined\bibcop@nocaps--no:caps\fi\space
-    \ifdefined\bibcop@nowraps--no:wraps\fi\space
-    --latex '#1'}%
-  \message{bibcop: style checking finished for #1^^J}%
+  \ifnum\ShellEscapeStatus=1
+    \iexec{\bibcop@script\space
+      \ifdefined\bibcop@verbose--verbose\fi\space
+      \ifdefined\bibcop@notags--no:tags\fi\space
+      \ifdefined\bibcop@noinproc--no:org\fi\space
+      \ifdefined\bibcop@noinproc--no:inproc\fi\space
+      \ifdefined\bibcop@nodoi--no:doi\fi\space
+      \ifdefined\bibcop@nocaps--no:caps\fi\space
+      \ifdefined\bibcop@nowraps--no:wraps\fi\space
+      --latex '#1'}%
+    \message{bibcop: style checking finished for #1^^J}%
+  \else%
+    \message{bibcop: since -shell-escape is not set, no
+      style checking performed for #1^^J}%
+  \fi%
 }
 \makeatother
 
