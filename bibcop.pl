@@ -21,7 +21,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-# 2024-01-11 14.45.55
+# 2024-01-12 04.02.37
 package bibcop;
 
 use warnings;
@@ -301,7 +301,7 @@ sub check_typography {
       }
     }
     foreach my $s (@space_before) {
-      if ($value =~ /^.*[^\{\s]\Q$s\E.*$/) {
+      if ($value =~ /^.*[^\{\s\\]\Q$s\E.*$/) {
         return "In the '$tag', put a space before the $symbols{$s}"
       }
     }
@@ -567,9 +567,11 @@ sub fix_pages {
     return $value;
   }
   my ($left, $right) = split(/---|--|-|–|—|\s/, $value);
+  $left //= $right;
   if ($left eq '') {
     $left = $right;
   }
+  $right //= $left;
   if ($right eq '') {
     $right = $left;
   }
@@ -861,7 +863,7 @@ if (@ARGV+0 eq 0 or exists $args{'--help'} or exists $args{'-?'}) {
     "      --latex     Report errors in LaTeX format using \\PackageWarningNoLine command\n\n" .
     "If any issues, report to GitHub: https://github.com/yegor256/bibcop");
 } elsif (exists $args{'--version'} or exists $args{'-v'}) {
-  info('14.45.55 2024-01-11');
+  info('04.02.37 2024-01-12');
 } else {
   my ($file) = grep { not($_ =~ /^-.*$/) } @ARGV;
   if (not $file) {
