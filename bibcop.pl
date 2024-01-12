@@ -21,7 +21,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-# 2024-01-12 04.02.37
+# 2024-01-12 04.21.42
 package bibcop;
 
 use warnings;
@@ -513,6 +513,47 @@ sub process_entry {
   return @errors;
 }
 
+# Fix one entry.
+sub entry_fix {
+  my (%entry) = @_;
+  my $type = $entry{':type'};
+  if (not exists $blessed{$type}) {
+    error("I don't know what to do with \@$type type of BibTeX entry");
+  }
+  if (not exists $entry{':name'}) {
+    error("I don't know what to do with an entry without a name");
+  }
+  my $tags = $blessed{$entry{':type'}};
+  my %allowed = map { $_ => 1 } @$tags;
+  my @lines;
+  foreach my $tag (keys %entry) {
+    if ($tag =~ /^:/) {
+      next;
+    }
+    if (not exists $allowed{$tag} and not exists $allowed{$tag . '?'}) {
+      next;
+    }
+    my $value = clean_tex($entry{$tag});
+    my $fixer = "fix_$tag";
+    my $fixed = $value;
+    if (defined &{$fixer}) {
+      no strict 'refs';
+      $value = $fixer->($value);
+    }
+    if ($tag =~ /title|booktitle|journal/) {
+      $value = '{' . $value . '}';
+    }
+    push(@lines, "  $tag = {$value},");
+  }
+  my $fixed = "\@$type\{$entry{':name'},\n";
+  my @sorted = sort @lines;
+  foreach my $line (@sorted) {
+    $fixed = $fixed . $line . "\n";
+  }
+  $fixed = $fixed . "}\n\n";
+  return $fixed;
+}
+
 sub fix_author {
   my ($value) = @_;
   my @authors = split(/\s+and\s+/, $value);
@@ -863,7 +904,7 @@ if (@ARGV+0 eq 0 or exists $args{'--help'} or exists $args{'-?'}) {
     "      --latex     Report errors in LaTeX format using \\PackageWarningNoLine command\n\n" .
     "If any issues, report to GitHub: https://github.com/yegor256/bibcop");
 } elsif (exists $args{'--version'} or exists $args{'-v'}) {
-  info('04.02.37 2024-01-12');
+  info('04.21.42 2024-01-12');
 } else {
   my ($file) = grep { not($_ =~ /^-.*$/) } @ARGV;
   if (not $file) {
@@ -876,41 +917,7 @@ if (@ARGV+0 eq 0 or exists $args{'--help'} or exists $args{'-?'}) {
     my $fixed = '';
     for my $i (0..(@entries+0 - 1)) {
       my %entry = %{ $entries[$i] };
-      my $type = $entry{':type'};
-      if (not exists $blessed{$type}) {
-        error("I don't know what to do with \@$type type of BibTeX entry");
-      }
-      if (not exists $entry{':name'}) {
-        error("I don't know what to do with an entry without a name");
-      }
-      my $tags = $blessed{$entry{':type'}};
-      my %allowed = map { $_ => 1 } @$tags;
-      my @lines;
-      foreach my $tag (keys %entry) {
-        if ($tag =~ /^:/) {
-          next;
-        }
-        if (not exists $allowed{$tag} and not exists $allowed{$tag . '?'}) {
-          next;
-        }
-        my $value = clean_tex($entry{$tag});
-        my $fixer = "fix_$tag";
-        my $fixed = $value;
-        if (defined &{$fixer}) {
-          no strict 'refs';
-          $value = $fixer->($value);
-        }
-        if ($tag =~ /title|booktitle|journal/) {
-          $value = '{' . $value . '}';
-        }
-        push(@lines, "  $tag = {$value},");
-      }
-      $fixed = $fixed . "\@$type\{$entry{':name'},\n";
-      my @sorted = sort @lines;
-      foreach my $line (@sorted) {
-        $fixed = $fixed . $line . "\n";
-      }
-      $fixed = $fixed . "}\n\n";
+      $fixed = $fixed . entry_fix(%entry);
     }
     if (exists $args{'-i'} or exists $args{'--in-place'}) {
       open(my $out, '>', $file) or error('Cannot open file for writing: ' . $file);
