@@ -59,6 +59,7 @@ require './bibcop.pl';
 require './perl-tests/parsing.pl';
 require './perl-tests/checking.pl';
 require './perl-tests/fixing.pl';
+require './perl-tests/entry_fixing.pl';
 require './perl-tests/functions.pl';
 require './perl-tests/checks.pl';
 require './perl-tests/cli.pl';

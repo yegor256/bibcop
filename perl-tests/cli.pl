@@ -1,3 +1,4 @@
+#!/usr/bin/perl
 # (The MIT License)
 #
 # Copyright (c) 2022-2024 Yegor Bugayenko
