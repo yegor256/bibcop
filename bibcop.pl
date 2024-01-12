@@ -21,11 +21,12 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-# 2024-01-12 04.21.42
+# 2024-01-12 05.48.04
 package bibcop;
 
 use warnings;
 use strict;
+use File::Basename;
 
 # Hash of incoming command line arguments.
 my %args = map { $_ => 1 } @ARGV;
@@ -516,6 +517,9 @@ sub process_entry {
 # Fix one entry.
 sub entry_fix {
   my (%entry) = @_;
+  if (not exists $entry{':type'}) {
+    error("I don't know what to do with an entry without a type");
+  }
   my $type = $entry{':type'};
   if (not exists $blessed{$type}) {
     error("I don't know what to do with \@$type type of BibTeX entry");
@@ -523,7 +527,7 @@ sub entry_fix {
   if (not exists $entry{':name'}) {
     error("I don't know what to do with an entry without a name");
   }
-  my $tags = $blessed{$entry{':type'}};
+  my $tags = $blessed{$type};
   my %allowed = map { $_ => 1 } @$tags;
   my @lines;
   foreach my $tag (keys %entry) {
@@ -543,7 +547,9 @@ sub entry_fix {
     if ($tag =~ /title|booktitle|journal/) {
       $value = '{' . $value . '}';
     }
-    push(@lines, "  $tag = {$value},");
+    if (not $value eq '') {
+      push(@lines, "  $tag = {$value},");
+    }
   }
   my $fixed = "\@$type\{$entry{':name'},\n";
   my @sorted = sort @lines;
@@ -605,6 +611,9 @@ sub fix_title {
 sub fix_pages {
   my ($value) = @_;
   if ($value =~ /^[1-9][0-9]*$/) {
+    return $value;
+  }
+  if ($value eq '') {
     return $value;
   }
   my ($left, $right) = split(/---|--|-|–|—|\s/, $value);
@@ -884,6 +893,10 @@ sub fail {
   }
 }
 
+if (not basename($0) eq 'bibcop.pl') {
+  return 1;
+}
+
 if (@ARGV+0 eq 0 or exists $args{'--help'} or exists $args{'-?'}) {
   info("Bibcop is a Style Checker of BibTeX Files\n\n" .
     "Usage:\n" .
@@ -904,7 +917,7 @@ if (@ARGV+0 eq 0 or exists $args{'--help'} or exists $args{'-?'}) {
     "      --latex     Report errors in LaTeX format using \\PackageWarningNoLine command\n\n" .
     "If any issues, report to GitHub: https://github.com/yegor256/bibcop");
 } elsif (exists $args{'--version'} or exists $args{'-v'}) {
-  info('04.21.42 2024-01-12');
+  info('05.48.04 2024-01-12');
 } else {
   my ($file) = grep { not($_ =~ /^-.*$/) } @ARGV;
   if (not $file) {
