@@ -894,7 +894,7 @@ sub fail {
 }
 
 if (not basename($0) eq 'bibcop.pl') {
-  return 1;
+  goto END;
 }
 
 if (@ARGV+0 eq 0 or exists $args{'--help'} or exists $args{'-?'}) {
@@ -956,6 +956,8 @@ if (@ARGV+0 eq 0 or exists $args{'--help'} or exists $args{'-?'}) {
     }
   }
 }
+
+END:
 
 # In order to finish it with success:
 1;
