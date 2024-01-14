@@ -21,7 +21,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-# 2024-01-12 05.48.04
+# 2024-01-14 04.08.03
 package bibcop;
 
 use warnings;
@@ -894,7 +894,7 @@ sub fail {
 }
 
 if (not basename($0) eq 'bibcop.pl') {
-  return 1;
+  goto END;
 }
 
 if (@ARGV+0 eq 0 or exists $args{'--help'} or exists $args{'-?'}) {
@@ -917,7 +917,7 @@ if (@ARGV+0 eq 0 or exists $args{'--help'} or exists $args{'-?'}) {
     "      --latex     Report errors in LaTeX format using \\PackageWarningNoLine command\n\n" .
     "If any issues, report to GitHub: https://github.com/yegor256/bibcop");
 } elsif (exists $args{'--version'} or exists $args{'-v'}) {
-  info('05.48.04 2024-01-12');
+  info('04.08.03 2024-01-14');
 } else {
   my ($file) = grep { not($_ =~ /^-.*$/) } @ARGV;
   if (not $file) {
@@ -956,6 +956,8 @@ if (@ARGV+0 eq 0 or exists $args{'--help'} or exists $args{'-?'}) {
     }
   }
 }
+
+END:
 
 # In order to finish it with success:
 1;
