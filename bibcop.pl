@@ -893,7 +893,9 @@ sub fail {
   }
 }
 
-if (not basename($0) eq 'bibcop.pl') {
+my $script = basename($0);
+$script =~ s/\.pl$//g;
+if (not $script eq 'bibcop') {
   goto END;
 }
 
