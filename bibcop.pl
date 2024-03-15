@@ -587,6 +587,7 @@ sub fix_author {
         $author = $words[$total - 1] . ', ' . join(' ', @words[0 .. $total - 2]);
       }
     }
+    $author =~ s/^\s+|\s+$//g;
   }
   return join(' and ', @authors);
 }
@@ -682,7 +683,7 @@ sub fix_journal {
   return $value;
 }
 
-sub simplify_org_name {
+sub fix_org_name {
   my ($value) = @_;
   my @orgs = qw/ACM IEEE/;
   foreach my $org (@orgs) {
@@ -694,14 +695,14 @@ sub simplify_org_name {
 sub fix_publisher {
   my ($value) = @_;
   $value = fix_capitalization($value);
-  $value = simplify_org_name($value);
+  $value = fix_org_name($value);
   return $value;
 }
 
 sub fix_organization {
   my ($value) = @_;
   $value = fix_capitalization($value);
-  $value = simplify_org_name($value);
+  $value = fix_org_name($value);
   return $value;
 }
 
