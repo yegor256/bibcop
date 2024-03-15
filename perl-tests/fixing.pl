@@ -46,6 +46,9 @@ fixes('booktitle', 'Proceedings of the 2014 7th Conference', 'Proceedings of the
 
 fixes('publisher', 'ACM New York, NY, USA', 'ACM');
 fixes('publisher', 'ACME', 'ACME');
+fixes('publisher', 'IEEE Computer Society', 'IEEE');
+fixes('publisher', 'IEEE-Society', 'IEEE');
+fixes('publisher', 'IEEEth', 'IEEEth');
 
 fixes('pages', '13', '13');
 fixes('pages', '13-', '13');

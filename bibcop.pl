@@ -675,7 +675,10 @@ sub fix_journal {
 sub fix_publisher {
   my ($value) = @_;
   $value = fix_capitalization($value);
-  $value =~ s/^ACM($|[^A-Z0-9a-z].*$)/ACM/g;
+  my @orgs = qw/ACM IEEE/;
+  foreach my $org (@orgs) {
+    $value =~ s/^\Q$org\E($|[^A-Z0-9a-z].*$)/$org/g;
+  }
   return $value;
 }
 
