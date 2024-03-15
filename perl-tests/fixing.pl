@@ -44,6 +44,9 @@ fixes('booktitle', 'Proceedings Of IEEE Symposium On Art', 'Proceedings of IEEE 
 fixes('booktitle', 'Symposium on Computers', 'Proceedings of the Symposium on Computers');
 fixes('booktitle', 'Proceedings of the 2014 7th Conference', 'Proceedings of the 7th Conference');
 
+fixes('publisher', 'ACM New York, NY, USA', 'ACM');
+fixes('publisher', 'ACME', 'ACME');
+
 fixes('pages', '13', '13');
 fixes('pages', '13-', '13');
 fixes('pages', '13--', '13');

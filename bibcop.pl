@@ -675,6 +675,7 @@ sub fix_journal {
 sub fix_publisher {
   my ($value) = @_;
   $value = fix_capitalization($value);
+  $value =~ s/^ACM($|[^A-Z0-9a-z].*$)/ACM/g;
   return $value;
 }
 
