@@ -25,13 +25,16 @@ package bibcop;
 
 use strict;
 use warnings;
+use Time::Piece;
 
 require './bibcop.pl';
 
-fixes({':name' => 'knuth78', ':type' => 'book', 'title' => 'The TeX Book'}, "\@book{knuth78,\n  title = {{The TeX Book}},\n}\n\n");
-fixes({':name' => 'k', ':type' => 'article', 'title' => 'Book', 'pages' => ''}, "\@article{k,\n  title = {{Book}},\n}\n\n");
+fixes_entry({':name' => 'knuth78', ':type' => 'book', 'title' => 'The TeX Book'}, "\@book{knuth78,\n  title = {{The TeX Book}},\n}\n\n");
+fixes_entry({':name' => 'k', ':type' => 'article', 'title' => 'Book', 'pages' => ''}, "\@article{k,\n  title = {{Book}},\n}\n\n");
+my $today = localtime->strftime('%d-%m-%Y');
+fixes_entry({':name' => 'f', ':type' => 'misc', 'url' => 'http://google.com'}, "\@misc{f,\n  howpublished = {\\url{http://google.com}},\n  note = {[Online; accessed $today]},\n}\n\n");
 
-sub fixes {
+sub fixes_entry {
   my ($hash, $expected) = @_;
   my %entry = %$hash;
   my $after = entry_fix(%entry);

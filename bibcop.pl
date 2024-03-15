@@ -27,6 +27,7 @@ package bibcop;
 use warnings;
 use strict;
 use File::Basename;
+use Time::Piece;
 
 # Hash of incoming command line arguments.
 my %args = map { $_ => 1 } @ARGV;
@@ -39,7 +40,7 @@ my %blessed = (
   'article' => ['doi', 'year', 'title', 'author', 'journal', 'volume', 'number', 'publisher?', 'pages?'],
   'inproceedings' => ['doi', 'booktitle', 'title', 'author', 'year', 'pages?', 'organization?', 'volume?'],
   'book' => ['title', 'author', 'year', 'publisher', 'doi?'],
-  'misc' => ['title', 'author', 'year', 'eprint?', 'archiveprefix?', 'primaryclass?', 'publisher?', 'organization?', 'doi?', 'url?', 'howpublished?', 'note?'],
+  'misc' => ['title', 'author', 'year', 'eprint?', 'archiveprefix?', 'primaryclass?', 'publisher?', 'organization?', 'doi?', 'howpublished?', 'note?'],
 );
 
 # See https://research.arizona.edu/faq/what-do-you-mean-when-you-say-use-title-case-proposalproject-titles
@@ -534,10 +535,16 @@ sub entry_fix {
     if ($tag =~ /^:/) {
       next;
     }
+    my $value = clean_tex($entry{$tag});
+    if ($tag eq 'url') {
+      my $today = localtime->strftime('%d-%m-%Y');
+      push(@lines, "  howpublished = {\\url{$value}},");
+      push(@lines, "  note = {[Online; accessed $today]},");
+      next;
+    }
     if (not exists $allowed{$tag} and not exists $allowed{$tag . '?'}) {
       next;
     }
-    my $value = clean_tex($entry{$tag});
     my $fixer = "fix_$tag";
     my $fixed = $value;
     if (defined &{$fixer}) {
