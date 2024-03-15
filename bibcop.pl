@@ -531,6 +531,12 @@ sub entry_fix {
   my $tags = $blessed{$type};
   my %allowed = map { $_ => 1 } @$tags;
   my @lines;
+  if (exists $entry{'booktitle'} and $entry{':type'} eq 'article') {
+    $entry{'journal'} = $entry{'booktitle'};
+  }
+  if (exists $entry{'journal'} and $entry{':type'} eq 'inproceedings') {
+    $entry{'booktitle'} = $entry{'journal'};
+  }
   foreach my $tag (keys %entry) {
     if ($tag =~ /^:/) {
       next;
