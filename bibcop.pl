@@ -21,7 +21,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-# 2024-03-15 11.30.11
+# 2024-03-15 11.31.17
 package bibcop;
 
 use warnings;
@@ -682,9 +682,8 @@ sub fix_journal {
   return $value;
 }
 
-sub fix_publisher {
+sub simplify_org_name {
   my ($value) = @_;
-  $value = fix_capitalization($value);
   my @orgs = qw/ACM IEEE/;
   foreach my $org (@orgs) {
     $value =~ s/^\Q$org\E($|[^A-Z0-9a-z].*$)/$org/g;
@@ -692,9 +691,17 @@ sub fix_publisher {
   return $value;
 }
 
+sub fix_publisher {
+  my ($value) = @_;
+  $value = fix_capitalization($value);
+  $value = simplify_org_name($value);
+  return $value;
+}
+
 sub fix_organization {
   my ($value) = @_;
   $value = fix_capitalization($value);
+  $value = simplify_org_name($value);
   return $value;
 }
 
@@ -949,7 +956,7 @@ if (@ARGV+0 eq 0 or exists $args{'--help'} or exists $args{'-?'}) {
     "      --latex     Report errors in LaTeX format using \\PackageWarningNoLine command\n\n" .
     "If any issues, report to GitHub: https://github.com/yegor256/bibcop");
 } elsif (exists $args{'--version'} or exists $args{'-v'}) {
-  info('11.30.11 2024-03-15');
+  info('11.31.17 2024-03-15');
 } else {
   my ($file) = grep { not($_ =~ /^-.*$/) } @ARGV;
   if (not $file) {
