@@ -969,9 +969,15 @@ if (@ARGV+0 eq 0 or exists $args{'--help'} or exists $args{'-?'}) {
   my @entries = entries($bib);
   if (exists $args{'--fix'}) {
     my $fixed = '';
+    my %seen;
     for my $i (0..(@entries+0 - 1)) {
       my %entry = %{ $entries[$i] };
+      my $name = $entry{':name'};
+      if (exists $seen{$name}) {
+        next;
+      }
       $fixed = $fixed . entry_fix(%entry);
+      $seen{$name} = 1;
     }
     if (exists $args{'-i'} or exists $args{'--in-place'}) {
       open(my $out, '>', $file) or error('Cannot open file for writing: ' . $file);

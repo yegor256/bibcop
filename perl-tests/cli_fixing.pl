@@ -23,47 +23,43 @@
 
 package bibcop;
 
-use warnings;
 use strict;
+use warnings;
+use File::Temp qw/ tempfile /;
 
-# Assert on the value and exit if error.
-sub assert {
-  my ($l, $r) = @_;
-  if ($l ne $r) {
-    print "'$l' ne '$r'\n";
+assert_fix_compare('duplicates');
+assert_fix_compare('no-fixes');
+
+sub read_file {
+  my ($path) = @_;
+  open(my $h, '<', $path) or error('Cannot open file: ' . $path);
+  my $content; { local $/; $content = <$h>; }
+  $content =~ s/^\s+|\s+$//g;
+  return $content;
+}
+
+sub assert_fix_compare {
+  my ($dir) = @_;
+  my $before = "test-files/fixes/$dir/before.bib";
+  my $expected = "test-files/fixes/$dir/expected.bib";
+  my ($a, $after) = tempfile();
+  my $cmd = "perl ./bibcop.pl --fix $before > $after";
+  my $stdout = `$cmd`;
+  my $exit = $? >> 8;
+  if ($exit != 0) {
+    print "---\n$stdout\n";
+    print "Exit code is $exit (not zero) for '$cmd'\n";
+    exit 1;
+  }
+  my $expected_bib = read_file($expected);
+  my $after_bib = read_file($after);
+  if (not $expected_bib eq $after_bib) {
+    print "$after_bib\n";
+    print "Doesn't match:\n";
+    print "$expected_bib\n";
     exit 1;
   }
 }
 
-# Print entry to console.
-sub show_entry {
-  my (%entry) = @_;
-  print "{\n";
-  foreach my $k (keys %entry) {
-    print "  $k = {$entry{$k}}\n";
-  }
-  print "}\n";
-}
 
-# Print entries to console.
-sub show {
-  my (@entries) = @_;
-  print 'Total entries: ' . (@entries+0) . "\n";
-  for my $i (0..(@entries+0 - 1)) {
-    my %entry = %{ $entries[$i] };
-    show_entry(%entry);
-  }
-}
-
-require './bibcop.pl';
-require './perl-tests/parsing.pl';
-require './perl-tests/checking.pl';
-require './perl-tests/fixing.pl';
-require './perl-tests/entry_fixing.pl';
-require './perl-tests/functions.pl';
-require './perl-tests/checks.pl';
-require './perl-tests/cli.pl';
-require './perl-tests/cli_fixing.pl';
-
-print "\033[0;32mGREAT!\033[0m All tests are green.\n";
-
+1;
