@@ -21,7 +21,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-# 2024-03-15 08.46.37
+# 2024-03-15 09.20.14
 package bibcop;
 
 use warnings;
@@ -569,10 +569,18 @@ sub entry_fix {
 
 sub fix_author {
   my ($value) = @_;
+  $value =~ s/\s{2,}/ /g;
   my @authors = split(/\s+and\s+/, $value);
   foreach my $author (@authors) {
     $author =~ s/^\s+|\s+$//g;
     $author =~ s/ ([A-Z])($| )/ $1.$2/g;
+    if (index($author, ',') eq -1) {
+      my @words = split(/\s+/, $author);
+      my $total = @words+0;
+      if ($total gt 1) {
+        $author = $words[$total - 1] . ', ' . join(' ', @words[0 .. $total - 2]);
+      }
+    }
   }
   return join(' and ', @authors);
 }
@@ -927,7 +935,7 @@ if (@ARGV+0 eq 0 or exists $args{'--help'} or exists $args{'-?'}) {
     "      --latex     Report errors in LaTeX format using \\PackageWarningNoLine command\n\n" .
     "If any issues, report to GitHub: https://github.com/yegor256/bibcop");
 } elsif (exists $args{'--version'} or exists $args{'-v'}) {
-  info('08.46.37 2024-03-15');
+  info('09.20.14 2024-03-15');
 } else {
   my ($file) = grep { not($_ =~ /^-.*$/) } @ARGV;
   if (not $file) {
