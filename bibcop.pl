@@ -21,7 +21,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-# 2024-03-15 05.31.49
+# 2024-03-15 05.36.14
 package bibcop;
 
 use warnings;
@@ -428,7 +428,7 @@ sub check_month {
   my (%entry) = @_;
   if (exists $entry{'month'}) {
     my $month = $entry{'month'};
-    if (not $month =~ /^[1-9]|10|11|12$/) {
+    if (not $month =~ /^[1-9]|10|11|12|jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec$/) {
       return "The format of the 'month' is wrong"
     }
   }
@@ -919,7 +919,7 @@ if (@ARGV+0 eq 0 or exists $args{'--help'} or exists $args{'-?'}) {
     "      --latex     Report errors in LaTeX format using \\PackageWarningNoLine command\n\n" .
     "If any issues, report to GitHub: https://github.com/yegor256/bibcop");
 } elsif (exists $args{'--version'} or exists $args{'-v'}) {
-  info('05.31.49 2024-03-15');
+  info('05.36.14 2024-03-15');
 } else {
   my ($file) = grep { not($_ =~ /^-.*$/) } @ARGV;
   if (not $file) {
