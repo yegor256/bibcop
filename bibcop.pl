@@ -21,7 +21,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-# 2024-03-15 09.20.14
+# 2024-03-15 09.26.35
 package bibcop;
 
 use warnings;
@@ -675,6 +675,7 @@ sub fix_journal {
 sub fix_publisher {
   my ($value) = @_;
   $value = fix_capitalization($value);
+  $value =~ s/^ACM($|[^A-Z0-9a-z].*$)/ACM/g;
   return $value;
 }
 
@@ -935,7 +936,7 @@ if (@ARGV+0 eq 0 or exists $args{'--help'} or exists $args{'-?'}) {
     "      --latex     Report errors in LaTeX format using \\PackageWarningNoLine command\n\n" .
     "If any issues, report to GitHub: https://github.com/yegor256/bibcop");
 } elsif (exists $args{'--version'} or exists $args{'-v'}) {
-  info('09.20.14 2024-03-15');
+  info('09.26.35 2024-03-15');
 } else {
   my ($file) = grep { not($_ =~ /^-.*$/) } @ARGV;
   if (not $file) {
