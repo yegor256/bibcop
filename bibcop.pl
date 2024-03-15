@@ -236,7 +236,7 @@ sub check_org_in_booktitle {
     return;
   }
   my (%entry) = @_;
-  my @orgs = ( 'ACM', 'IEEE' );
+  my @orgs = qw/ACM IEEE/;
   if (exists($entry{'booktitle'})) {
     my $title = $entry{'booktitle'};
     foreach my $o (@orgs) {
@@ -663,6 +663,10 @@ sub fix_booktitle {
     $value = 'Proceedings of the ' . $value;
   }
   $value =~ s/ (19|20)[0-9]{2} / /g;
+  my @orgs = qw/ACM IEEE ACM\/IEEE/;
+  foreach my $org (@orgs) {
+    $value =~ s/ \Q$org\E / /g;
+  }
   return $value;
 }
 
