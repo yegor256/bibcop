@@ -26,18 +26,35 @@ package bibcop;
 use strict;
 use warnings;
 
+# not enough fields
 fails((':type' => 'book', 'title' => 'The TeX Book'));
 fails((':type' => 'book', 'author' => 'Knuth, Donald'));
 fails((':type' => 'book', 'year' => '1984'));
+
+# dot inside title
 fails((':type' => 'misc', 'year' => '1984', 'author' => 'Jeff', 'title' => '{Comm. of the ACM}'));
+
+# wrong author name
 fails((':type' => 'misc', 'year' => '1984', 'author' => 'Knuth, Donald E', 'title' => '{CACM}'));
+
+# year inside title
 fails((':type' => 'misc', 'year' => '1984', 'author' => 'Knuth', 'title' => '{1984 CACM}'));
+
+# dot inside title
 fails((':type' => 'misc', 'year' => '1984', 'author' => 'Knuth', 'title' => '{CACM.}'));
+
+# wrong format of pages
 fails((':type' => 'misc', 'year' => '1984', 'author' => 'Knuth', 'title' => '{CACM}', 'pages'=>'4a'));
 fails((':type' => 'misc', 'year' => '1984', 'author' => 'Knuth', 'title' => '{CACM}', 'pages'=>'4-5'));
 fails((':type' => 'misc', 'year' => '1984', 'author' => 'Knuth', 'title' => '{CACM}', 'pages'=>'54--21'));
+
+# redundant space in title
 fails((':type' => 'misc', 'year' => '1984', 'author' => 'Knuth', 'title' => '{The Article , a Good One}'));
+
+# wrong doi
 fails((':type' => 'misc', 'year' => '1984', 'author' => 'Knuth', 'title' => '{The Title}', 'doi' => 'http://dx.doi.org/1/1'));
+
+# wrong capitalization
 fails((':type' => 'misc', 'year' => '1984', 'author' => 'Knuth', 'title' => '{Object-oriented Programming}'));
 
 passes((
