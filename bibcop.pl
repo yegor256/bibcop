@@ -654,6 +654,7 @@ sub fix_booktitle {
   if (index($value, 'Proceedings ') != 0) {
     $value = 'Proceedings of the ' . $value;
   }
+  $value =~ s/ (19|20)[0-9]{2} / /g;
   return $value;
 }
 

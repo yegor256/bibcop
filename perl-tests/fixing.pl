@@ -40,6 +40,7 @@ fixes('title', 'Executing a program on the MIT Tagged-token Dataflow architectur
 
 fixes('booktitle', 'Proceedings Of IEEE Symposium On Art', 'Proceedings of IEEE Symposium on Art');
 fixes('booktitle', 'Symposium on Computers', 'Proceedings of the Symposium on Computers');
+fixes('booktitle', 'Proceedings of the 2014 7th Conference', 'Proceedings of the 7th Conference');
 
 fixes('pages', '13', '13');
 fixes('pages', '13-', '13');
