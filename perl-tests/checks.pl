@@ -115,6 +115,13 @@ check_passes($f, ('year' => '{400 BC}'));
 check_passes($f, ('year' => '2022'));
 check_passes($f, ('year' => '1612'));
 
+$f = 'check_month';
+check_fails($f, ('month' => 'January'));
+check_fails($f, ('month' => '01'));
+check_passes($f, ('month' => 'jan'));
+check_passes($f, ('month' => '1'));
+check_passes($f, ('month' => '12'));
+
 $f = 'check_pages';
 check_fails($f, ('pages' => '1a'));
 check_fails($f, ('pages' => '40A'));
