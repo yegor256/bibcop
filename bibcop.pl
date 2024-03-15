@@ -21,7 +21,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-# 2024-03-15 13.27.38
+# 2024-03-15 14.18.24
 package bibcop;
 
 use warnings;
@@ -958,7 +958,7 @@ if (@ARGV+0 eq 0 or exists $args{'--help'} or exists $args{'-?'}) {
     "      --latex     Report errors in LaTeX format using \\PackageWarningNoLine command\n\n" .
     "If any issues, report to GitHub: https://github.com/yegor256/bibcop");
 } elsif (exists $args{'--version'} or exists $args{'-v'}) {
-  info('13.27.38 2024-03-15');
+  info('14.18.24 2024-03-15');
 } else {
   my ($file) = grep { not($_ =~ /^-.*$/) } @ARGV;
   if (not $file) {
@@ -969,9 +969,15 @@ if (@ARGV+0 eq 0 or exists $args{'--help'} or exists $args{'-?'}) {
   my @entries = entries($bib);
   if (exists $args{'--fix'}) {
     my $fixed = '';
+    my %seen;
     for my $i (0..(@entries+0 - 1)) {
       my %entry = %{ $entries[$i] };
+      my $name = $entry{':name'};
+      if (exists $seen{$name}) {
+        next;
+      }
       $fixed = $fixed . entry_fix(%entry);
+      $seen{$name} = 1;
     }
     if (exists $args{'-i'} or exists $args{'--in-place'}) {
       open(my $out, '>', $file) or error('Cannot open file for writing: ' . $file);
