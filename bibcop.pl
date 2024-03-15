@@ -682,9 +682,8 @@ sub fix_journal {
   return $value;
 }
 
-sub fix_publisher {
+sub simplify_org_name {
   my ($value) = @_;
-  $value = fix_capitalization($value);
   my @orgs = qw/ACM IEEE/;
   foreach my $org (@orgs) {
     $value =~ s/^\Q$org\E($|[^A-Z0-9a-z].*$)/$org/g;
@@ -692,9 +691,17 @@ sub fix_publisher {
   return $value;
 }
 
+sub fix_publisher {
+  my ($value) = @_;
+  $value = fix_capitalization($value);
+  $value = simplify_org_name($value);
+  return $value;
+}
+
 sub fix_organization {
   my ($value) = @_;
   $value = fix_capitalization($value);
+  $value = simplify_org_name($value);
   return $value;
 }
 
