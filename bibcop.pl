@@ -21,7 +21,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-# 2024-03-15 11.48.12
+# 2024-03-15 11.58.05
 package bibcop;
 
 use warnings;
@@ -607,11 +607,9 @@ sub fix_capitalization {
     if (not $word =~ /^[A-Za-z]/) {
       next;
     }
-    if (exists $minors{$word}) {
-      next;
-    }
-    if (exists $minors{lc($word)} and $pos gt 1) {
-      $word = lc($word);
+    my $lc = lc($word);
+    if (exists $minors{$lc} and $pos gt 1 and not $words[$pos - 2] =~ /:$/) {
+      $word = $lc;
       next;
     }
     if ($word =~ /^[a-z].*/) {
@@ -957,7 +955,7 @@ if (@ARGV+0 eq 0 or exists $args{'--help'} or exists $args{'-?'}) {
     "      --latex     Report errors in LaTeX format using \\PackageWarningNoLine command\n\n" .
     "If any issues, report to GitHub: https://github.com/yegor256/bibcop");
 } elsif (exists $args{'--version'} or exists $args{'-v'}) {
-  info('11.48.12 2024-03-15');
+  info('11.58.05 2024-03-15');
 } else {
   my ($file) = grep { not($_ =~ /^-.*$/) } @ARGV;
   if (not $file) {
