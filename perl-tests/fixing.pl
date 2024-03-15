@@ -39,6 +39,8 @@ fixes('author', 'Peter J. Landin', 'Landin, Peter J.');
 fixes('title', 'The TeX Book', 'The TeX Book');
 fixes('title', 'Executing A program On The MIT architecture', 'Executing a Program on the MIT Architecture');
 fixes('title', 'Executing a program on the MIT Tagged-token Dataflow architecture', 'Executing a Program on the MIT Tagged-Token Dataflow Architecture');
+fixes('title', 'TeX: a Great Tool', 'TeX: A Great Tool');
+fixes('title', 'TeX: A Great Tool', 'TeX: A Great Tool');
 
 fixes('booktitle', 'Proceedings Of IEEE Symposium On Art', 'Proceedings of Symposium on Art');
 fixes('booktitle', 'Symposium on Computers', 'Proceedings of the Symposium on Computers');
