@@ -669,7 +669,7 @@ sub fix_booktitle {
     $value = 'Proceedings of the ' . $value;
   }
   $value =~ s/ (19|20)[0-9]{2} / /g;
-  my @orgs = qw/ACM IEEE ACM\/IEEE/;
+  my @orgs = qw/ACM IEEE ACM\/IEEE IEEE\/ACM/;
   foreach my $org (@orgs) {
     $value =~ s/ \Q$org\E / /g;
   }
