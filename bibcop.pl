@@ -569,10 +569,18 @@ sub entry_fix {
 
 sub fix_author {
   my ($value) = @_;
+  $value =~ s/\s{2,}/ /g;
   my @authors = split(/\s+and\s+/, $value);
   foreach my $author (@authors) {
     $author =~ s/^\s+|\s+$//g;
     $author =~ s/ ([A-Z])($| )/ $1.$2/g;
+    if (index($author, ',') eq -1) {
+      my @words = split(/\s+/, $author);
+      my $total = @words+0;
+      if ($total gt 1) {
+        $author = $words[$total - 1] . ', ' . join(' ', @words[0 .. $total - 2]);
+      }
+    }
   }
   return join(' and ', @authors);
 }

@@ -28,11 +28,13 @@ use warnings;
 
 fixes('author', 'Knuth, Donald E', 'Knuth, Donald E.');
 fixes('author', 'Knuth, Donald E and Duane, Bibby', 'Knuth, Donald E. and Duane, Bibby');
-fixes('author', ' Knuth, Donald E   and others ', 'Knuth, Donald E. and others');
+fixes('author', ' Knuth, Donald   E   and others ', 'Knuth, Donald E. and others');
 fixes('author', 'Knuth, Donald E.', 'Knuth, Donald E.');
-fixes('author', 'Jerome, K Jerome', 'Jerome, K. Jerome');
-fixes('author', 'Landin, Peter J.', 'Landin, Peter J.');
+fixes('author', 'Jerome,   K Jerome', 'Jerome, K. Jerome');
+fixes('author', 'Landin, Peter   J.', 'Landin, Peter J.');
 fixes('author', 'Brandon, Lucia', 'Brandon, Lucia');
+fixes('author', 'Lucia Brandon', 'Brandon, Lucia');
+fixes('author', 'Peter J. Landin', 'Landin, Peter J.');
 
 fixes('title', 'The TeX Book', 'The TeX Book');
 fixes('title', 'Executing A program On The MIT architecture', 'Executing a Program on the MIT Architecture');
