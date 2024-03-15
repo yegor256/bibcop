@@ -85,6 +85,14 @@ passes((
   'doi' => '10.1016/0743-7315(91)90016-3',
   'pages' => '22--33'
 ));
+passes((
+  ':type' => 'misc',
+  'author' => 'Doe, John',
+  'title' => '{{The Title}}',
+  'year' => '1984',
+  'howpublished' => '\\url{https://www.yegor256.com}',
+  'note' => 'it is a blog post'
+));
 
 sub fails {
   my (%entry) = @_;
