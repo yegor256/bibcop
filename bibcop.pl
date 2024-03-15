@@ -21,7 +21,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-# 2024-03-15 09.41.35
+# 2024-03-15 11.26.33
 package bibcop;
 
 use warnings;
@@ -531,6 +531,12 @@ sub entry_fix {
   my $tags = $blessed{$type};
   my %allowed = map { $_ => 1 } @$tags;
   my @lines;
+  if (exists $entry{'booktitle'} and $entry{':type'} eq 'article') {
+    $entry{'journal'} = $entry{'booktitle'};
+  }
+  if (exists $entry{'journal'} and $entry{':type'} eq 'inproceedings') {
+    $entry{'booktitle'} = $entry{'journal'};
+  }
   foreach my $tag (keys %entry) {
     if ($tag =~ /^:/) {
       next;
@@ -943,7 +949,7 @@ if (@ARGV+0 eq 0 or exists $args{'--help'} or exists $args{'-?'}) {
     "      --latex     Report errors in LaTeX format using \\PackageWarningNoLine command\n\n" .
     "If any issues, report to GitHub: https://github.com/yegor256/bibcop");
 } elsif (exists $args{'--version'} or exists $args{'-v'}) {
-  info('09.41.35 2024-03-15');
+  info('11.26.33 2024-03-15');
 } else {
   my ($file) = grep { not($_ =~ /^-.*$/) } @ARGV;
   if (not $file) {
