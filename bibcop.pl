@@ -21,7 +21,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-# 2024-03-15 09.31.28
+# 2024-03-15 09.39.09
 package bibcop;
 
 use warnings;
@@ -236,7 +236,7 @@ sub check_org_in_booktitle {
     return;
   }
   my (%entry) = @_;
-  my @orgs = ( 'ACM', 'IEEE' );
+  my @orgs = qw/ACM IEEE/;
   if (exists($entry{'booktitle'})) {
     my $title = $entry{'booktitle'};
     foreach my $o (@orgs) {
@@ -663,6 +663,10 @@ sub fix_booktitle {
     $value = 'Proceedings of the ' . $value;
   }
   $value =~ s/ (19|20)[0-9]{2} / /g;
+  my @orgs = qw/ACM IEEE ACM\/IEEE/;
+  foreach my $org (@orgs) {
+    $value =~ s/ \Q$org\E / /g;
+  }
   return $value;
 }
 
@@ -939,7 +943,7 @@ if (@ARGV+0 eq 0 or exists $args{'--help'} or exists $args{'-?'}) {
     "      --latex     Report errors in LaTeX format using \\PackageWarningNoLine command\n\n" .
     "If any issues, report to GitHub: https://github.com/yegor256/bibcop");
 } elsif (exists $args{'--version'} or exists $args{'-v'}) {
-  info('09.31.28 2024-03-15');
+  info('09.39.09 2024-03-15');
 } else {
   my ($file) = grep { not($_ =~ /^-.*$/) } @ARGV;
   if (not $file) {
