@@ -21,12 +21,13 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-# 2024-03-15 05.36.14
+# 2024-03-15 08.41.34
 package bibcop;
 
 use warnings;
 use strict;
 use File::Basename;
+use Time::Piece;
 
 # Hash of incoming command line arguments.
 my %args = map { $_ => 1 } @ARGV;
@@ -39,7 +40,7 @@ my %blessed = (
   'article' => ['doi', 'year', 'title', 'author', 'journal', 'volume', 'number', 'publisher?', 'pages?'],
   'inproceedings' => ['doi', 'booktitle', 'title', 'author', 'year', 'pages?', 'organization?', 'volume?'],
   'book' => ['title', 'author', 'year', 'publisher', 'doi?'],
-  'misc' => ['title', 'author', 'year', 'eprint?', 'archiveprefix?', 'primaryclass?', 'publisher?', 'organization?', 'doi?', 'url?', 'howpublished?', 'note?'],
+  'misc' => ['title', 'author', 'year', 'eprint?', 'archiveprefix?', 'primaryclass?', 'publisher?', 'organization?', 'doi?', 'howpublished?', 'note?'],
 );
 
 # See https://research.arizona.edu/faq/what-do-you-mean-when-you-say-use-title-case-proposalproject-titles
@@ -534,10 +535,16 @@ sub entry_fix {
     if ($tag =~ /^:/) {
       next;
     }
+    my $value = clean_tex($entry{$tag});
+    if ($tag eq 'url') {
+      my $today = localtime->strftime('%d-%m-%Y');
+      push(@lines, "  howpublished = {\\url{$value}},");
+      push(@lines, "  note = {[Online; accessed $today]},");
+      next;
+    }
     if (not exists $allowed{$tag} and not exists $allowed{$tag . '?'}) {
       next;
     }
-    my $value = clean_tex($entry{$tag});
     my $fixer = "fix_$tag";
     my $fixed = $value;
     if (defined &{$fixer}) {
@@ -919,7 +926,7 @@ if (@ARGV+0 eq 0 or exists $args{'--help'} or exists $args{'-?'}) {
     "      --latex     Report errors in LaTeX format using \\PackageWarningNoLine command\n\n" .
     "If any issues, report to GitHub: https://github.com/yegor256/bibcop");
 } elsif (exists $args{'--version'} or exists $args{'-v'}) {
-  info('05.36.14 2024-03-15');
+  info('08.41.34 2024-03-15');
 } else {
   my ($file) = grep { not($_ =~ /^-.*$/) } @ARGV;
   if (not $file) {
