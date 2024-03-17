@@ -26,6 +26,9 @@ and then use in the preamble (if you use [BibTeX](http://www.bibtex.org/), for e
 \end{document}
 ```
 
+You can also add it as a GitHub Action to your GitHub repository,
+with the help of [bibcop-action](https://github.com/yegor256/bibcop-action).
+
 Otherwise, you can download [`bibcop.sty`](https://yegor256.github.io/bibcop/bibcop.sty) and add to your project (together with [`bibcop.pl`](https://yegor256.github.io/bibcop/bibcop.pl)!).
 
 You can also download [`bibcop.pl`](https://yegor256.github.io/bibcop/bibcop.pl)
