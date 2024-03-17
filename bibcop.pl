@@ -579,7 +579,7 @@ sub fix_author {
   my @authors = split(/\s+and\s+/, $value);
   foreach my $author (@authors) {
     $author =~ s/^\s+|\s+$//g;
-    if (index($author, '{') != -1 or index($author, '}') != -1) {
+    if (index($author, ' {') != -1 or index($author, '} ') != -1) {
       next;
     }
     $author =~ s/ ([A-Z])($| )/ $1.$2/g;
