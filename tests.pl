@@ -27,7 +27,7 @@ use warnings;
 use strict;
 
 # Assert on the value and exit if error.
-sub assert {
+sub assert_eq {
   my ($l, $r) = @_;
   if ($l ne $r) {
     print "'$l' ne '$r'\n";

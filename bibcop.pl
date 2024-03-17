@@ -26,8 +26,8 @@ package bibcop;
 
 use warnings;
 use strict;
+use POSIX;
 use File::Basename;
-use Time::Piece;
 
 # Hash of incoming command line arguments.
 my %args = map { $_ => 1 } @ARGV;
@@ -543,7 +543,7 @@ sub entry_fix {
     }
     my $value = clean_tex($entry{$tag});
     if ($tag eq 'url') {
-      my $today = localtime->strftime('%d-%m-%Y');
+      my $today = strftime('%d-%m-%Y', localtime(time));
       push(@lines, "  howpublished = {\\url{$value}},");
       push(@lines, "  note = {[Online; accessed $today]},");
       next;

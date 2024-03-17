@@ -28,56 +28,56 @@ use warnings;
 
 my @i1 = entries('@Misc{knuth-1984:x, author  ={Donald Knuth}, Title="The TeX Book "}');
 # show(@i1);
-assert(@i1+0, 1);
-assert($i1[0]{':name'}, 'knuth-1984:x');
-assert($i1[0]{':type'}, 'Misc');
-assert($i1[0]{'author'}, 'Donald Knuth');
-assert($i1[0]{'title'}, 'The TeX Book ');
+assert_eq(@i1+0, 1);
+assert_eq($i1[0]{':name'}, 'knuth-1984:x');
+assert_eq($i1[0]{':type'}, 'Misc');
+assert_eq($i1[0]{'author'}, 'Donald Knuth');
+assert_eq($i1[0]{'title'}, 'The TeX Book ');
 
 my @i2 = entries('@misc{patrick, author={{Patrick S\:{u}skind}},}');
 # show(@i2);
-assert(@i2+0, 1);
-assert($i2[0]{'author'}, '{Patrick S\:{u}skind}');
+assert_eq(@i2+0, 1);
+assert_eq($i2[0]{'author'}, '{Patrick S\:{u}skind}');
 
 my @i3 = entries('@misc{p1} @article{p2,author="Jeff"} ');
 # show(@i3);
-assert(@i3+0, 2);
-assert($i3[0]{':name'}, 'p1');
-assert($i3[1]{':name'}, 'p2');
-assert($i3[1]{'author'}, 'Jeff');
+assert_eq(@i3+0, 2);
+assert_eq($i3[0]{':name'}, 'p1');
+assert_eq($i3[1]{':name'}, 'p2');
+assert_eq($i3[1]{'author'}, 'Jeff');
 
 my @i4 = entries('@misc{x1, year =   1989   }');
 # show(@i4);
-assert(@i4+0, 1);
-assert($i4[0]{'year'}, '1989');
+assert_eq(@i4+0, 1);
+assert_eq($i4[0]{'year'}, '1989');
 
 my @i5 = entries('@misc{x2,year=2021,}');
 # show(@i5);
-assert(@i5+0, 1);
-assert($i5[0]{'year'}, '2021');
+assert_eq(@i5+0, 1);
+assert_eq($i5[0]{'year'}, '2021');
 
 my @i6 = entries('@misc{x2,year=2021,year=1989}');
 # show(@i6);
-assert(@i6+0, 1);
-assert($i6[0]{'year'}, '2021');
+assert_eq(@i6+0, 1);
+assert_eq($i6[0]{'year'}, '2021');
 
 my @i7 = entries("\% a comment\n \@misc{7}\n");
 # show(@i7);
-assert(@i7+0, 1);
+assert_eq(@i7+0, 1);
 
 my @i8 = entries("\@misc{foo33, title={It's 100\\% true!}}\n");
 # show(@i8);
-assert(@i8+0, 1);
+assert_eq(@i8+0, 1);
 
 # These are all parsing errors
-assert(entries('no bibs')+0, 0);
-assert(entries('@misc{---}')+0, 0);
-assert(entries('@misc{hello, ??}')+0, 0);
+assert_eq(entries('no bibs')+0, 0);
+assert_eq(entries('@misc{---}')+0, 0);
+assert_eq(entries('@misc{hello, ??}')+0, 0);
 
-assert(entries('')+0, 0);
-assert(entries('@misc{k1,a={{x}{y}{}},b="{f}{x}",}')+0, 1);
-assert(entries('@article{k1_34} @misc{do43ss,Title=,Year=1998}')+0, 2);
-assert(entries("\@article{t1}\n\n\n\@misc{ff,year=1998}")+0, 2);
-assert(entries('@misc{42i-88/7.7,a=hello}')+0, 1);
+assert_eq(entries('')+0, 0);
+assert_eq(entries('@misc{k1,a={{x}{y}{}},b="{f}{x}",}')+0, 1);
+assert_eq(entries('@article{k1_34} @misc{do43ss,Title=,Year=1998}')+0, 2);
+assert_eq(entries("\@article{t1}\n\n\n\@misc{ff,year=1998}")+0, 2);
+assert_eq(entries('@misc{42i-88/7.7,a=hello}')+0, 1);
 
 1;

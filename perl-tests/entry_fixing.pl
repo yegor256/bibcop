@@ -25,14 +25,15 @@ package bibcop;
 
 use strict;
 use warnings;
-use Time::Piece;
+
+use POSIX;
 
 require './bibcop.pl';
 
 fixes_entry({':name' => 'knuth78', ':type' => 'book', 'title' => 'The TeX Book'}, "\@book{knuth78,\n  title = {{The TeX Book}},\n}\n\n");
 fixes_entry({':name' => 'k', ':type' => 'article', 'title' => 'Book', 'pages' => ''}, "\@article{k,\n  title = {{Book}},\n}\n\n");
 
-my $today = localtime->strftime('%d-%m-%Y');
+my $today = strftime('%d-%m-%Y', localtime(time));
 fixes_entry({':name' => 'f', ':type' => 'misc', 'url' => 'http://google.com'}, "\@misc{f,\n  howpublished = {\\url{http://google.com}},\n  note = {[Online; accessed $today]},\n}\n\n");
 
 fixes_entry({':name' => 'f', ':type' => 'article', 'booktitle' => 'ONE'}, "\@article{f,\n  journal = {{ONE}},\n}\n\n");
