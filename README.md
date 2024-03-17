@@ -26,9 +26,9 @@ and then use in the preamble (if you use [BibTeX](http://www.bibtex.org/), for e
 \end{document}
 ```
 
-Otherwise, you can download [`bibcop.sty`](https://raw.githubusercontent.com/yegor256/bibcop/gh-pages/bibcop.sty) and add to your project (together with [`bibcop.pl`](https://raw.githubusercontent.com/yegor256/bibcop/gh-pages/bibcop.pl)!).
+Otherwise, you can download [`bibcop.sty`](https://yegor256.github.io/bibcop/bibcop.sty) and add to your project (together with [`bibcop.pl`](https://yegor256.github.io/bibcop/bibcop.pl)!).
 
-You can also download [`bibcop.pl`](https://raw.githubusercontent.com/yegor256/bibcop/gh-pages/bibcop.pl)
+You can also download [`bibcop.pl`](https://yegor256.github.io/bibcop/bibcop.pl)
 and use it as a command line tool
 to check your `.bib` files and to auto-fix them
 (you should have [Perl](https://www.perl.org) installed):
