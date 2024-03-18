@@ -21,7 +21,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-# 2024-03-18 06.25.52
+# 2024-03-18 08.33.13
 package bibcop;
 
 use warnings;
@@ -736,6 +736,26 @@ sub fix_organization {
   return $value;
 }
 
+sub fix_unicode {
+  my ($value) = @_;
+  my %literals = (
+    'ò' => '\`{o}', 'ó' => '\\\'{o}', 'ô' => '\^{o}', 'ö' => '\"{o}', 'ő' => '\H{o}', 'ǒ' => '\v{o}', 'õ' => '\~{o}',
+    'à' => '\`{a}', 'á' => '\\\'{a}', 'â' => '\^{a}', 'ä' => '\"{a}', 'å' => '\r{a}', 'ą' => '\k{a}', 'ǎ' => '\v{a}', 'ã' => '\~{a}',
+    'ù' => '\`{u}', 'ú' => '\\\'{u}', 'û' => '\^{u}', 'ü' => '\"{u}', 'ů' => '\r{u}', 'ǔ' => '\v{u}', 'ũ' => '\~{u}',
+    'ì' => '\`{i}', 'í' => '\\\'{i}', 'î' => '\^{i}', 'ï' => '\"{i}', 'ǐ' => '\v{i}', 'ĩ' => '\~{i}',
+    'ń' => '\\\'{n}', 'ň' => '\v{n}', 'ñ' => '\~{n}',
+    'ç' => '\c{c}',
+    'ł' => '\l{}',
+    'ı' => '{\i}',
+    'ø' => '\o{}'
+  );
+  keys %literals;
+  while(my($k, $v) = each %literals) {
+    $value =~ s/\Q$k\E/$v/g;
+  }
+  return $value;
+}
+
 # Parse the incoming .bib file and return an array
 # of hash-maps, where each one is a bibentry.
 sub entries {
@@ -987,7 +1007,7 @@ if (@ARGV+0 eq 0 or exists $args{'--help'} or exists $args{'-?'}) {
     "      --latex     Report errors in LaTeX format using \\PackageWarningNoLine command\n\n" .
     "If any issues, report to GitHub: https://github.com/yegor256/bibcop");
 } elsif (exists $args{'--version'} or exists $args{'-v'}) {
-  info('06.25.52 2024-03-18');
+  info('08.33.13 2024-03-18');
 } else {
   my ($file) = grep { not($_ =~ /^-.*$/) } @ARGV;
   if (not $file) {
