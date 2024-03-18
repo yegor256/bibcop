@@ -736,6 +736,26 @@ sub fix_organization {
   return $value;
 }
 
+sub fix_unicode {
+  my ($value) = @_;
+  my %literals = (
+    'ò' => '\`{o}', 'ó' => '\\\'{o}', 'ô' => '\^{o}', 'ö' => '\"{o}', 'ő' => '\H{o}', 'ǒ' => '\v{o}', 'õ' => '\~{o}',
+    'à' => '\`{a}', 'á' => '\\\'{a}', 'â' => '\^{a}', 'ä' => '\"{a}', 'å' => '\r{a}', 'ą' => '\k{a}', 'ǎ' => '\v{a}', 'ã' => '\~{a}',
+    'ù' => '\`{u}', 'ú' => '\\\'{u}', 'û' => '\^{u}', 'ü' => '\"{u}', 'ů' => '\r{u}', 'ǔ' => '\v{u}', 'ũ' => '\~{u}',
+    'ì' => '\`{i}', 'í' => '\\\'{i}', 'î' => '\^{i}', 'ï' => '\"{i}', 'ǐ' => '\v{i}', 'ĩ' => '\~{i}',
+    'ń' => '\\\'{n}', 'ň' => '\v{n}', 'ñ' => '\~{n}',
+    'ç' => '\c{c}',
+    'ł' => '\l{}',
+    'ı' => '{\i}',
+    'ø' => '\o{}'
+  );
+  keys %literals;
+  while(my($k, $v) = each %literals) {
+    $value =~ s/\Q$k\E/$v/g;
+  }
+  return $value;
+}
+
 # Parse the incoming .bib file and return an array
 # of hash-maps, where each one is a bibentry.
 sub entries {
