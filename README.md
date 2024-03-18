@@ -1,3 +1,5 @@
+# Bibcop: Style Checker of BibTeX .bib files
+
 <img src="https://raw.githubusercontent.com/yegor256/bibcop/master/bibcop-logo.svg" height="92px"/>
 
 [![l3build](https://github.com/yegor256/bibcop/actions/workflows/l3build.yml/badge.svg)](https://github.com/yegor256/bibcop/actions/workflows/l3build.yml)
@@ -68,7 +70,7 @@ bibcop --help
 
 ## How to Contribute
 
-If you want to contribute yourself, make a fork, then create a branch, 
+If you want to contribute yourself, make a fork, then create a branch,
 then run `l3build ctan` in the root directory. It should compile
 everything without errors. If not, submit an issue and wait.
 Otherwise, make your changes and then run `l3build ctan` again.
