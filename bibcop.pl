@@ -749,7 +749,7 @@ sub fix_unicode {
     'ł' => '\l{}',
     'ı' => '{\i}',
     'ø' => '\o{}',
-    '—' => '---',
+    '–' => '--', '—' => '---',
   );
   keys %literals;
   while(my($k, $v) = each %literals) {
