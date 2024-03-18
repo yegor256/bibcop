@@ -557,6 +557,7 @@ sub entry_fix {
       no strict 'refs';
       $value = $fixer->($value);
     }
+    $value = fix_unicode($value);
     if ($tag =~ /title|booktitle|journal/) {
       $value = '{' . $value . '}';
     }
