@@ -21,7 +21,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-# 2024-03-17 13.14.40
+# 2024-03-18 06.25.52
 package bibcop;
 
 use warnings;
@@ -40,7 +40,7 @@ my %blessed = (
   'article' => ['doi', 'year', 'title', 'author', 'journal', 'volume', 'number', 'month?', 'publisher?', 'pages?'],
   'inproceedings' => ['doi', 'booktitle', 'title', 'author', 'year', 'pages?', 'month?', 'organization?', 'volume?'],
   'book' => ['title', 'author', 'year', 'publisher', 'doi?'],
-  'misc' => ['title', 'author', 'year', 'eprint?', 'archiveprefix?', 'primaryclass?', 'month?', 'publisher?', 'organization?', 'doi?', 'howpublished?', 'note?'],
+  'misc' => ['title', 'author', 'year', 'eprint?', 'archiveprefix?', 'primaryclass?', 'month?', 'publisher?', 'organization?', 'doi?', 'howpublished?', 'note?', 'pages?', 'number?', 'volume?'],
 );
 
 # See https://research.arizona.edu/faq/what-do-you-mean-when-you-say-use-title-case-proposalproject-titles
@@ -601,6 +601,35 @@ sub fix_number {
   return $value;
 }
 
+sub fix_month {
+  my ($value) = @_;
+  my %months = (
+    '1' => 'jan',
+    '2' => 'feb',
+    '3' => 'mar',
+    '4' => 'apr',
+    '5' => 'may',
+    '6' => 'jun',
+    '7' => 'jul',
+    '8' => 'aug',
+    '9' => 'sep',
+    '10' => 'oct',
+    '11' => 'nov',
+    '12' => 'dec',
+  );
+  $value =~ s/^0+//g;
+  if ($value =~ /^11|12|[0-9]$/) {
+    $value = $months{$value};
+  } else {
+    my %rev = reverse %months;
+    my $lc = substr(lc($value), 0, 3);
+    if (exists $rev{$lc}) {
+      $value = $lc;
+    }
+  }
+  return $value;
+}
+
 sub fix_capitalization {
   my ($value) = @_;
   my @words = split(/\s+/, $value);
@@ -958,7 +987,7 @@ if (@ARGV+0 eq 0 or exists $args{'--help'} or exists $args{'-?'}) {
     "      --latex     Report errors in LaTeX format using \\PackageWarningNoLine command\n\n" .
     "If any issues, report to GitHub: https://github.com/yegor256/bibcop");
 } elsif (exists $args{'--version'} or exists $args{'-v'}) {
-  info('13.14.40 2024-03-17');
+  info('06.25.52 2024-03-18');
 } else {
   my ($file) = grep { not($_ =~ /^-.*$/) } @ARGV;
   if (not $file) {
