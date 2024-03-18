@@ -40,7 +40,7 @@ my %blessed = (
   'article' => ['doi', 'year', 'title', 'author', 'journal', 'volume', 'number', 'month?', 'publisher?', 'pages?'],
   'inproceedings' => ['doi', 'booktitle', 'title', 'author', 'year', 'pages?', 'month?', 'organization?', 'volume?'],
   'book' => ['title', 'author', 'year', 'publisher', 'doi?'],
-  'misc' => ['title', 'author', 'year', 'eprint?', 'archiveprefix?', 'primaryclass?', 'month?', 'publisher?', 'organization?', 'doi?', 'howpublished?', 'note?'],
+  'misc' => ['title', 'author', 'year', 'eprint?', 'archiveprefix?', 'primaryclass?', 'month?', 'publisher?', 'organization?', 'doi?', 'howpublished?', 'note?', 'pages?', 'number?', 'volume?'],
 );
 
 # See https://research.arizona.edu/faq/what-do-you-mean-when-you-say-use-title-case-proposalproject-titles
@@ -598,6 +598,35 @@ sub fix_author {
 sub fix_number {
   my ($value) = @_;
   $value =~ s/^0+//g;
+  return $value;
+}
+
+sub fix_month {
+  my ($value) = @_;
+  my %months = (
+    '1' => 'jan',
+    '2' => 'feb',
+    '3' => 'mar',
+    '4' => 'apr',
+    '5' => 'may',
+    '6' => 'jun',
+    '7' => 'jul',
+    '8' => 'aug',
+    '9' => 'sep',
+    '10' => 'oct',
+    '11' => 'nov',
+    '12' => 'dec',
+  );
+  $value =~ s/^0+//g;
+  if ($value =~ /^11|12|[0-9]$/) {
+    $value = $months{$value};
+  } else {
+    my %rev = reverse %months;
+    my $lc = substr(lc($value), 0, 3);
+    if (exists $rev{$lc}) {
+      $value = $lc;
+    }
+  }
   return $value;
 }
 

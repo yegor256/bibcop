@@ -72,6 +72,13 @@ fixes('number', '02', '2');
 fixes('number', '007', '7');
 fixes('number', '16', '16');
 
+fixes('month', '02', 'feb');
+fixes('month', 'January', 'jan');
+fixes('month', 'Dec', 'dec');
+fixes('month', '9', 'sep');
+fixes('month', 'mar', 'mar');
+fixes('month', 'something', 'something');
+
 sub fixes {
   my ($tag, $before, $expected) = @_;
   my $fixer = "fix_$tag";
