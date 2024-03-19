@@ -80,6 +80,7 @@ fixes('month', 'mar', 'mar');
 fixes('month', 'something', 'something');
 
 fixes('unicode', 'Fernández, Luis and Peña, Rosalía', 'Fern\\\'{a}ndez, Luis and Pe\~{n}a, Rosal\\\'{i}a');
+fixes('unicode', 'Programmers’ Life', 'Programmers\' Life');
 
 sub fixes {
   my ($tag, $before, $expected) = @_;
