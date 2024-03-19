@@ -21,7 +21,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-# 2024-03-18 09.18.03
+# 2024-03-19 07.03.05
 package bibcop;
 
 use warnings;
@@ -750,6 +750,7 @@ sub fix_unicode {
     'ı' => '{\i}',
     'ø' => '\o{}',
     '–' => '--', '—' => '---',
+    '’' => '\''
   );
   keys %literals;
   while(my($k, $v) = each %literals) {
@@ -1009,7 +1010,7 @@ if (@ARGV+0 eq 0 or exists $args{'--help'} or exists $args{'-?'}) {
     "      --latex     Report errors in LaTeX format using \\PackageWarningNoLine command\n\n" .
     "If any issues, report to GitHub: https://github.com/yegor256/bibcop");
 } elsif (exists $args{'--version'} or exists $args{'-v'}) {
-  info('09.18.03 2024-03-18');
+  info('07.03.05 2024-03-19');
 } else {
   my ($file) = grep { not($_ =~ /^-.*$/) } @ARGV;
   if (not $file) {
