@@ -21,7 +21,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-# 2024-04-10 07.00.04
+# 2024-04-12 07.03.27
 package bibcop;
 
 use warnings;
@@ -705,6 +705,22 @@ sub fix_booktitle {
   foreach my $org (@orgs) {
     $value =~ s/ \Q$org\E / /g;
   }
+  my %numbers = (
+    'First' => '1st',
+    'Second' => '2nd',
+    'Third' => '3rd',
+    'Fourth' => '4th',
+    'Fifth' => '5th',
+    'Sixth' => '6th',
+    'Seventh' => '7th',
+    'Eighth' => '8th',
+    'Nineth' => '9th',
+    'Tenth' => '10th'
+  );
+  keys %numbers;
+  while(my($left, $right) = each %numbers) {
+    $value =~ s/^Proceedings of the \Q$left\E /Proceedings of the $right /g;
+  }
   return $value;
 }
 
@@ -1010,7 +1026,7 @@ if (@ARGV+0 eq 0 or exists $args{'--help'} or exists $args{'-?'}) {
     "      --latex     Report errors in LaTeX format using \\PackageWarningNoLine command\n\n" .
     "If any issues, report to GitHub: https://github.com/yegor256/bibcop");
 } elsif (exists $args{'--version'} or exists $args{'-v'}) {
-  info('07.00.04 2024-04-10');
+  info('07.03.27 2024-04-12');
 } else {
   my ($file) = grep { not($_ =~ /^-.*$/) } @ARGV;
   if (not $file) {
