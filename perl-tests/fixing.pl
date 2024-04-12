@@ -47,6 +47,9 @@ fixes('booktitle', 'Proceedings Of IEEE Symposium On Art', 'Proceedings of Sympo
 fixes('booktitle', 'Symposium on Computers', 'Proceedings of the Symposium on Computers');
 fixes('booktitle', 'Proceedings of the 2014 7th Conference', 'Proceedings of the 7th Conference');
 fixes('booktitle', 'Proceedings of the 7th ACM/IEEE Conference', 'Proceedings of the 7th Conference');
+fixes('booktitle', 'Proceedings of the First Conference', 'Proceedings of the 1st Conference');
+fixes('booktitle', 'Proceedings of the Second Conference', 'Proceedings of the 2nd Conference');
+fixes('booktitle', 'Proceedings of the Tenth Conference', 'Proceedings of the 10th Conference');
 
 fixes('publisher', 'ACM New York, NY, USA', 'ACM');
 fixes('publisher', 'ACME', 'ACME');
