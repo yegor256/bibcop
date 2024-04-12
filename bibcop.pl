@@ -21,7 +21,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-# 2024-04-12 07.03.27
+# 2024-04-12 11.25.10
 package bibcop;
 
 use warnings;
@@ -44,7 +44,7 @@ my %blessed = (
 );
 
 # See https://research.arizona.edu/faq/what-do-you-mean-when-you-say-use-title-case-proposalproject-titles
-my %minors = map { $_ => 1 } qw/in of at to by the a an and or as if up via yet nor but off on for into/;
+my %minors = map { $_ => 1 } qw/in of at to by the a an and or as if up via yet nor but off on for into vs/;
 
 # Check the presence of mandatory tags.
 sub check_mandatory_tags {
@@ -95,6 +95,7 @@ sub check_capitalization {
     my @words = only_words($value);
     my $pos = 0;
     foreach my $word (@words) {
+      $word =~ s/\.$//g;
       $pos = $pos + 1;
       if (not $word =~ /^[A-Za-z]/) {
         next;
@@ -176,6 +177,9 @@ sub check_shortenings {
     my @words = only_words($value);
     foreach my $word (@words) {
       if (not $word =~ /^[A-Za-z]/) {
+        next;
+      }
+      if ($word eq 'vs.') {
         next;
       }
       if ($word =~ /^.*\.$/) {
@@ -1026,7 +1030,7 @@ if (@ARGV+0 eq 0 or exists $args{'--help'} or exists $args{'-?'}) {
     "      --latex     Report errors in LaTeX format using \\PackageWarningNoLine command\n\n" .
     "If any issues, report to GitHub: https://github.com/yegor256/bibcop");
 } elsif (exists $args{'--version'} or exists $args{'-v'}) {
-  info('07.03.27 2024-04-12');
+  info('11.25.10 2024-04-12');
 } else {
   my ($file) = grep { not($_ =~ /^-.*$/) } @ARGV;
   if (not $file) {
