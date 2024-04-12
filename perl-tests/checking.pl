@@ -68,7 +68,7 @@ passes((
 passes((
   ':type' => 'inproceedings',
   'author' => 'James and others',
-  'title' => '{A \(\pi\)-Study}',
+  'title' => '{A \(\pi\)-Study vs. Other Studies}',
   'booktitle' => '{Proceedings of the ICCQ}',
   'year' => '1984',
   'volume' => '32',

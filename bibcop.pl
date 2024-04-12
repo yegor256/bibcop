@@ -44,7 +44,7 @@ my %blessed = (
 );
 
 # See https://research.arizona.edu/faq/what-do-you-mean-when-you-say-use-title-case-proposalproject-titles
-my %minors = map { $_ => 1 } qw/in of at to by the a an and or as if up via yet nor but off on for into/;
+my %minors = map { $_ => 1 } qw/in of at to by the a an and or as if up via yet nor but off on for into vs/;
 
 # Check the presence of mandatory tags.
 sub check_mandatory_tags {
@@ -95,6 +95,7 @@ sub check_capitalization {
     my @words = only_words($value);
     my $pos = 0;
     foreach my $word (@words) {
+      $word =~ s/\.$//g;
       $pos = $pos + 1;
       if (not $word =~ /^[A-Za-z]/) {
         next;
@@ -176,6 +177,9 @@ sub check_shortenings {
     my @words = only_words($value);
     foreach my $word (@words) {
       if (not $word =~ /^[A-Za-z]/) {
+        next;
+      }
+      if ($word eq 'vs.') {
         next;
       }
       if ($word =~ /^.*\.$/) {
