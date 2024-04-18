@@ -21,7 +21,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-# 2024-04-18 08.41.15
+# 2024-04-18 08.46.09
 package bibcop;
 
 use warnings;
@@ -40,6 +40,7 @@ my %blessed = (
   'article' => ['doi', 'year', 'title', 'author', 'journal', 'volume', 'number', 'month?', 'publisher?', 'pages?'],
   'inproceedings' => ['doi', 'booktitle', 'title', 'author', 'year', 'pages?', 'month?', 'organization?', 'volume?'],
   'book' => ['title', 'author', 'year', 'publisher', 'doi?'],
+  'phdthesis' => ['title', 'author', 'year', 'school', 'doi?'],
   'misc' => ['title', 'author', 'year', 'eprint?', 'archiveprefix?', 'primaryclass?', 'month?', 'publisher?', 'organization?', 'doi?', 'howpublished?', 'note?', 'pages?', 'number?', 'volume?'],
 );
 
@@ -53,6 +54,9 @@ sub check_mandatory_tags {
   }
   my (%entry) = @_;
   my $type = $entry{':type'};
+  if (not exists $blessed{$type}) {
+    return "The type of entry is not allowed: '$type'"
+  }
   my $mandatory = $blessed{$type};
   foreach my $tag (@$mandatory) {
     if ($tag =~ /^.*\?$/) {
@@ -1030,7 +1034,7 @@ if (@ARGV+0 eq 0 or exists $args{'--help'} or exists $args{'-?'}) {
     "      --latex     Report errors in LaTeX format using \\PackageWarningNoLine command\n\n" .
     "If any issues, report to GitHub: https://github.com/yegor256/bibcop");
 } elsif (exists $args{'--version'} or exists $args{'-v'}) {
-  info('08.41.15 2024-04-18');
+  info('08.46.09 2024-04-18');
 } else {
   my ($file) = grep { not($_ =~ /^-.*$/) } @ARGV;
   if (not $file) {
