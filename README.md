@@ -1,6 +1,6 @@
 # Bibcop: Style Checker of BibTeX .bib files
 
-<img src="https://raw.githubusercontent.com/yegor256/bibcop/master/bibcop-logo.svg" height="92px"/>
+![bibcop logo](bibcop-logo.png)
 
 [![l3build](https://github.com/yegor256/bibcop/actions/workflows/l3build.yml/badge.svg)](https://github.com/yegor256/bibcop/actions/workflows/l3build.yml)
 [![CTAN](https://img.shields.io/ctan/v/bibcop)](https://ctan.org/pkg/bibcop)
