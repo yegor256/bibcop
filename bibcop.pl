@@ -40,6 +40,7 @@ my %blessed = (
   'article' => ['doi', 'year', 'title', 'author', 'journal', 'volume', 'number', 'month?', 'publisher?', 'pages?'],
   'inproceedings' => ['doi', 'booktitle', 'title', 'author', 'year', 'pages?', 'month?', 'organization?', 'volume?'],
   'book' => ['title', 'author', 'year', 'publisher', 'doi?'],
+  'phdthesis' => ['title', 'author', 'year', 'school', 'doi?'],
   'misc' => ['title', 'author', 'year', 'eprint?', 'archiveprefix?', 'primaryclass?', 'month?', 'publisher?', 'organization?', 'doi?', 'howpublished?', 'note?', 'pages?', 'number?', 'volume?'],
 );
 
@@ -53,6 +54,9 @@ sub check_mandatory_tags {
   }
   my (%entry) = @_;
   my $type = $entry{':type'};
+  if (not exists $blessed{$type}) {
+    return "The type of entry is not allowed: '$type'"
+  }
   my $mandatory = $blessed{$type};
   foreach my $tag (@$mandatory) {
     if ($tag =~ /^.*\?$/) {

@@ -93,6 +93,13 @@ passes((
   'howpublished' => '\\url{https://www.yegor256.com}',
   'note' => 'it is a blog post'
 ));
+passes((
+  ':type' => 'phdthesis',
+  'author' => 'Doe, John',
+  'title' => '{The Title}',
+  'year' => '1984',
+  'school' => 'Stanford'
+));
 
 sub fails {
   my (%entry) = @_;
