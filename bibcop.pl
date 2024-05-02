@@ -94,7 +94,7 @@ sub check_capitalization {
     if (not exists $tags{$tag}) {
       next;
     }
-    my $tailed = qr/^.+(:|\?)$/;
+    my @ends = qw/ ; ? . --- : ! /;
     my $value = $entry{$tag};
     my @words = only_words($value);
     my $pos = 0;
@@ -106,18 +106,20 @@ sub check_capitalization {
       }
       if (exists $minors{$word}) {
         if ($pos eq 1) {
-          return "The minor word in the '$tag' must be upper-cased since it is the first one"
+          return "The minor word '$word' in the '$tag' must be upper-cased since it is the first one"
         }
-        if (not $words[$pos - 2] =~ $tailed) {
-          next;
+        my $before = $words[$pos - 2];
+        if (grep(/^$before$/, @ends)) {
+          return "The minor word '$word' in the '$tag' must be upper-cased, because it follows the '$before'"
         }
-        return "The minor word in the '$tag' must be upper-cased, because it follows the colon"
+        next;
       }
       if (exists $minors{lc($word)}) {
         if ($pos eq 1) {
           next;
         }
-        if ($words[$pos - 2] =~ $tailed) {
+        my $before = $words[$pos - 2];
+        if (grep(/^$before$/, @ends)) {
           next;
         }
         return "All minor words in the '$tag' must be lower-cased, while @{[as_position($pos)]} word '$word' is not"
@@ -178,7 +180,7 @@ sub check_shortenings {
       next;
     }
     my $value = $entry{$tag};
-    my @words = only_words($value);
+    my @words = split(/ /, clean_tex($value));
     foreach my $word (@words) {
       if (not $word =~ /^[A-Za-z]/) {
         next;
@@ -910,7 +912,12 @@ sub entries {
 # Takes the text and returns only list of words seen there.
 sub only_words {
   my ($tex) = @_;
-  return split(/[ \-]/, clean_tex($tex));
+  my $t = clean_tex($tex);
+  $t =~ s/([^a-zA-Z0-9\\])/ $1 /g;
+  $t =~ s/- +- +-/---/g;
+  $t =~ s/{ /{/g;
+  $t =~ s/ }/}/g;
+  return split(/ +/, $t);
 }
 
 # Take a TeX string and return a cleaner one, without redundant spaces, brackets, etc.
