@@ -21,7 +21,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-# 2024-05-02 08.48.20
+# 2024-05-02 08.48.59
 package bibcop;
 
 use warnings;
@@ -595,7 +595,7 @@ sub fix_author {
     if (index($author, ',') eq -1) {
       my @words = split(/\s+/, $author);
       my $total = @words+0;
-      if ($total gt 1) {
+      if ($total > 1) {
         $author = $words[$total - 1] . ', ' . join(' ', @words[0 .. $total - 2]);
       }
     }
@@ -649,7 +649,7 @@ sub fix_capitalization {
       next;
     }
     my $lc = lc($word);
-    if (exists $minors{$lc} and $pos gt 1 and not $words[$pos - 2] =~ /:$/) {
+    if (exists $minors{$lc} and $pos > 1 and not $words[$pos - 2] =~ /:$/) {
       $word = $lc;
       next;
     }
@@ -1036,7 +1036,7 @@ if (@ARGV+0 eq 0 or exists $args{'--help'} or exists $args{'-?'}) {
     "      --latex     Report errors in LaTeX format using \\PackageWarningNoLine command\n\n" .
     "If any issues, report to GitHub: https://github.com/yegor256/bibcop");
 } elsif (exists $args{'--version'} or exists $args{'-v'}) {
-  info('08.48.20 2024-05-02');
+  info('08.48.59 2024-05-02');
 } else {
   my ($file) = grep { not($_ =~ /^-.*$/) } @ARGV;
   if (not $file) {
@@ -1075,7 +1075,7 @@ if (@ARGV+0 eq 0 or exists $args{'--help'} or exists $args{'-?'}) {
         $found += 1;
       }
     }
-    if ($found gt 0) {
+    if ($found > 0) {
       debug("$found problem(s) found");
       fail();
     }
