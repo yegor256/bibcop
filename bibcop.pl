@@ -595,7 +595,7 @@ sub fix_author {
     if (index($author, ',') eq -1) {
       my @words = split(/\s+/, $author);
       my $total = @words+0;
-      if ($total gt 1) {
+      if ($total > 1) {
         $author = $words[$total - 1] . ', ' . join(' ', @words[0 .. $total - 2]);
       }
     }
@@ -649,7 +649,7 @@ sub fix_capitalization {
       next;
     }
     my $lc = lc($word);
-    if (exists $minors{$lc} and $pos gt 1 and not $words[$pos - 2] =~ /:$/) {
+    if (exists $minors{$lc} and $pos > 1 and not $words[$pos - 2] =~ /:$/) {
       $word = $lc;
       next;
     }
@@ -1075,7 +1075,7 @@ if (@ARGV+0 eq 0 or exists $args{'--help'} or exists $args{'-?'}) {
         $found += 1;
       }
     }
-    if ($found gt 0) {
+    if ($found > 0) {
       debug("$found problem(s) found");
       fail();
     }
