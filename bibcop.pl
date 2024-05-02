@@ -691,7 +691,9 @@ sub fix_pages {
   if ($left !~ /^[0-9]*$/ or $right !~ /^[0-9]*$/) {
     return $value;
   }
-  if ($left + 0 gt $right + 0) {
+  $left = $left + 0;
+  $right = $right + 0;
+  if ($left > $right) {
     my $tmp = $left;
     $left = $right;
     $right = $tmp;

@@ -70,7 +70,7 @@ fixes('pages', '2---33', '2--33');
 fixes('pages', '22—23', '22--23');
 fixes('pages', '05---07', '5--7');
 fixes('pages', '42---13', '13--42');
-fixes('pages', '110--101', '101--110');
+fixes('pages', '103--91', '91--103');
 
 fixes('number', '02', '2');
 fixes('number', '007', '7');
