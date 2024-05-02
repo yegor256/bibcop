@@ -104,6 +104,9 @@ sub check_capitalization {
       if (not $word =~ /^[A-Za-z]/) {
         next;
       }
+      if ($word =~ /^\{.*|.*\}$/) {
+        next;
+      }
       if (exists $minors{$word}) {
         if ($pos eq 1) {
           return "The minor word '$word' in the '$tag' must be upper-cased since it is the first one"

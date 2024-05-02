@@ -101,6 +101,7 @@ check_fails($f, ('title' => 'Object-oriented Programming'));
 check_fails($f, ('title' => 'Cilk: an Efficient Multithreaded Runtime System'));
 check_fails($f, ('title' => 'in the Database'));
 check_fails($f, ('title' => 'GitHub Audience?---a Thematic Analysis'));
+check_fails($f, ('title' => 'Analysis of GitHub.com Users'));
 check_passes($f, ('title' => 'The TeX Book'));
 check_passes($f, ('title' => 'Data Flow Languages and Architecture'));
 check_passes($f, ('title' => 'A Preliminary Architecture for a Basic Data-Flow Processor'));
@@ -108,6 +109,7 @@ check_passes($f, ('title' => 'Cilk: An Efficient Multithreaded Runtime System'))
 check_passes($f, ('title' => 'Can Programming Be Liberated From the {von} Neumann Style? A Functional Style and Its Algebra of Programs'));
 check_passes($f, ('title' => 'An Empirical Study of in C Code From GitHub'));
 check_passes($f, ('title' => 'GitHub Audience?---A Thematic Analysis'));
+check_passes($f, ('title' => 'Analysis of {GitHub.com} Users'));
 
 $f = 'check_year';
 check_fails($f, ('year' => 'hello'));
