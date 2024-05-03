@@ -55,6 +55,8 @@ fixes('title', 'does it work? --- of course!', 'Does It Work? --- Of Course!');
 fixes('title', 'GitHub Audience?---a Thematic Analysis', 'GitHub Audience? --- A Thematic Analysis');
 fixes('title', 'our in-house rules', 'Our In-House Rules');
 fixes('title', 'user\'s story', 'User\'s Story');
+fixes('title', 'step in, step out', 'Step in, Step Out');
+fixes('title', 'are we there yet?', 'Are We There yet?');
 fixes('title', 'GitHub Audience? --- a Thematic Analysis', 'GitHub Audience? --- A Thematic Analysis');
 
 fixes('booktitle', 'Proceedings Of IEEE Symposium On Art', 'Proceedings of Symposium on Art');

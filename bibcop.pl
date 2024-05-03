@@ -680,7 +680,9 @@ sub fix_capitalization {
     foreach my $part (@parts) {
       $p += 1;
       my $lcp = lc($part);
-      if (exists $minors{$lcp}) {
+      my $head = $lcp;
+      $head =~ s/[,\.!\?;:]$//g;
+      if (exists $minors{$head}) {
         if ($p > 1) {
           my $pre = $parts[$p - 2];
           if (not $pre eq '') {
