@@ -619,6 +619,7 @@ sub fix_author {
         $author = $words[$total - 1] . ', ' . join(' ', @words[0 .. $total - 2]);
       }
     }
+    $author =~ s/([A-Z])\.(?![ ,])/$1. /g;
     $author =~ s/^\s+|\s+$//g;
   }
   return join(' and ', @authors);
