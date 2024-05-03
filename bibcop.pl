@@ -21,7 +21,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-# 2024-05-03 03.43.51
+# 2024-05-03 03.55.49
 package bibcop;
 
 use warnings;
@@ -680,7 +680,9 @@ sub fix_capitalization {
     foreach my $part (@parts) {
       $p += 1;
       my $lcp = lc($part);
-      if (exists $minors{$lcp}) {
+      my $head = $lcp;
+      $head =~ s/[,\.!\?;:]$//g;
+      if (exists $minors{$head}) {
         if ($p > 1) {
           my $pre = $parts[$p - 2];
           if (not $pre eq '') {
@@ -1081,7 +1083,7 @@ if (@ARGV+0 eq 0 or exists $args{'--help'} or exists $args{'-?'}) {
     "      --latex     Report errors in LaTeX format using \\PackageWarningNoLine command\n\n" .
     "If any issues, report to GitHub: https://github.com/yegor256/bibcop");
 } elsif (exists $args{'--version'} or exists $args{'-v'}) {
-  info('03.43.51 2024-05-03');
+  info('03.55.49 2024-05-03');
 } else {
   my ($file) = grep { not($_ =~ /^-.*$/) } @ARGV;
   if (not $file) {
