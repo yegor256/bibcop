@@ -21,7 +21,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-# 2024-05-03 04.02.29
+# 2024-05-03 04.14.50
 package bibcop;
 
 use warnings;
@@ -619,6 +619,7 @@ sub fix_author {
         $author = $words[$total - 1] . ', ' . join(' ', @words[0 .. $total - 2]);
       }
     }
+    $author =~ s/([A-Z])\.(?![ ,])/$1. /g;
     $author =~ s/^\s+|\s+$//g;
   }
   return join(' and ', @authors);
@@ -1083,7 +1084,7 @@ if (@ARGV+0 eq 0 or exists $args{'--help'} or exists $args{'-?'}) {
     "      --latex     Report errors in LaTeX format using \\PackageWarningNoLine command\n\n" .
     "If any issues, report to GitHub: https://github.com/yegor256/bibcop");
 } elsif (exists $args{'--version'} or exists $args{'-v'}) {
-  info('04.02.29 2024-05-03');
+  info('04.14.50 2024-05-03');
 } else {
   my ($file) = grep { not($_ =~ /^-.*$/) } @ARGV;
   if (not $file) {
