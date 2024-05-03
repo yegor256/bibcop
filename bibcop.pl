@@ -659,26 +659,28 @@ sub fix_capitalization {
     if (not $word =~ /^[A-Za-z]/) {
       next;
     }
-    my $lc = lc($word);
-    if (exists $minors{$lc} and $pos > 1) {
+    my $start = 1;
+    if ($pos > 1) {
       my $before = $words[$pos - 2];
-      if (not $before =~ /(:|\?|!|;)$/) {
-        $word = $lc;
-        next;
+      if (not $before =~ /(:|\?|!|;|-)$/) {
+        $start = 0;
       }
-    }
-    if ($word =~ /^[a-z].*/) {
-      $word =~ s/^([a-z])/\U$1/g;
     }
     my @parts = split(/-/, $word, -1);
     my $p = 0;
     foreach my $part (@parts) {
       $p += 1;
-      if (exists $minors{lc($part)}) {
+      my $lcp = lc($part);
+      if (exists $minors{$lcp}) {
         if ($p > 1) {
           my $pre = $parts[$p - 2];
           if (not $pre eq '') {
-            $part = lc($part);
+            $part = $lcp;
+            next;
+          }
+        } elsif (@parts+0 == 1) {
+          if (not $start) {
+            $part = $lcp;
             next;
           }
         }

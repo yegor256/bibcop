@@ -20,25 +20,17 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 ---
-docker:
-  image: yegor256/rultor-image:1.23.1
-install: |-
-  gem install texsc:0.6.0
-  gem install texqc:0.6.0
-  sudo tlmgr option repository ctan
-  sudo tlmgr --verify-repo=none update --self
-  sudo tlmgr --verify-repo=none install $(cut -d' ' -f2 DEPENDS.txt | uniq)
-  sudo tlmgr --verify-repo=none update $(cut -d' ' -f2 DEPENDS.txt | uniq)
-merge:
-  script: |-
-    l3build check
-release:
-  pre: false
-  script: |-
-    l3build tag ${tag}
-    l3build ctan --show-log-on-error
-    ./tests.pl
-    texsc
-    texqc
-    git commit -am "version set to ${tag}"
-    echo 'y' | l3build upload --halt-on-error
+name: yamllint
+'on':
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+jobs:
+  yamllint:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ibiqlik/action-yamllint@v3
