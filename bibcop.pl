@@ -654,9 +654,12 @@ sub fix_capitalization {
       next;
     }
     my $lc = lc($word);
-    if (exists $minors{$lc} and $pos > 1 and not $words[$pos - 2] =~ /:$/) {
-      $word = $lc;
-      next;
+    if (exists $minors{$lc} and $pos > 1) {
+      my $before = $words[$pos - 2];
+      if (not $before =~ /(:|\?|!|;)$/) {
+        $word = $lc;
+        next;
+      }
     }
     if ($word =~ /^[a-z].*/) {
       $word =~ s/^([a-z])/\U$1/g;
