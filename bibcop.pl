@@ -668,10 +668,11 @@ sub fix_capitalization {
     my $p = 0;
     foreach my $part (@parts) {
       $p += 1;
-      if (exists $minors{$part}) {
+      if (exists $minors{lc($part)}) {
         if ($p > 1) {
           my $pre = $parts[$p - 2];
           if (not $pre eq '') {
+            $part = lc($part);
             next;
           }
         }

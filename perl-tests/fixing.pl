@@ -46,6 +46,7 @@ fixes('title', 'Does It Work? an empirical study', 'Does It Work? An Empirical S
 fixes('title', 'it works? of course!', 'It Works? Of Course!');
 fixes('title', 'first; second!', 'First; Second!');
 fixes('title', 'Face-to-Face discussion', 'Face-to-Face Discussion');
+fixes('title', 'Face-To-Face Talk', 'Face-to-Face Talk');
 fixes('title', 'long question---short answer', 'Long Question---Short Answer');
 fixes('title', 'long question --- short answer', 'Long Question --- Short Answer');
 fixes('title', 'does it work?---of course!', 'Does It Work?---Of Course!');
