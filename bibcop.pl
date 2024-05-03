@@ -294,6 +294,7 @@ sub check_typography {
   my @no_space_after = ( '(', '[' );
   my @space_before = ( '(', '[' );
   my @space_after = ( ')', ']' );
+  my @good_tails = ( 'Inc.', 'Ltd.' );
   my @bad_tails = ( '.', ',', ';', ':', '-' );
   foreach my $tag (keys %entry) {
     if ($tag =~ /^:.*/) {
@@ -307,8 +308,16 @@ sub check_typography {
       if ($s eq '.' and $tag eq 'author') {
         next;
       }
-      if ($value =~ /^.*\Q$s\E$/) {
-        return "The '$tag' must not end with a $symbols{$s}"
+      my $good = 0;
+      foreach my $s (@good_tails) {
+        if ($value =~ /^.*\Q$s\E$/) {
+          $good = 1;
+        }
+      }
+      if (not $good) {
+        if ($value =~ /^.*\Q$s\E$/) {
+          return "The '$tag' must not end with a $symbols{$s}"
+        }
       }
     }
     foreach my $s (@no_space_before) {
