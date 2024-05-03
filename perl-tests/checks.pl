@@ -76,6 +76,8 @@ check_passes($f, ('title' => '{This title is surrounded}'));
 $f = 'check_shortenings';
 check_fails($f, ('journal' => 'J. Log. Comp.'));
 check_passes($f, ('booktitle' => 'Communications of the ACM'));
+check_passes($f, ('booktitle' => 'Interesting story?... Maybe'));
+check_passes($f, ('booktitle' => 'It\'s simple... Not!'));
 
 $f = 'check_author';
 check_fails($f, ('author' => 'I'));

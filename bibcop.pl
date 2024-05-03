@@ -191,6 +191,9 @@ sub check_shortenings {
       if ($word eq 'vs.') {
         next;
       }
+      if ($word =~ /\.\.\.$/) {
+        next;
+      }
       if ($word =~ /^.*\.$/) {
         return "Do not shorten the words in the '$tag', such as '$word'"
       }
