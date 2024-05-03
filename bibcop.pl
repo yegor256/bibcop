@@ -166,6 +166,9 @@ sub check_author {
       if ($name =~ /^[A-Z][^.]+$/) {
         next
       }
+      if ($name =~ /^(van|de)$/) {
+        next
+      }
       if ($name =~ /^[A-Z]$/) {
         return "A shortened name must have a tailing dot in @{[as_position($pos)]} 'author', as in 'Knuth, Donald E.'";
       }
