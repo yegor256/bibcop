@@ -597,7 +597,7 @@ sub fix_author {
       next;
     }
     $author =~ s/ ([A-Z])($| )/ $1.$2/g;
-    if (index($author, ',') eq -1) {
+    if (index($author, ',') == -1) {
       my @words = split(/\s+/, $author);
       my $total = @words+0;
       if ($total > 1) {
@@ -664,9 +664,21 @@ sub fix_capitalization {
     if ($word =~ /^[a-z].*/) {
       $word =~ s/^([a-z])/\U$1/g;
     }
-    if (index($word, '-') != -1) {
-      $word =~ s/-([a-z])/-\U$1/g;
+    my @parts = split(/-/, $word, -1);
+    my $p = 0;
+    foreach my $part (@parts) {
+      $p += 1;
+      if (exists $minors{$part}) {
+        if ($p > 1) {
+          my $pre = $parts[$p - 2];
+          if (not $pre eq '') {
+            next;
+          }
+        }
+      }
+      $part =~ s/^([a-z])/\U$1/g;
     }
+    $word = join('-', @parts);
   }
   return join(' ', @words);
 }
