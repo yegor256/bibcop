@@ -110,6 +110,9 @@ check_passes($f, ('title' => 'Can Programming Be Liberated From the {von} Neuman
 check_passes($f, ('title' => 'An Empirical Study of in C Code From GitHub'));
 check_passes($f, ('title' => 'GitHub Audience?---A Thematic Analysis'));
 check_passes($f, ('title' => 'Analysis of {GitHub.com} Users'));
+check_passes($f, ('title' => 'Don\'t Read'));
+check_passes($f, ('title' => 'We\'ve Done It'));
+check_passes($f, ('title' => 'Developer\'s Story'));
 
 $f = 'check_year';
 check_fails($f, ('year' => 'hello'));

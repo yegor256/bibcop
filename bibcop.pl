@@ -932,7 +932,7 @@ sub entries {
 sub only_words {
   my ($tex) = @_;
   my $t = clean_tex($tex);
-  $t =~ s/([^a-zA-Z0-9\\])/ $1 /g;
+  $t =~ s/([^a-zA-Z0-9\\'])/ $1 /g;
   $t =~ s/- +- +-/---/g;
   $t =~ s/{ /{/g;
   $t =~ s/ }/}/g;

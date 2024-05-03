@@ -52,6 +52,7 @@ fixes('title', 'long question --- short answer', 'Long Question --- Short Answer
 fixes('title', 'does it work?---of course!', 'Does It Work?---Of Course!');
 fixes('title', 'GitHub Audience?---a Thematic Analysis', 'GitHub Audience?---A Thematic Analysis');
 fixes('title', 'our in-house rules', 'Our In-House Rules');
+fixes('title', 'user\'s story', 'User\'s Story');
 
 fixes('booktitle', 'Proceedings Of IEEE Symposium On Art', 'Proceedings of Symposium on Art');
 fixes('booktitle', 'Symposium on Computers', 'Proceedings of the Symposium on Computers');
