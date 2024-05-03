@@ -21,7 +21,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-# 2024-05-02 08.48.59
+# 2024-05-03 03.03.34
 package bibcop;
 
 use warnings;
@@ -94,7 +94,7 @@ sub check_capitalization {
     if (not exists $tags{$tag}) {
       next;
     }
-    my $tailed = qr/^.+(:|\?)$/;
+    my @ends = qw/ ; ? . --- : ! /;
     my $value = $entry{$tag};
     my @words = only_words($value);
     my $pos = 0;
@@ -104,20 +104,25 @@ sub check_capitalization {
       if (not $word =~ /^[A-Za-z]/) {
         next;
       }
+      if ($word =~ /^\{.*|.*\}$/) {
+        next;
+      }
       if (exists $minors{$word}) {
         if ($pos eq 1) {
-          return "The minor word in the '$tag' must be upper-cased since it is the first one"
+          return "The minor word '$word' in the '$tag' must be upper-cased since it is the first one"
         }
-        if (not $words[$pos - 2] =~ $tailed) {
-          next;
+        my $before = $words[$pos - 2];
+        if (grep(/^$before$/, @ends)) {
+          return "The minor word '$word' in the '$tag' must be upper-cased, because it follows the '$before'"
         }
-        return "The minor word in the '$tag' must be upper-cased, because it follows the colon"
+        next;
       }
       if (exists $minors{lc($word)}) {
         if ($pos eq 1) {
           next;
         }
-        if ($words[$pos - 2] =~ $tailed) {
+        my $before = $words[$pos - 2];
+        if (grep(/^$before$/, @ends)) {
           next;
         }
         return "All minor words in the '$tag' must be lower-cased, while @{[as_position($pos)]} word '$word' is not"
@@ -178,7 +183,7 @@ sub check_shortenings {
       next;
     }
     my $value = $entry{$tag};
-    my @words = only_words($value);
+    my @words = split(/ /, clean_tex($value));
     foreach my $word (@words) {
       if (not $word =~ /^[A-Za-z]/) {
         next;
@@ -592,7 +597,7 @@ sub fix_author {
       next;
     }
     $author =~ s/ ([A-Z])($| )/ $1.$2/g;
-    if (index($author, ',') eq -1) {
+    if (index($author, ',') == -1) {
       my @words = split(/\s+/, $author);
       my $total = @words+0;
       if ($total > 1) {
@@ -649,16 +654,32 @@ sub fix_capitalization {
       next;
     }
     my $lc = lc($word);
-    if (exists $minors{$lc} and $pos > 1 and not $words[$pos - 2] =~ /:$/) {
-      $word = $lc;
-      next;
+    if (exists $minors{$lc} and $pos > 1) {
+      my $before = $words[$pos - 2];
+      if (not $before =~ /(:|\?|!|;)$/) {
+        $word = $lc;
+        next;
+      }
     }
     if ($word =~ /^[a-z].*/) {
       $word =~ s/^([a-z])/\U$1/g;
     }
-    if (index($word, '-') != -1) {
-      $word =~ s/-([a-z])/-\U$1/g;
+    my @parts = split(/-/, $word, -1);
+    my $p = 0;
+    foreach my $part (@parts) {
+      $p += 1;
+      if (exists $minors{lc($part)}) {
+        if ($p > 1) {
+          my $pre = $parts[$p - 2];
+          if (not $pre eq '') {
+            $part = lc($part);
+            next;
+          }
+        }
+      }
+      $part =~ s/^([a-z])/\U$1/g;
     }
+    $word = join('-', @parts);
   }
   return join(' ', @words);
 }
@@ -910,7 +931,12 @@ sub entries {
 # Takes the text and returns only list of words seen there.
 sub only_words {
   my ($tex) = @_;
-  return split(/[ \-]/, clean_tex($tex));
+  my $t = clean_tex($tex);
+  $t =~ s/([^a-zA-Z0-9\\'])/ $1 /g;
+  $t =~ s/- +- +-/---/g;
+  $t =~ s/{ /{/g;
+  $t =~ s/ }/}/g;
+  return split(/ +/, $t);
 }
 
 # Take a TeX string and return a cleaner one, without redundant spaces, brackets, etc.
@@ -1036,7 +1062,7 @@ if (@ARGV+0 eq 0 or exists $args{'--help'} or exists $args{'-?'}) {
     "      --latex     Report errors in LaTeX format using \\PackageWarningNoLine command\n\n" .
     "If any issues, report to GitHub: https://github.com/yegor256/bibcop");
 } elsif (exists $args{'--version'} or exists $args{'-v'}) {
-  info('08.48.59 2024-05-02');
+  info('03.03.34 2024-05-03');
 } else {
   my ($file) = grep { not($_ =~ /^-.*$/) } @ARGV;
   if (not $file) {
