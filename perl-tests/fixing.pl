@@ -36,6 +36,7 @@ fixes('author', 'Brandon, Lucia', 'Brandon, Lucia');
 fixes('author', 'Lucia Brandon', 'Brandon, Lucia');
 fixes('author', 'Peter J. Landin', 'Landin, Peter J.');
 fixes('author', 'Tan Yiyu and Lo {Wan Yiu}', 'Yiyu, Tan and Lo {Wan Yiu}');
+fixes('author', 'van Buren, Andre', 'van Buren, Andre');
 
 fixes('title', 'The TeX Book', 'The TeX Book');
 fixes('title', 'Executing A program On The MIT architecture', 'Executing a Program on the MIT Architecture');
