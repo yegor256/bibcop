@@ -98,6 +98,7 @@ check_passes($f, ('author' => '{\'A}lvarez, Carlos and Jim{\'e}nez-Gonz{\'a}lez,
 check_passes($f, ('author' => 'Monsalve Diaz, Jose M.'));
 check_passes($f, ('author' => 'de Mattos Fortes, Renata Pontin'));
 check_passes($f, ('author' => 'van Buren, Andre'));
+check_passes($f, ('author' => 'van der Meulen, Meine J. P.'));
 
 $f = 'check_capitalization';
 check_fails($f, ('title' => 'The TeX book'));

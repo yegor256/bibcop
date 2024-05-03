@@ -166,7 +166,7 @@ sub check_author {
       if ($name =~ /^[A-Z][^.]+$/) {
         next
       }
-      if ($name =~ /^(van|de)$/) {
+      if ($name =~ /^(van|de|der)$/) {
         next
       }
       if ($name =~ /^[A-Z]$/) {
