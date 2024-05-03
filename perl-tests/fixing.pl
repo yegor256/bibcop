@@ -43,6 +43,7 @@ fixes('title', 'Executing a program on the MIT Tagged-token Dataflow architectur
 fixes('title', 'TeX: a Great Tool', 'TeX: A Great Tool');
 fixes('title', 'TeX: A Great Tool', 'TeX: A Great Tool');
 fixes('title', 'Does It Work? an empirical study', 'Does It Work? An Empirical Study');
+fixes('title', 'GitHub Audience?---a Thematic Analysis', 'GitHub Audience?---A Thematic Analysis');
 
 fixes('booktitle', 'Proceedings Of IEEE Symposium On Art', 'Proceedings of Symposium on Art');
 fixes('booktitle', 'Symposium on Computers', 'Proceedings of the Symposium on Computers');
