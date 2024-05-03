@@ -21,7 +21,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-# 2024-05-03 03.36.48
+# 2024-05-03 03.43.51
 package bibcop;
 
 use warnings;
@@ -294,6 +294,7 @@ sub check_typography {
   my @no_space_after = ( '(', '[' );
   my @space_before = ( '(', '[' );
   my @space_after = ( ')', ']' );
+  my @good_tails = ( 'Inc.', 'Ltd.' );
   my @bad_tails = ( '.', ',', ';', ':', '-' );
   foreach my $tag (keys %entry) {
     if ($tag =~ /^:.*/) {
@@ -307,8 +308,16 @@ sub check_typography {
       if ($s eq '.' and $tag eq 'author') {
         next;
       }
-      if ($value =~ /^.*\Q$s\E$/) {
-        return "The '$tag' must not end with a $symbols{$s}"
+      my $good = 0;
+      foreach my $s (@good_tails) {
+        if ($value =~ /^.*\Q$s\E$/) {
+          $good = 1;
+        }
+      }
+      if (not $good) {
+        if ($value =~ /^.*\Q$s\E$/) {
+          return "The '$tag' must not end with a $symbols{$s}"
+        }
       }
     }
     foreach my $s (@no_space_before) {
@@ -1072,7 +1081,7 @@ if (@ARGV+0 eq 0 or exists $args{'--help'} or exists $args{'-?'}) {
     "      --latex     Report errors in LaTeX format using \\PackageWarningNoLine command\n\n" .
     "If any issues, report to GitHub: https://github.com/yegor256/bibcop");
 } elsif (exists $args{'--version'} or exists $args{'-v'}) {
-  info('03.36.48 2024-05-03');
+  info('03.43.51 2024-05-03');
 } else {
   my ($file) = grep { not($_ =~ /^-.*$/) } @ARGV;
   if (not $file) {
