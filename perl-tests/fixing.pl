@@ -47,10 +47,10 @@ fixes('title', 'it works? of course!', 'It Works? Of Course!');
 fixes('title', 'first; second!', 'First; Second!');
 fixes('title', 'Face-to-Face discussion', 'Face-to-Face Discussion');
 fixes('title', 'Face-To-Face Talk', 'Face-to-Face Talk');
-fixes('title', 'long question---short answer', 'Long Question---Short Answer');
+fixes('title', 'long question---short answer', 'Long Question --- Short Answer');
 fixes('title', 'long question --- short answer', 'Long Question --- Short Answer');
-fixes('title', 'does it work?---of course!', 'Does It Work?---Of Course!');
-fixes('title', 'GitHub Audience?---a Thematic Analysis', 'GitHub Audience?---A Thematic Analysis');
+fixes('title', 'does it work?---of course!', 'Does It Work? --- Of Course!');
+fixes('title', 'GitHub Audience?---a Thematic Analysis', 'GitHub Audience? --- A Thematic Analysis');
 fixes('title', 'our in-house rules', 'Our In-House Rules');
 fixes('title', 'user\'s story', 'User\'s Story');
 

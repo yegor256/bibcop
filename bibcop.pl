@@ -687,6 +687,8 @@ sub fix_capitalization {
 sub fix_title {
   my ($value) = @_;
   $value = fix_capitalization($value);
+  $value =~ s/([^ ])---/$1 ---/g;
+  $value =~ s/---([^ ])/--- $1/g;
   return $value;
 }
 
