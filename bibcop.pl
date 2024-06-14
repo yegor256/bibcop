@@ -112,7 +112,7 @@ sub check_capitalization {
           return "The minor word '$word' in the '$tag' must be upper-cased since it is the first one"
         }
         my $before = $words[$pos - 2];
-        if (grep(/^$before$/, @ends)) {
+        if (grep(/^\Q$before\E$/, @ends)) {
           return "The minor word '$word' in the '$tag' must be upper-cased, because it follows the '$before'"
         }
         next;
@@ -122,7 +122,7 @@ sub check_capitalization {
           next;
         }
         my $before = $words[$pos - 2];
-        if (grep(/^$before$/, @ends)) {
+        if (grep(/^\Q$before\E$/, @ends)) {
           next;
         }
         return "All minor words in the '$tag' must be lower-cased, while @{[as_position($pos)]} word '$word' is not"
