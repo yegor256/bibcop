@@ -21,7 +21,7 @@
 # SOFTWARE.
 ---
 docker:
-  image: yegor256/rultor-image:1.23.1
+  image: yegor256/rultor-latex
 install: |-
   gem install texsc:0.6.0
   gem install texqc:0.6.0
