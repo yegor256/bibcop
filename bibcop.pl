@@ -1082,7 +1082,7 @@ if (@ARGV+0 eq 0 or exists $args{'--help'} or exists $args{'-?'}) {
     "                    inproc  The booktitle of \@inproceedings must start with 'Proceedings of the'\n" .
     "                    org     The booktitle may not mention ACM or IEEE\n" .
     "      --latex     Report errors in LaTeX format using the \\PackageWarningNoLine command\n\n" .
-    "If any issues, report to GitHub: https://github.com/yegor256/bibcop");
+    "If any issues, please, report to GitHub: https://github.com/yegor256/bibcop");
 } elsif (exists $args{'--version'} or exists $args{'-v'}) {
   info('0.0.0 0000-00-00');
 } else {
