@@ -1065,7 +1065,7 @@ if (not $script eq 'bibcop') {
 }
 
 if (@ARGV+0 eq 0 or exists $args{'--help'} or exists $args{'-?'}) {
-  info("Bibcop is a Style Checker of BibTeX Files\n\n" .
+  info("Bibcop is a style checker of BibTeX files (.bib)\n\n" .
     "Usage:\n" .
     "  bibcop [<options>] <.bib file path>\n\n" .
     "Options:\n" .
