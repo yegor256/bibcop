@@ -23,9 +23,11 @@
 name: l3build
 on:
   push:
-    branches: master
+    branches:
+      - master
   pull_request:
-    branches: master
+    branches:
+      - master
 jobs:
   l3build:
     runs-on: ${{ matrix.os }}

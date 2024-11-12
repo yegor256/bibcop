@@ -23,8 +23,6 @@
 docker:
   image: yegor256/rultor-latex
 install: |-
-  gem install texsc:0.6.0
-  gem install texqc:0.6.0
   sudo tlmgr option repository ctan
   sudo tlmgr --verify-repo=none update --self
   sudo tlmgr --verify-repo=none install $(cut -d' ' -f2 DEPENDS.txt | uniq)

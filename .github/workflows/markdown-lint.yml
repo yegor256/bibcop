@@ -23,6 +23,11 @@
 name: markdown-lint
 'on':
   push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
 jobs:
   markdown-lint:
     runs-on: ubuntu-24.04
