@@ -35,4 +35,4 @@ jobs:
       - uses: actions/checkout@v4
       - uses: Difegue/action-perlcritic@master
         with:
-          args: '--exclude=strict *.pl'
+          args: '--exclude=strict --exclude=require **.pl **/*.pl'
