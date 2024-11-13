@@ -51,9 +51,9 @@ jobs:
           cp build/distrib/tds/scripts/bibcop/bibcop.pl build/gh-pages
           cp build/distrib/tds/tex/latex/bibcop/bibcop.sty build/gh-pages
           sed -i "s/0\.0\.0/$(date +%H.%M.%S)/g" build/gh-pages/bibcop.pl
-          sed -i "s/0000-00-00/$(date +%Y-%m-%d)/g" build/gh-pages/bibcop.pl
+          sed -i "s/0000\/00/\00/$(date +%Y-%m-%d)/g" build/gh-pages/bibcop.pl
           sed -i "s/0\.0\.0/$(date +%H.%M.%S)/g" build/gh-pages/bibcop.sty
-          sed -i "s/0000-00-00/$(date +%Y-%m-%d)/g" build/gh-pages/bibcop.sty
+          sed -i "s/0000\/00\/00/$(date +%Y-%m-%d)/g" build/gh-pages/bibcop.sty
         if: github.ref == 'refs/heads/master' && matrix.os == 'ubuntu-22.04'
       - uses: JamesIves/github-pages-deploy-action@v4.6.9
         with:
