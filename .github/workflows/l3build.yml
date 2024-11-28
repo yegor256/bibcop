@@ -55,7 +55,7 @@ jobs:
           sed -i "s/0\.0\.0/$(date +%H.%M.%S)/g" build/gh-pages/bibcop.sty
           sed -i "s/0000\/00\/00/$(date +%Y-%m-%d)/g" build/gh-pages/bibcop.sty
         if: github.ref == 'refs/heads/master' && matrix.os == 'ubuntu-22.04'
-      - uses: JamesIves/github-pages-deploy-action@v4.6.9
+      - uses: JamesIves/github-pages-deploy-action@v4.7.1
         with:
           branch: gh-pages
           folder: build/gh-pages
