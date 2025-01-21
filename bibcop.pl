@@ -21,7 +21,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-# 2025-01-21 01.53.59
+# 2025-01-21 02.01.15
 package bibcop;
 
 use warnings;
@@ -436,6 +436,26 @@ sub check_doi {
     my $doi = $entry{'doi'};
     if (not $doi =~ /^[0-9a-zA-Z.]+\/[0-9a-zA-Z._\-)(><:;\/]+$/) {
       return "The format of the 'doi' is wrong"
+    }
+  }
+}
+
+# Check the right format of the 'howpublished.'
+sub check_howpublished {
+  my (%entry) = @_;
+  if (exists $entry{'howpublished'}) {
+    my $how = $entry{'howpublished'};
+    if (not $how =~ /^\\url\{.+\}$/) {
+      return "The format of the 'howpublished' is wrong, use \\url{} inside"
+    }
+    my $url = substr($how, 5, -1);
+    if (not $url =~ /^https?:\/\/.+$/) {
+      return "The format of the URL in 'howpublished' is wrong, doesn't start with https://: '$url'"
+    }
+    my $max = 64;
+    my $len = length($url);
+    if ($len gt $max) {
+      return "The length of the URL in 'howpublished' is too big ($len > $max), use URL shoftener: '$url'"
     }
   }
 }
@@ -1089,7 +1109,7 @@ if (@ARGV+0 eq 0 or exists $args{'--help'} or exists $args{'-?'}) {
     "      --latex     Report errors in LaTeX format using the \\PackageWarningNoLine command\n\n" .
     "If any issues, please, report to GitHub: https://github.com/yegor256/bibcop");
 } elsif (exists $args{'--version'} or exists $args{'-v'}) {
-  info('01.53.59 2025-01-21');
+  info('02.01.15 2025-01-21');
 } else {
   my ($file) = grep { not($_ =~ /^-.*$/) } @ARGV;
   if (not $file) {
