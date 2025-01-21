@@ -49,6 +49,7 @@ jobs:
       - run: l3build ctan --show-log-on-error --halt-on-error
       - run: ./tests.pl
       - run: |
+          set -ex
           mkdir build/gh-pages
           cp build/distrib/tds/scripts/bibcop/bibcop.pl build/gh-pages
           cp build/distrib/tds/tex/latex/bibcop/bibcop.sty build/gh-pages
