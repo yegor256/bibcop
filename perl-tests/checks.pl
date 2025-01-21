@@ -127,6 +127,13 @@ check_passes($f, ('title' => 'Don\'t Read'));
 check_passes($f, ('title' => 'We\'ve Done It'));
 check_passes($f, ('title' => 'Developer\'s Story'));
 
+$f = 'check_howpublished';
+check_fails($f, ('howpublished' => 'hello'));
+check_fails($f, ('howpublished' => '\url{}'));
+check_fails($f, ('howpublished' => '\url{abcdef}'));
+check_fails($f, ('howpublished' => '\url{https://www.yegor256.com?x=this-url-is-very-long-that-is-why-prohibited}'));
+check_passes($f, ('howpublished' => '\url{https://www.yegor256.com/}'));
+
 $f = 'check_year';
 check_fails($f, ('year' => 'hello'));
 check_fails($f, ('year' => '20019'));

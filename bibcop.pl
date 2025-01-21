@@ -440,6 +440,26 @@ sub check_doi {
   }
 }
 
+# Check the right format of the 'howpublished.'
+sub check_howpublished {
+  my (%entry) = @_;
+  if (exists $entry{'howpublished'}) {
+    my $how = $entry{'howpublished'};
+    if (not $how =~ /^\\url\{.+\}$/) {
+      return "The format of the 'howpublished' is wrong, use \\url{} inside"
+    }
+    my $url = substr($how, 5, -1);
+    if (not $url =~ /^https?:\/\/.+$/) {
+      return "The format of the URL in 'howpublished' is wrong, doesn't start with https://: '$url'"
+    }
+    my $max = 64;
+    my $len = length($url);
+    if ($len gt $max) {
+      return "The length of the URL in 'howpublished' is too big ($len > $max), use URL shoftener: '$url'"
+    }
+  }
+}
+
 # Check the right format of the 'year.'
 sub check_year {
   my (%entry) = @_;
