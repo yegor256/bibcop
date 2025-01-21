@@ -39,9 +39,10 @@ my %args = map { $_ => 1 } @ARGV;
 my %blessed = (
   'article' => ['doi', 'year', 'title', 'author', 'journal', 'volume', 'number', 'month?', 'publisher?', 'pages?'],
   'inproceedings' => ['doi', 'booktitle', 'title', 'author', 'year', 'pages?', 'month?', 'organization?', 'volume?'],
+  'incollection' => ['doi', 'booktitle', 'title', 'author', 'year', 'editor', 'pages?', 'month?', 'volume?'],
   'book' => ['title', 'author', 'year', 'publisher', 'doi?'],
   'phdthesis' => ['title', 'author', 'year', 'school', 'doi?'],
-  'misc' => ['title', 'author', 'year', 'eprint?', 'archiveprefix?', 'primaryclass?', 'month?', 'publisher?', 'organization?', 'doi?', 'howpublished?', 'note?', 'pages?', 'number?', 'volume?'],
+  'misc' => ['title', 'author', 'year', 'eprint?', 'archiveprefix?', 'primaryclass?', 'month?', 'publisher?', 'organization?', 'doi?', 'howpublished?', 'note?'],
 );
 
 # See https://research.arizona.edu/faq/what-do-you-mean-when-you-say-use-title-case-proposalproject-titles
