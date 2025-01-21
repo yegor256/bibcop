@@ -39,8 +39,8 @@ my %args = map { $_ => 1 } @ARGV;
 my %blessed = (
   'article' => ['doi', 'year', 'title', 'author', 'journal', 'volume', 'number', 'month?', 'publisher?', 'pages?'],
   'inproceedings' => ['doi', 'booktitle', 'title', 'author', 'year', 'pages?', 'month?', 'organization?', 'volume?'],
-  'incollection' => ['doi', 'booktitle', 'title', 'author', 'year', 'editor', 'pages?', 'month?', 'volume?'],
-  'book' => ['title', 'author', 'year', 'publisher', 'doi?'],
+  'incollection' => ['doi', 'booktitle', 'title', 'author', 'year', 'editor', 'pages?', 'month?', 'volume?', 'publisher?'],
+  'book' => ['title', 'author', 'year', 'publisher', 'doi?', 'edition?'],
   'phdthesis' => ['title', 'author', 'year', 'school', 'doi?'],
   'misc' => ['title', 'author', 'year', 'eprint?', 'archiveprefix?', 'primaryclass?', 'month?', 'publisher?', 'organization?', 'doi?', 'howpublished?', 'note?'],
 );
@@ -138,42 +138,45 @@ sub check_capitalization {
 # Check that the 'author' is formatted correctly.
 sub check_author {
   my (%entry) = @_;
-  if (not exists $entry{'author'}) {
-    return;
-  }
-  if ($entry{'author'} =~ /^\{.+\}$/) {
-    return;
-  }
-  my $author = clean_tex($entry{'author'});
-  my @authors = split(/\s+and\s+/, $author);
-  my $pos = 0;
-  for my $a (@authors) {
-    $pos += 1;
-    if ($a eq 'others') {
+  my @tags = qw/author editor/;
+  foreach my $tag (@tags) {
+    if (not exists $entry{$tag}) {
       next;
     }
-    if (index($a, ' ') != -1 and index($a, ',') == -1) {
-      return "The last name should go first, all other names must follow, after a comma in @{[as_position($pos)]} 'author', as in 'Knuth, Donald E.'";
+    if ($entry{$tag} =~ /^\{.+\}$/) {
+      next;
     }
-    my $npos = 0;
-    for my $name (split(/[ ,]+/, $a)) {
-      $npos += 1;
-      if (index($name, '{') != -1) {
+    my $author = clean_tex($entry{$tag});
+    my @authors = split(/\s+and\s+/, $author);
+    my $pos = 0;
+    for my $a (@authors) {
+      $pos += 1;
+      if ($a eq 'others') {
         next;
       }
-      if ($name =~ /^[A-Z]\.$/) {
-        next;
+      if (index($a, ' ') != -1 and index($a, ',') == -1) {
+        return "The last name should go first, all other names must follow, after a comma in @{[as_position($pos)]} '$tag', as in 'Knuth, Donald E.'";
       }
-      if ($name =~ /^[A-Z][^.]+$/) {
-        next
+      my $npos = 0;
+      for my $name (split(/[ ,]+/, $a)) {
+        $npos += 1;
+        if (index($name, '{') != -1) {
+          next;
+        }
+        if ($name =~ /^[A-Z]\.$/) {
+          next;
+        }
+        if ($name =~ /^[A-Z][^.]+$/) {
+          next
+        }
+        if ($name =~ /^(van|de|der|dos)$/) {
+          next
+        }
+        if ($name =~ /^[A-Z]$/) {
+          return "A shortened name must have a tailing dot in @{[as_position($pos)]} '$tag', as in 'Knuth, Donald E.'";
+        }
+        return "In @{[as_position($pos)]} '$tag' @{[as_position($npos)]} name looks suspicious ($name), use something like 'Knuth, Donald E. and Duane, Bibby'";
       }
-      if ($name =~ /^(van|de|der|dos)$/) {
-        next
-      }
-      if ($name =~ /^[A-Z]$/) {
-        return "A shortened name must have a tailing dot in @{[as_position($pos)]} 'author', as in 'Knuth, Donald E.'";
-      }
-      return "In @{[as_position($pos)]} 'author' @{[as_position($npos)]} name looks suspicious ($name), use something like 'Knuth, Donald E. and Duane, Bibby'";
     }
   }
 }
@@ -275,6 +278,7 @@ sub check_org_in_booktitle {
 sub check_typography {
   my (%entry) = @_;
   my %symbols = (
+    '...' => 'ellipses',
     '.' => 'dot',
     ',' => 'comma',
     ';' => 'semi-colon',
@@ -289,12 +293,12 @@ sub check_typography {
     '[' => 'opening square bracket',
     ']' => 'closing square bracket',
   );
-  my @spaces_around = ( '---' );
+  my @need_spaces_around = ( '---', '...' );
   my @no_spaces_around = ( '--', '-' );
   my @no_space_before = ( '.', ',', ';', ':', '?', '!', ')', ']' );
   my @no_space_after = ( '(', '[' );
-  my @space_before = ( '(', '[' );
-  my @space_after = ( ')', ']' );
+  my @need_space_before = ( '(', '[' );
+  my @need_space_after = ( ')', ']', ',' );
   my @good_tails = ( 'Inc.', 'Ltd.' );
   my @bad_tails = ( '.', ',', ';', ':', '-' );
   foreach my $tag (keys %entry) {
@@ -306,7 +310,7 @@ sub check_typography {
     }
     my $value = $entry{$tag};
     foreach my $s (@bad_tails) {
-      if ($s eq '.' and $tag eq 'author') {
+      if ($s eq '.' and ($tag eq 'author' or $tag eq 'editor')) {
         next;
       }
       my $good = 0;
@@ -322,7 +326,7 @@ sub check_typography {
       }
     }
     foreach my $s (@no_space_before) {
-      if ($value =~ /^.*\s\Q$s\E.*$/) {
+      if ($value =~ /^.*\s\Q$s\E(?!\Q$s\E).*$/) {
         return "In the '$tag', do not put a space before the $symbols{$s}"
       }
     }
@@ -331,18 +335,18 @@ sub check_typography {
         return "In the '$tag', do not put a space after the $symbols{$s}"
       }
     }
-    foreach my $s (@space_before) {
+    foreach my $s (@need_space_before) {
       if ($value =~ /^.*[^\{\s\\]\Q$s\E.*$/) {
         return "In the '$tag', put a space before the $symbols{$s}"
       }
     }
-    foreach my $s (@space_after) {
+    foreach my $s (@need_space_after) {
       my $p = join('', @no_space_before);
       if ($value =~ /^.*[^\\]\Q$s\E[^\}\s\Q$p\E].*$/) {
         return "In the '$tag', put a space after the $symbols{$s}"
       }
     }
-    foreach my $s (@spaces_around) {
+    foreach my $s (@need_spaces_around) {
       if ($value =~ /^.*[^\s]\Q$s\E.*$/ or $value =~ /^.*\Q$s\E[^\s].*$/) {
         return "In the '$tag', put spaces around the $symbols{$s}"
       }

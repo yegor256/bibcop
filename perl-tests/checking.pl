@@ -62,6 +62,7 @@ passes((
   'author' => "Knuth, Donald E. \n and Duane, Bibby",
   'title' => '{The TeX Book}',
   'year' => '1984',
+  'edition' => '1',
   'doi' => '10.5555/1102013',
   'publisher' => 'Addison-Wesley Professional'
 ));
