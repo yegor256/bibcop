@@ -66,4 +66,3 @@ require './perl-tests/cli.pl';
 require './perl-tests/cli_fixing.pl';
 
 print "\033[0;32mGREAT!\033[0m All tests are green.\n";
-
