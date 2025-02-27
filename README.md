@@ -68,6 +68,18 @@ tlgmr install bibcop
 bibcop --help
 ```
 
+## How to use as pre-commit hook
+
+If you use [pre-commit], simply add this to your config:
+
+```yaml
+-   repo: https://github.com/yegor256/bibcop
+    rev: 0.0.29
+    hooks:
+    -   id: bibcop
+        args: []
+```
+
 ## How to Contribute
 
 If you want to contribute yourself, make a fork, then create a branch,
@@ -91,3 +103,4 @@ Copyright (c) 2022-2025 Yegor Bugayenko, MIT License
 
 [BLOG]: https://www.yegor256.com/2023/09/05/style-checker-for-bibtex-files.html
 [INSTALL]: https://en.wikibooks.org/wiki/LaTeX/Installing_Extra_Packages
+[pre-commit]: https://pre-commit.com/
