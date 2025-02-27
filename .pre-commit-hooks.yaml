@@ -7,4 +7,4 @@
   description: Runs bibcop to lint all .bib files
   language: system
   types: ["bib"]
-  entry: bibcop.pl
+  entry: bibcop
