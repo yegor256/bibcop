@@ -1,0 +1,10 @@
+# SPDX-FileCopyrightText: Copyright (c) 2022-2025 Yegor Bugayenko
+# SPDX-License-Identifier: MIT
+---
+# yamllint disable rule:line-length
+- id: bibcop
+  name: Lint BibTeX files
+  description: Runs bibcop to lint all .bib files
+  language: perl
+  types: ["bib"]
+  entry: bibcop.pl
