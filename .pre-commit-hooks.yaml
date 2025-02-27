@@ -5,6 +5,6 @@
 - id: bibcop
   name: Lint BibTeX files
   description: Runs bibcop to lint all .bib files
-  language: perl
+  language: system
   types: ["bib"]
   entry: bibcop.pl
