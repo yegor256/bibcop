@@ -22,11 +22,11 @@ path = [
     ".pdd",
     ".texsc",
     ".xcop",
-    "bibcop.1",
     "DEPENDS.txt",
     "Gemfile.lock",
     "README.md",
     "aspell.en.pws",
+    "bibcop.1",
     "renovate.json",
 ]
 precedence = "override"
