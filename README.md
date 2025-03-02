@@ -12,7 +12,7 @@ emits warning message if any issues are found. You may also like
 [biblatex-check](https://github.com/pezmc/biblatex-check) tools —
 they do _almost_ the same but from the command line.
 
-Read [this blog post][BLOG],in order to understand
+Read [this blog post][BLOG], in order to understand
 the motivation behind this package.
 
 First, [install it][INSTALL] from [CTAN](https://ctan.org/pkg/bibcop)
@@ -64,7 +64,7 @@ you should be able to use `bibcop` directly, without the
 necessity to mention Perl:
 
 ```bash
-tlgmr install bibcop
+tlmgr install bibcop
 bibcop --help
 ```
 

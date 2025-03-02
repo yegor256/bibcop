@@ -249,7 +249,7 @@ sub check_org_in_booktitle {
       }
     }
     if ($title =~ /^.*(ACM|IEEE).*$/) {
-      return "Don't mention the"
+      return "Don't mention the organization in the booktitle, use 'publisher' tag instead"
     }
   }
 }
@@ -295,8 +295,8 @@ sub check_typography {
         next;
       }
       my $good = 0;
-      foreach my $s (@good_tails) {
-        if ($value =~ /^.*\Q$s\E$/) {
+      foreach my $gt (@good_tails) {
+        if ($value =~ /^.*\Q$gt\E$/) {
           $good = 1;
         }
       }

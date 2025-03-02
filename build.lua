@@ -8,7 +8,6 @@ checkopts = "-interaction=batchmode -shell-escape -halt-on-error"
 exefiles = {"bibcop.pl"}
 sourcefiles = {"*.dtx", "*.ins", "*-????-??-??.sty", "bibcop.pl"}
 checkengines = {"pdftex", "luatex", "xetex"}
-tagfiles = {"build.lua", "bibcop.dtx"}
 docfiles = {"bibcop.pl", "bibcop-logo.pdf"}
 checkfiles = {"bibcop.pl"}
 scriptfiles  = {"bibcop.pl"}
