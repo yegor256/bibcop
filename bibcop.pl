@@ -1111,6 +1111,8 @@ if (@ARGV+0 eq 0 or exists $args{'--help'} or exists $args{'-?'}) {
       $fixed = $fixed . entry_fix(%entry);
       $seen{$name} = 1;
     }
+    my ($head) = $bib =~ /^((?:%.*\n)+\n*)/;
+    $fixed = $head . $fixed;
     if (exists $args{'-i'} or exists $args{'--in-place'}) {
       open(my $out, '>', $file) or error('Cannot open file for writing: ' . $file);
       print $out $fixed;
