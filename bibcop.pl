@@ -463,7 +463,7 @@ sub check_month {
   my (%entry) = @_;
   if (exists $entry{'month'}) {
     my $month = $entry{'month'};
-    if (not $month =~ /^[1-9]|10|11|12|jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec$/) {
+    if (not $month =~ /^[1-9]|10|11|12$/) {
       return "The format of the 'month' is wrong"
     }
   }
