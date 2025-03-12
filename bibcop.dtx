@@ -89,7 +89,7 @@
 % Some warnings may be printed in the \TeX{} log.
 % Once the issues in the |main.bib| file are fixed, the warnings disappear.
 
-% Bibcop doesn't pay much attention the formatting of the |.bib| file. It doesn't emit
+% Bibcop doesn't pay much attention to the formatting of the |.bib| file. It doesn't emit
 % warnings if a comma is missed after the last tag in a \BibTeX{} entry or the tags
 % and their equation symbols are not aligned. Instead, Bibcop is focused on the content
 % of the tags and their possible inconsistencies.
@@ -148,7 +148,7 @@
 % \item |nodoi| allows the absence of the |doi| tag in all entries;
 % \item |noinproc| allows the |booktitle| tag in |@inproceedings| entries to not start with ``Proceedings of the'';
 % \item |noorg| allows mentioning of ACM/IEEE in the |booktitle| tag;
-% \item |notags| allows any tags and allow to miss important tags.
+% \item |notags| allows any tags and allows missing important tags.
 % \end{itemize}
 
 % \section{The Rules}
@@ -169,7 +169,7 @@
 % \href{https://www.doi.org}{Digital Object Identifier}
 % of the material that you reference. It seems to be a good practice, in order to avoid ambiguity,
 % to always mention the DOI.
-% It also recommended to use the \href{https://ctan.org/pkg/iexec}{doi} package,
+% It is also recommended to use the \href{https://ctan.org/pkg/doi}{doi} package,
 % in order to make all ``|doi|'' fields turned into hyper links.
 
 % \DescribeMacro{caps}
@@ -225,7 +225,7 @@ author = {Knuth, Donald E. and others}
 %</verb>
 %\fi
 % When first names are shortened to a single letter, it has to have a tailing dot.
-% A specially pronounced author may be wrapped it in curled brackets, to make Bibcop ignore it:
+% A specially pronounced author may be wrapped in curled brackets, to make Bibcop ignore it:
 %\iffalse
 %<*verb>
 %\fi
@@ -444,7 +444,7 @@ booktitle = {{Proceedings of the International
   \iexec[maybe]{\bibcop@script\space
     \ifdefined\bibcop@verbose--verbose\fi\space
     \ifdefined\bibcop@notags--no:tags\fi\space
-    \ifdefined\bibcop@noinproc--no:org\fi\space
+    \ifdefined\bibcop@noorg--no:org\fi\space
     \ifdefined\bibcop@noinproc--no:inproc\fi\space
     \ifdefined\bibcop@nodoi--no:doi\fi\space
     \ifdefined\bibcop@nocaps--no:caps\fi\space
