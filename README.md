@@ -74,7 +74,7 @@ If you use [pre-commit], simply add this to your config:
 
 ```yaml
 -   repo: https://github.com/yegor256/bibcop
-    rev: 0.0.30
+    rev: 0.0.31
     hooks:
     -   id: bibcop
         args: []
