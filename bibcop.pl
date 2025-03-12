@@ -2,7 +2,7 @@
 # SPDX-FileCopyrightText: Copyright (c) 2022-2025 Yegor Bugayenko
 # SPDX-License-Identifier: MIT
 
-# 2025-03-10 12.26.48
+# 2025-03-12 08.49.24
 package bibcop;
 
 use warnings;
@@ -640,27 +640,25 @@ sub fix_number {
 sub fix_month {
   my ($value) = @_;
   my %months = (
-    '1' => 'jan',
-    '2' => 'feb',
-    '3' => 'mar',
-    '4' => 'apr',
+    '1' => 'jan|january',
+    '2' => 'feb|february',
+    '3' => 'mar|march',
+    '4' => 'apr|april',
     '5' => 'may',
-    '6' => 'jun',
-    '7' => 'jul',
-    '8' => 'aug',
-    '9' => 'sep',
-    '10' => 'oct',
-    '11' => 'nov',
-    '12' => 'dec',
+    '6' => 'jun|june',
+    '7' => 'jul|july',
+    '8' => 'aug|august',
+    '9' => 'sep|september',
+    '10' => 'oct|october',
+    '11' => 'nov|november',
+    '12' => 'dec|december',
   );
-  $value =~ s/^0+//g;
-  if ($value =~ /^11|12|[0-9]$/) {
-    $value = $months{$value};
-  } else {
-    my %rev = reverse %months;
-    my $lc = substr(lc($value), 0, 3);
-    if (exists $rev{$lc}) {
-      $value = $lc;
+  $value =~ s/^(0| )+//g;
+  $value =~ s/(0| )+$//g;
+  while(my($v, $re) = each %months) {
+    if ($value =~ qr/$re/i) {
+      $value = $v;
+      last;
     }
   }
   return $value;
@@ -1090,7 +1088,7 @@ if (@ARGV+0 eq 0 or exists $args{'--help'} or exists $args{'-?'}) {
     "      --latex     Report errors in LaTeX format using the \\PackageWarningNoLine command\n\n" .
     "If any issues, please, report to GitHub: https://github.com/yegor256/bibcop");
 } elsif (exists $args{'--version'} or exists $args{'-v'}) {
-  info('12.26.48 2025-03-10');
+  info('08.49.24 2025-03-12');
 } else {
   my ($file) = grep { not($_ =~ /^-.*$/) } @ARGV;
   if (not $file) {
