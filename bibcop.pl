@@ -435,8 +435,8 @@ sub check_howpublished {
     }
     my $max = 64;
     my $len = length($url);
-    if ($len gt $max) {
-      return "The length of the URL in 'howpublished' is too big ($len > $max), use URL shoftener: '$url'"
+    if ($len > $max) {
+      return "The length of the URL in 'howpublished' is too big ($len > $max), use URL shortener: '$url'"
     }
   }
 }
@@ -718,19 +718,14 @@ sub fix_title {
 
 sub fix_pages {
   my ($value) = @_;
-  if ($value =~ /^[1-9][0-9]*$/) {
-    return $value;
-  }
-  if ($value eq '') {
+  if ($value =~ /^[1-9][0-9]*$/ || $value eq '') {
     return $value;
   }
   my ($left, $right) = split(/---|--|-|–|—|\s/, $value);
-  $left //= $right;
-  if ($left eq '') {
+  if (!defined $left || $left eq '') {
     $left = $right;
   }
-  $right //= $left;
-  if ($right eq '') {
+  if (!defined $right || $right eq '') {
     $right = $left;
   }
   $left =~ s/^0+//g;
@@ -771,7 +766,7 @@ sub fix_booktitle {
     'Sixth' => '6th',
     'Seventh' => '7th',
     'Eighth' => '8th',
-    'Nineth' => '9th',
+    'Ninth' => '9th',
     'Tenth' => '10th'
   );
   keys %numbers;
@@ -932,11 +927,11 @@ sub entries {
     } elsif ($s eq 'brackets') {
       if ($char eq '\\') {
         $escape = 1;
-      } elsif ($char eq '{' and $escape ne 1) {
+      } elsif ($char eq '{' and $escape != 1) {
         $nest = $nest + 1;
-      } elsif ($char eq '}' and $escape ne 1) {
+      } elsif ($char eq '}' and $escape != 1) {
         $nest = $nest - 1;
-        if ($nest eq 0) {
+        if ($nest == 0) {
           $entry{$tag} = substr($acc, 1);
           $s = 'value';
         }
