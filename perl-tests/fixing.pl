@@ -75,11 +75,15 @@ fixes('number', '02', '2');
 fixes('number', '007', '7');
 fixes('number', '16', '16');
 
-fixes('month', '02', 'feb');
-fixes('month', 'January', 'jan');
-fixes('month', 'Dec', 'dec');
-fixes('month', '9', 'sep');
-fixes('month', 'mar', 'mar');
+fixes('month', '02', '2');
+fixes('month', 'January', '1');
+fixes('month', 'Dec', '12');
+fixes('month', '9', '9');
+fixes('month', 'mar', '3');
+fixes('month', 'march', '3');
+fixes('month', 'March', '3');
+fixes('month', 'MARCH  ', '3');
+fixes('month', ' mar  ', '3');
 fixes('month', 'something', 'something');
 
 fixes('unicode', 'Fernández, Luis and Peña, Rosalía', 'Fern\\\'{a}ndez, Luis and Pe\~{n}a, Rosal\\\'{i}a');
