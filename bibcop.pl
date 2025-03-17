@@ -2,7 +2,7 @@
 # SPDX-FileCopyrightText: Copyright (c) 2022-2025 Yegor Bugayenko
 # SPDX-License-Identifier: MIT
 
-# 2025-03-12 10.39.36
+# 2025-03-17 02.04.32
 package bibcop;
 
 use warnings;
@@ -1083,7 +1083,7 @@ if (@ARGV+0 eq 0 or exists $args{'--help'} or exists $args{'-?'}) {
     "      --latex     Report errors in LaTeX format using the \\PackageWarningNoLine command\n\n" .
     "If any issues, please, report to GitHub: https://github.com/yegor256/bibcop");
 } elsif (exists $args{'--version'} or exists $args{'-v'}) {
-  info('10.39.36 2025-03-12');
+  info('02.04.32 2025-03-17');
 } else {
   my ($file) = grep { not($_ =~ /^-.*$/) } @ARGV;
   if (not $file) {
