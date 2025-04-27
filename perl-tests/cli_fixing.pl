@@ -24,6 +24,7 @@ sub assert_fix_compare {
   my $before = "test-files/fixes/$dir/before.bib";
   my $expected = "test-files/fixes/$dir/expected.bib";
   my ($a, $after) = tempfile();
+  close $a;
   my $cmd = "perl ./bibcop.pl --fix $before > $after";
   my $stdout = `$cmd`;
   my $exit = $? >> 8;
