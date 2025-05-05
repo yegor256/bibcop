@@ -1,3 +1,7 @@
+_docshots/
+_minted-*/
+.DS_Store
+.idea/
 *.aux
 *.bbl
 *.bcf
@@ -21,10 +25,6 @@
 *.tmp
 *.toc
 *.zip
-.DS_Store
-.idea/
-_docshots/
-_minted-*/
 bibcop.pdf
 bibcop.ret
 bibcop.stderr
