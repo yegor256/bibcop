@@ -91,7 +91,7 @@
 
 % Bibcop doesn't pay much attention to the formatting of the |.bib| file. It doesn't emit
 % warnings if a comma is missed after the last tag in a \BibTeX{} entry or the tags
-% and their equation symbols are not aligned. Instead, Bibcop is focused on the content
+% and their equals symbols are not aligned. Instead, Bibcop is focused on the content
 % of the tags and their possible inconsistencies.
 
 % If the |.sty| file is used directly (without installing it into the \TeX{} tree),
@@ -158,17 +158,16 @@
 % \DescribeMacro{types}
 % Only |@article|, |@book|, |@inproceedings|, |@phdthesis|, |@incollection|, and |@misc| types of \BibTeX{} entries are allowed.
 % Everything else, like |@manual|, |@inbook|, and \href{https://www.bibtex.com/e/entry-types/}{many others} are simply prohibited.
-% The mentioned four should be enough for everything.
+% The mentioned six should be enough for everything.
 
 % \DescribeMacro{tags}
-% There are pretty limited lists of allowed tags for each type of \BibTeX{} entry. The tags
-% that are not in the list are prohibited to use.
+% There are pretty limited lists of allowed tags for each type of \BibTeX{} entry. Tags
+% that are not in the list are prohibited.
 
 % \DescribeMacro{doi}
 % Every \BibTeX{} entry must have the |doi| tag, which is a unique
 % \href{https://www.doi.org}{Digital Object Identifier}
-% of the material that you reference. It seems to be a good practice, in order to avoid ambiguity,
-% to always mention the DOI.
+% of the material that you reference. To avoid ambiguity, it is good practice to always mention the DOI.
 % It is also recommended to use the \href{https://ctan.org/pkg/doi}{doi} package,
 % in order to make all ``|doi|'' fields turned into hyper links.
 
@@ -224,8 +223,8 @@ author = {Knuth, Donald E. and others}
 %\iffalse
 %</verb>
 %\fi
-% When first names are shortened to a single letter, it has to have a tailing dot.
-% A specially pronounced author may be wrapped in curled brackets, to make Bibcop ignore it:
+% When first names are shortened to a single letter, they must have a trailing dot.
+% A specially formatted author name may be wrapped in curly brackets, to make Bibcop ignore it:
 %\iffalse
 %<*verb>
 %\fi
@@ -360,7 +359,7 @@ booktitle = {{Proceedings of the International
 % This rule may be disabled by the |noinproc| package option.
 
 % \DescribeMacro{arXiv}
-% If the |archivePrefix| is present, the |eprint| and the |primaryClass| must also be present and must adhere to the formatting principles of \href{https://arxiv.org/help/arxiv_identifier}{arXiv identifiers}:
+% If the |archivePrefix| is present, the |eprint| and |primaryClass| must also be present and must adhere to the formatting principles of \href{https://arxiv.org/help/arxiv_identifier}{arXiv identifiers}:
 %\iffalse
 %<*verb>
 %\fi
@@ -376,10 +375,10 @@ booktitle = {{Proceedings of the International
 %\fi
 
 % \DescribeMacro{typography}
-% All tags in each \BibTeX{} entry are checked for obeying the basic typography rules:
+% All tags in each \BibTeX{} entry are checked for adherence to basic typography rules:
 % \begin{itemize}
 %   \item No spaces are allowed in front of a comma, a semi-colon, a colon, a dot, a question mark, and an exclamation mark;
-%   \item A text may not end with a dot, a comma, a semi-colon, a colon, or a dash;
+%   \item Text may not end with a dot, a comma, a semi-colon, a colon, or a dash;
 %   \item A triple dash must be surrounded by spaces.
 % \end{itemize}
 
