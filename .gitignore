@@ -34,3 +34,4 @@ bibcop.tmp.pl
 build/
 iexec.ret
 node_modules/
+.claude/

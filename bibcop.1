@@ -4,7 +4,7 @@ bibcop \- Style Checker and Fixer of BibTeX Files (.bib)
 .SH SYNOPSIS
 bibcop [<options>] <.bib file path>
 .SH DESCRIPTION
-The bibcop tool is a Perl script for checking the quality of BibTeX bibliograph
+The bibcop tool is a Perl script for checking the quality of BibTeX bibliography
 files (.bib) and automatically fixing found inconsistencies. It is not only
 a command line tool, but a LaTeX package, which can check the quality
 of a .bib file during the rendering of a LaTeX document. All found
@@ -14,9 +14,11 @@ Various options apply:
 .IP --version
 Print the version of the tool
 .IP --help
-Print the introduction screen
+Print the help screen
 .IP --fix
-Autho-fix all issues and print a new content to the console
+Auto-fix all issues and print new content to the console
+.IP --in-place
+When used with --fix, modifies the file in place
 .IP --latex
 Print everything in LaTeX format
 .IP --verbose

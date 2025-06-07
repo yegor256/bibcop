@@ -37,7 +37,7 @@ sub check_mandatory_tags {
   my (%entry) = @_;
   my $type = $entry{':type'};
   if (not exists $blessed{$type}) {
-    return "The type of entry is not allowed: '$type'"
+    return "The type of entry '$type' is not allowed"
   }
   my $mandatory = $blessed{$type};
   foreach my $tag (@$mandatory) {
@@ -391,17 +391,16 @@ sub check_year_in_titles {
 }
 
 # Check the right format of the 'booktitle' in the 'inproceedings' entry.
-sub check_booktile_of_inproceedings {
+sub check_booktitle_of_inproceedings {
   if (exists $args{'--no:inproc'}) {
     return;
   }
   my (%entry) = @_;
-  my $tag = 'inproceedings';
-  if ($entry{':type'} eq $tag) {
+  if ($entry{':type'} eq 'inproceedings') {
     if (exists $entry{'booktitle'}) {
       my @words = only_words($entry{'booktitle'});
       if (lc($words[0]) ne 'proceedings' or lc($words[1]) ne 'of' or lc($words[2]) ne 'the') {
-        return "The '$tag' must start with 'Proceedings of the ...'"
+        return "The booktitle must start with 'Proceedings of the ...'"
       }
     }
   }
