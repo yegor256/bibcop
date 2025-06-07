@@ -2,7 +2,7 @@
 # SPDX-FileCopyrightText: Copyright (c) 2022-2025 Yegor Bugayenko
 # SPDX-License-Identifier: MIT
 
-# 2025-05-19 09.26.41
+# 2025-06-07 04.50.24
 package bibcop;
 
 use warnings;
@@ -255,7 +255,7 @@ sub check_org_in_booktitle {
 }
 
 # Check that no values have tailing dots.
-# Check that there are no spaces before commans.
+# Check that there are no spaces before commands.
 sub check_typography {
   my (%entry) = @_;
   my %symbols = (
@@ -1083,7 +1083,7 @@ if (@ARGV+0 eq 0 or exists $args{'--help'} or exists $args{'-?'}) {
     "      --latex     Report errors in LaTeX format using the \\PackageWarningNoLine command\n\n" .
     "If any issues, please, report to GitHub: https://github.com/yegor256/bibcop");
 } elsif (exists $args{'--version'} or exists $args{'-v'}) {
-  info('09.26.41 2025-05-19');
+  info('04.50.24 2025-06-07');
 } else {
   my ($file) = grep { not($_ =~ /^-.*$/) } @ARGV;
   if (not $file) {
