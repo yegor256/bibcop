@@ -255,7 +255,7 @@ sub check_org_in_booktitle {
 }
 
 # Check that no values have tailing dots.
-# Check that there are no spaces before commans.
+# Check that there are no spaces before commands.
 sub check_typography {
   my (%entry) = @_;
   my %symbols = (

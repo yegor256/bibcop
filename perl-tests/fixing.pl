@@ -16,7 +16,7 @@ fixes('author', 'Landin, Peter   J.', 'Landin, Peter J.');
 fixes('author', 'Brandon, Lucia', 'Brandon, Lucia');
 fixes('author', 'Lucia Brandon', 'Brandon, Lucia');
 fixes('author', 'Peter J. Landin', 'Landin, Peter J.');
-fixes('author', 'Tan Yiyu and Lo {Wan Yiu}', 'Yiyu, Tan and Lo {Wan Yiu}');
+fixes('author', 'Tan Yiyu and Lo {Wan You}', 'Yiyu, Tan and Lo {Wan You}');
 fixes('author', 'van Buren, Andre', 'van Buren, Andre');
 fixes('author', 'Munsen, C.J.', 'Munsen, C. J.');
 fixes('author', 'J.J.G., Hanson', 'J. J. G., Hanson');
