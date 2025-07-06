@@ -25,10 +25,14 @@ jobs:
         if: matrix.os == 'ubuntu-24.04'
       - run: brew install ghostscript
         if: matrix.os == 'macos-15'
-      - uses: teatimeguest/setup-texlive-action@v3.4.1
+      - uses: zauguin/install-texlive@v4.0.0
         with:
-          update-all-packages: true
-          package-file: DEPENDS.txt
+          package_file: DEPENDS.txt
+          texlive_version: 2025
+      - uses: zauguin/install-texlive@v4.0.0
+        with:
+          package_file: DEPENDS.txt
+          texlive_version: 2025
       - run: l3build ctan --show-log-on-error --halt-on-error
       - run: ./tests.pl
       - run: |
