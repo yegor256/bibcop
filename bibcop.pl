@@ -556,7 +556,7 @@ sub entry_fix {
   }
   my $type = $entry{':type'};
   if (not exists $blessed{$type}) {
-    error("I don't know what to do with \@$type type of BibTeX entry");
+    error("I don't know what to do with \@$type type of BibTeX entry, I only understand " . join(', ', sort keys %blessed));
   }
   if (not exists $entry{':name'}) {
     error("I don't know what to do with an entry without a name");
