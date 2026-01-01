@@ -99,7 +99,7 @@ perl tests.pl
 
 You should see the `GREAT!` message.
 
-Copyright (c) 2022-2025 Yegor Bugayenko, MIT License
+Copyright (c) 2022-2026 Yegor Bugayenko, MIT License
 
 [BLOG]: https://www.yegor256.com/2023/09/05/style-checker-for-bibtex-files.html
 [INSTALL]: https://en.wikibooks.org/wiki/LaTeX/Installing_Extra_Packages
