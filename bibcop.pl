@@ -138,6 +138,9 @@ sub check_author {
       if (index($a, ' ') != -1 and index($a, ',') == -1) {
         return "The last name should go first, all other names must follow, after a comma in @{[as_position($pos)]} '$tag', as in 'Knuth, Donald E.'";
       }
+      if (($a =~ tr/,//) > 1) {
+        return "Too many commas in @{[as_position($pos)]} '$tag', perhaps 'and' is missing between co-authors, as in 'Knuth, Donald E. and Duane, Bibby'";
+      }
       my $npos = 0;
       for my $name (split(/[ ,]+/, $a)) {
         $npos += 1;
