@@ -1118,9 +1118,17 @@ if (@ARGV+0 eq 0 or exists $args{'--help'} or exists $args{'-?'}) {
   } else {
     debug((@entries+0) . ' entries found in ' . $file);
     my $found = 0;
+    my %seen;
     for my $i (0..(@entries+0 - 1)) {
       my %entry = %{ $entries[$i] };
       debug("Checking $entry{':name'} (no.$i)...");
+      my $name = $entry{':name'};
+      if (defined $name and exists $seen{$name}) {
+        warning("The entry '$name' is seen more than once");
+        $found += 1;
+      } elsif (defined $name) {
+        $seen{$name} = 1;
+      }
       foreach my $err (process_entry(%entry)) {
         warning("$err, in the '$entry{':name'}' entry");
         $found += 1;
