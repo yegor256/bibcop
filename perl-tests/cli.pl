@@ -19,6 +19,9 @@ assert_exec('--fix ./test-files/test.bib', 0, qr/\Q{{The TeX Book}}\E/s);
 assert_exec('README.md', 0, qr/\QEach BibTeX entry must start with '@'\E/s);
 assert_exec('--verbose README.md', 0, qr/\Q0 entries found in README.md\E/s);
 
+assert_exec('./test-files/duplicates.bib', 1, qr/\QThe entry 'knuth1974' is seen more than once\E/s);
+assert_exec('--latex ./test-files/duplicates.bib', 0, qr/\Q\PackageWarningNoLine{bibcop}{The entry 'knuth1974' is seen more than once\E/s);
+
 assert_exec('missing-file.bib', 1, qr/\QCannot open file: missing-file.bib\E/s);
 assert_exec('--latex missing-file.bib', 0, qr/\Q\PackageError{bibcop}{Cannot open file: missing-file.bib}{}\E/s);
 assert_exec('--fix', 1, qr/\QFile name must be specified\E/s);
