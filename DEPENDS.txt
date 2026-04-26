@@ -7,7 +7,7 @@ soft ffcode
 soft href-ul
 soft hypdoc
 soft l3build
-soft libertine
+soft paratype
 soft microtype
 soft newtx
 soft pgfopts
