@@ -246,6 +246,11 @@ sub check_org_in_booktitle {
   my @orgs = qw/ACM IEEE/;
   if (exists($entry{'booktitle'})) {
     my $title = $entry{'booktitle'};
+    # Drop substrings protected by curly brackets (TeX case-preservation),
+    # so '{ACM}' or '{IEEE}' inside the booktitle is treated as part of the
+    # original conference name and does not trigger this warning.
+    $title =~ s/^\{(.+)\}$/$1/;
+    while ($title =~ s/\{[^{}]*\}//g) {};
     foreach my $o (@orgs) {
       if ($title =~ /^.*\Q$o\E.*$/) {
         return "The '$o' organization must not be mentioned in the booktitle, use 'publisher' tag instead"
