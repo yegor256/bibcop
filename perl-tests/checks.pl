@@ -168,6 +168,13 @@ check_fails($f, ('title' => 'Story & Story'));
 check_passes($f, ('title' => 'Story \& Story'));
 check_passes($f, ('title' => 'Story {&} Story'));
 
+$f = 'check_org_in_booktitle';
+check_fails($f, ('booktitle' => '{Proceedings of the ACM Symposium on Whatever}'));
+check_fails($f, ('booktitle' => '{Proceedings of the IEEE International Conference}'));
+check_passes($f, ('booktitle' => '{Proceedings of the Joint {ACM}-ISCOPE Conference on Java Grande}'));
+check_passes($f, ('booktitle' => '{Proceedings of the {IEEE} International Workshop on Whatever}'));
+check_passes($f, ('booktitle' => '{Proceedings of the Conference on Programming Languages}'));
+
 sub check_fails {
   my ($f, %entry) = @_;
   no strict 'refs';
