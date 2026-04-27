@@ -110,6 +110,10 @@ check_passes($f, ('title' => 'Analysis of {GitHub.com} Users'));
 check_passes($f, ('title' => 'Don\'t Read'));
 check_passes($f, ('title' => 'We\'ve Done It'));
 check_passes($f, ('title' => 'Developer\'s Story'));
+check_passes($f, ('booktitle' => '{Conferences ``On the Move\'\'}'));
+check_passes($f, ('booktitle' => '{Workshop on `On Demand\' Computing}'));
+check_passes($f, ('title' => 'A Study of ``In Context\'\' Learning'));
+check_fails($f, ('title' => '``in Context\'\' Learning'));
 
 $f = 'check_howpublished';
 check_fails($f, ('howpublished' => 'hello'));
