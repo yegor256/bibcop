@@ -76,7 +76,7 @@ sub check_capitalization {
     if (not exists $tags{$tag}) {
       next;
     }
-    my @ends = qw/ ; ? . --- : ! /;
+    my @ends = qw/ ; ? . --- : ! ` /;
     my $value = $entry{$tag};
     my @words = only_words($value);
     my $pos = 0;
