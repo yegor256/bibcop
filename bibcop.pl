@@ -1,8 +1,8 @@
 #!/usr/bin/perl
-# SPDX-FileCopyrightText: Copyright (c) 2022-2025 Yegor Bugayenko
+# SPDX-FileCopyrightText: Copyright (c) 2022-2026 Yegor Bugayenko
 # SPDX-License-Identifier: MIT
 
-# 2025-06-07 05.01.14
+# 0000-00-00 07.41.34
 package bibcop;
 
 use warnings;
@@ -76,7 +76,7 @@ sub check_capitalization {
     if (not exists $tags{$tag}) {
       next;
     }
-    my @ends = qw/ ; ? . --- : ! /;
+    my @ends = qw/ ; ? . --- : ! ` /;
     my $value = $entry{$tag};
     my @words = only_words($value);
     my $pos = 0;
@@ -137,6 +137,9 @@ sub check_author {
       }
       if (index($a, ' ') != -1 and index($a, ',') == -1) {
         return "The last name should go first, all other names must follow, after a comma in @{[as_position($pos)]} '$tag', as in 'Knuth, Donald E.'";
+      }
+      if (($a =~ tr/,//) > 1) {
+        return "Too many commas in @{[as_position($pos)]} '$tag', perhaps 'and' is missing between co-authors, as in 'Knuth, Donald E. and Duane, Bibby'";
       }
       my $npos = 0;
       for my $name (split(/[ ,]+/, $a)) {
@@ -243,6 +246,11 @@ sub check_org_in_booktitle {
   my @orgs = qw/ACM IEEE/;
   if (exists($entry{'booktitle'})) {
     my $title = $entry{'booktitle'};
+    # Drop substrings protected by curly brackets (TeX case-preservation),
+    # so '{ACM}' or '{IEEE}' inside the booktitle is treated as part of the
+    # original conference name and does not trigger this warning.
+    $title =~ s/^\{(.+)\}$/$1/;
+    while ($title =~ s/\{[^{}]*\}//g) {};
     foreach my $o (@orgs) {
       if ($title =~ /^.*\Q$o\E.*$/) {
         return "The '$o' organization must not be mentioned in the booktitle, use 'publisher' tag instead"
@@ -556,7 +564,7 @@ sub entry_fix {
   }
   my $type = $entry{':type'};
   if (not exists $blessed{$type}) {
-    error("I don't know what to do with \@$type type of BibTeX entry");
+    error("I don't know what to do with \@$type type of BibTeX entry, I only understand " . join(', ', sort keys %blessed) . ' (case sensitive)');
   }
   if (not exists $entry{':name'}) {
     error("I don't know what to do with an entry without a name");
@@ -1082,7 +1090,7 @@ if (@ARGV+0 eq 0 or exists $args{'--help'} or exists $args{'-?'}) {
     "      --latex     Report errors in LaTeX format using the \\PackageWarningNoLine command\n\n" .
     "If any issues, please, report to GitHub: https://github.com/yegor256/bibcop");
 } elsif (exists $args{'--version'} or exists $args{'-v'}) {
-  info('05.01.14 2025-06-07');
+  info('07.41.34 0000-00-00');
 } else {
   my ($file) = grep { not($_ =~ /^-.*$/) } @ARGV;
   if (not $file) {
@@ -1115,9 +1123,17 @@ if (@ARGV+0 eq 0 or exists $args{'--help'} or exists $args{'-?'}) {
   } else {
     debug((@entries+0) . ' entries found in ' . $file);
     my $found = 0;
+    my %seen;
     for my $i (0..(@entries+0 - 1)) {
       my %entry = %{ $entries[$i] };
       debug("Checking $entry{':name'} (no.$i)...");
+      my $name = $entry{':name'};
+      if (defined $name and exists $seen{$name}) {
+        warning("The entry '$name' is seen more than once");
+        $found += 1;
+      } elsif (defined $name) {
+        $seen{$name} = 1;
+      }
       foreach my $err (process_entry(%entry)) {
         warning("$err, in the '$entry{':name'}' entry");
         $found += 1;
