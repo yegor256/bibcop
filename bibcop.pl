@@ -2,7 +2,7 @@
 # SPDX-FileCopyrightText: Copyright (c) 2022-2026 Yegor Bugayenko
 # SPDX-License-Identifier: MIT
 
-# 0000-00-00 03.50.51
+# 0000-00-00 15.01.42
 package bibcop;
 
 use warnings;
@@ -157,7 +157,7 @@ sub check_author {
           next
         }
         if ($name =~ /^[A-Z]$/) {
-          return "A shortened name must have a tailing dot in @{[as_position($pos)]} '$tag', as in 'Knuth, Donald E.'";
+          return "A shortened name must have a trailing dot in @{[as_position($pos)]} '$tag', as in 'Knuth, Donald E.'";
         }
         return "In @{[as_position($pos)]} '$tag' @{[as_position($npos)]} name looks suspicious ($name), use something like 'Knuth, Donald E. and Duane, Bibby'";
       }
@@ -165,7 +165,7 @@ sub check_author {
   }
 }
 
-# Check that titles don't have shortened words with a tailing dot.
+# Check that titles don't have shortened words with a trailing dot.
 sub check_shortenings {
   my (%entry) = @_;
   my %tags = map { $_ => 1 } qw/title booktitle journal/;
@@ -262,7 +262,7 @@ sub check_org_in_booktitle {
   }
 }
 
-# Check that no values have tailing dots.
+# Check that no values have trailing dots.
 # Check that there are no spaces before commands.
 sub check_typography {
   my (%entry) = @_;
@@ -1046,7 +1046,7 @@ sub info {
   print $txt . "\n";
 }
 
-# Print INFO message to the console.
+# Print WARNING message to the console.
 sub warning {
   my ($txt) = @_;
   if (exists $args{'--latex'}) {
@@ -1090,7 +1090,7 @@ if (@ARGV+0 eq 0 or exists $args{'--help'} or exists $args{'-?'}) {
     "      --latex     Report errors in LaTeX format using the \\PackageWarningNoLine command\n\n" .
     "If any issues, please, report to GitHub: https://github.com/yegor256/bibcop");
 } elsif (exists $args{'--version'} or exists $args{'-v'}) {
-  info('03.50.51 0000-00-00');
+  info('15.01.42 0000-00-00');
 } else {
   my ($file) = grep { not($_ =~ /^-.*$/) } @ARGV;
   if (not $file) {
