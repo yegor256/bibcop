@@ -62,15 +62,15 @@
 % \maketitle
 %
 % \textbf{\color{red}NB!}
-% You must run \TeX{} processor with |--shell-escape| option
-% and you must have \href{https://www.perl.org}{Perl} installed.
-% This package doesn't work on Windows.
+% The \TeX{} processor must be invoked with the |--shell-escape| option,
+% and \href{https://www.perl.org}{Perl} must be installed on the system.
+% This package does not operate on Windows.
 
 % \section{Introduction}
 %
-% This package scans a |.bib| file for style errors and emits
-% warning messages if any issues are found (the package must be included before
-% all other bibliography related packages):
+% This package scans a |.bib| file for stylistic errors and emits
+% warning messages whenever issues are detected (the package must be included before
+% all other bibliography-related packages):
 %\iffalse
 %<*verb>
 %\fi
@@ -85,25 +85,24 @@
 %\iffalse
 %</verb>
 %\fi
-% Some warnings may be printed in the \TeX{} log.
-% Once the issues in the |main.bib| file are fixed, the warnings disappear.
+% Warnings, if any, appear in the \TeX{} log.
+% Once the issues in the |main.bib| file have been resolved, the warnings cease.
 
-% Bibcop doesn't pay much attention to the formatting of the |.bib| file. It doesn't emit
-% warnings if a comma is missed after the last tag in a \BibTeX{} entry or the tags
-% and their equals symbols are not aligned. Instead, Bibcop is focused on the content
-% of the tags and their possible inconsistencies.
+% Bibcop is largely indifferent to the formatting of the |.bib| file. It does not emit
+% warnings when a comma is omitted after the final tag of a \BibTeX{} entry, nor when the tags
+% and their equals symbols are misaligned. Bibcop's attention is reserved for the content
+% of the tags and the inconsistencies that may arise within them.
 
-% If the |.sty| file is used directly (without installing it into the \TeX{} tree),
-% the |bibcop.pl| file must also be placed next to it --- it is the Perl script that does all the work
-% of checking your |.bib| files. The |.sty| is just a simple wrapper around it.
+% Whenever the |.sty| file is used directly (without installation into the \TeX{} tree),
+% the |bibcop.pl| file must accompany it---it is the Perl script that performs the actual
+% checking of |.bib| files. The |.sty| serves merely as a thin wrapper around it.
 
-% The |\usepackage{bibcop}| must stay right after |\usepackage{biblatex}|
-% (if Bib\LaTeX{} is used), otherwise
-% there won't be any warnings from |bibcop|.
+% The |\usepackage{bibcop}| declaration must immediately follow |\usepackage{biblatex}|
+% (whenever Bib\LaTeX{} is in use); otherwise no warnings will be issued by |bibcop|.
 
 % \section{Package Options}
 
-% It's possible to configure the behavior of the package with the help of a few package options:
+% The behaviour of the package may be configured by means of several package options:
 
 % \DescribeMacro{verbose}
 % The |verbose| package option prints all debugging messages to the \TeX{} log:
@@ -118,7 +117,7 @@
 %\fi
 
 % \DescribeMacro{script}
-% The package depends on the |bibcop.pl| file, which is a Perl script that does all the work. This file is supposed to be located either in the current directory or in the |texmf-dist/scripts/bibcop/| directory. Using the |script| option the location of the script may be explicitly defined (it is not recommended to use this option unless there is a special demand for it):
+% The package relies upon the |bibcop.pl| file, a Perl script that performs all of the work. This file is expected to reside either in the current directory or within the |texmf-dist/scripts/bibcop/| directory. By means of the |script| option, the location of the script may be specified explicitly (the option is not recommended unless a particular need arises):
 %\iffalse
 %<*verb>
 %\fi
@@ -130,7 +129,7 @@
 %\fi
 
 % \DescribeMacro{no*}
-% It's possible to suppress certain rules, by using one of the |no*| package options:
+% Specific rules may be suppressed by means of one of the |no*| package options:
 %\iffalse
 %<*verb>
 %\fi
@@ -152,27 +151,27 @@
 
 % \section{The Rules}
 
-% This is a more or less complete list of rules enforced on a |.bib| file:
+% The following constitutes a substantially complete enumeration of the rules enforced on a |.bib| file:
 
 % \DescribeMacro{types}
-% Only |@article|, |@book|, |@inproceedings|, |@phdthesis|, |@incollection|, and |@misc| types of \BibTeX{} entries are allowed.
-% Everything else, like |@manual|, |@inbook|, and \href{https://www.bibtex.com/e/entry-types/}{many others} are simply prohibited.
-% The mentioned six should be enough for everything.
+% Only the |@article|, |@book|, |@inproceedings|, |@phdthesis|, |@incollection|, and |@misc| types of \BibTeX{} entries are admitted.
+% All other types, such as |@manual|, |@inbook|, and \href{https://www.bibtex.com/e/entry-types/}{many others}, are forbidden.
+% The aforementioned six suffice for every conceivable purpose.
 
 % \DescribeMacro{tags}
-% There are pretty limited lists of allowed tags for each type of \BibTeX{} entry. Tags
-% that are not in the list are prohibited.
+% Each type of \BibTeX{} entry has a tightly constrained list of admissible tags. Tags
+% absent from the list are forbidden.
 
 % \DescribeMacro{doi}
-% Every \BibTeX{} entry must have the |doi| tag, which is a unique
+% Every \BibTeX{} entry must contain a |doi| tag, namely the unique
 % \href{https://www.doi.org}{Digital Object Identifier}
-% of the material that you reference. To avoid ambiguity, it is good practice to always mention the DOI.
-% It is also recommended to use the \href{https://ctan.org/pkg/doi}{doi} package,
-% in order to make all ``|doi|'' fields turned into hyper links.
+% of the cited material. To forestall ambiguity, it is sound practice to record the DOI in every case.
+% The \href{https://ctan.org/pkg/doi}{doi} package is likewise recommended,
+% as it converts all ``|doi|'' fields into hyperlinks.
 
 % \DescribeMacro{caps}
-% In the |title|, |booktitle|, and |journal| tags, all major words must be capitalized,
-% as it is \href{https://apastyle.apa.org/style-grammar-guidelines/capitalization/title-case}{recommended} by APA:
+% Within the |title|, |booktitle|, and |journal| tags, every major word must be capitalised,
+% as \href{https://apastyle.apa.org/style-grammar-guidelines/capitalization/title-case}{recommended} by the APA:
 %\iffalse
 %<*verb>
 %\fi
@@ -182,12 +181,12 @@ title = {A Preliminary Architecture for a Basic Data-Flow Processor}
 %\iffalse
 %</verb>
 %\fi
-% Here, the leading ``|A|'' is capital because it opens the title.
-% The word ``|for|'' and the article ``|a|'' are minor words, that's why they are in lower case.
-% Both parts of the composite word ``|Data-Flow|'' are capitalized.
-% Sometimes this rule may need to be violated, when there is custom capitalization, as it is done
-% by the author of the paper. In order to do this, the words with custom capitalization
-% must be wrapped in curled brackets, for example:
+% Here, the leading ``|A|'' is capitalised because it opens the title.
+% The word ``|for|'' and the article ``|a|'' are minor words and therefore appear in lower case.
+% Both components of the composite word ``|Data-Flow|'' are capitalised.
+% This rule may occasionally be relaxed where a custom capitalisation is preserved
+% as imposed by the author of the paper. In such cases, the words bearing custom capitalisation
+% must be enclosed in curly brackets, for example:
 %\iffalse
 %<*verb>
 %\fi
@@ -197,12 +196,12 @@ title = {Structured Programming {with} Go {To} Statements}
 %\iffalse
 %</verb>
 %\fi
-% This rule may be disabled by the |nocaps| package option.
+% This rule may be disabled by means of the |nocaps| package option.
 
 % \DescribeMacro{author}
-% The |author| must contain a list of authors separated by ``|and|''. Each author
-% must have two parts separated by a comma. The first part is the last name of the author,
-% the second part is a list of their first names separated by a space, for example:
+% The |author| field must contain a list of authors separated by ``|and|''. Each author
+% must comprise two components separated by a comma: the first denotes the surname of the author,
+% the second a list of given names separated by spaces, for example:
 %\iffalse
 %<*verb>
 %\fi
@@ -212,7 +211,7 @@ author = {Knuth, Donald E. and Duane, Bibby}
 %\iffalse
 %</verb>
 %\fi
-% When the list of authors is too long, it's possible to say ``|and others|'':
+% Where the list of authors is exceedingly long, ``|and others|'' may be employed:
 %\iffalse
 %<*verb>
 %\fi
@@ -222,8 +221,8 @@ author = {Knuth, Donald E. and others}
 %\iffalse
 %</verb>
 %\fi
-% When first names are shortened to a single letter, they must have a trailing dot.
-% A specially formatted author name may be wrapped in curly brackets, to make Bibcop ignore it:
+% Whenever given names are abbreviated to a single letter, a trailing full stop is required.
+% An author name with bespoke formatting may be enclosed in curly brackets, whereupon Bibcop disregards it:
 %\iffalse
 %<*verb>
 %\fi
@@ -235,7 +234,7 @@ author = {{Some author} and {I}}
 %\fi
 
 % \DescribeMacro{shorts}
-% It is not allowed to shorten any words aside from the |author| tag, for example this is illegal:
+% Abbreviation of words is permitted only within the |author| tag; the following, for instance, is impermissible:
 %\iffalse
 %<*verb>
 %\fi
@@ -245,7 +244,7 @@ journal = {J. Log. Compute}
 %\iffalse
 %</verb>
 %\fi
-% This must be replaced with the following:
+% It must instead be replaced by the following:
 %\iffalse
 %<*verb>
 %\fi
@@ -257,7 +256,7 @@ journal = {Journal of Logic and Computation}
 %\fi
 
 % \DescribeMacro{brackets}
-% The |title|, |booktitle|, and |journal| must be wrapped in double brackets, for example:
+% The |title|, |booktitle|, and |journal| fields must be enclosed in double brackets, for example:
 %\iffalse
 %<*verb>
 %\fi
@@ -267,12 +266,12 @@ title = {{A Survey of Symbolic Execution Techniques}}
 %\iffalse
 %</verb>
 %\fi
-% This is necessary in order to prevent down-casing of capitalized words, which is done by some
-% bibliography styles.
+% This is necessary in order to prevent the down-casing of capitalised words, which certain
+% bibliography styles otherwise perform.
 
 % \DescribeMacro{year}
-% It is not allowed to mention the year inside the title of a conference or a journal, for example,
-% this would be illegal:
+% The year may not appear within the title of a conference or a journal; the following, for instance,
+% is impermissible:
 %\iffalse
 %<*verb>
 %\fi
@@ -282,8 +281,8 @@ booktitle = {{1994 IEEE International Conference on Computer Languages}},
 %\iffalse
 %</verb>
 %\fi
-% The year should only be mentioned in the |year| tag, nowhere else.
-% In the |year| tag only numbers are allowed:
+% The year is to be recorded solely within the |year| tag, and nowhere else.
+% Within the |year| tag, only numerals are admissible:
 %\iffalse
 %<*verb>
 %\fi
@@ -295,7 +294,7 @@ year = {1994},
 %\fi
 
 % \DescribeMacro{month}
-% The |month| may contain only a number:
+% The |month| field may contain only a numeral:
 %\iffalse
 %<*verb>
 %\fi
@@ -307,7 +306,7 @@ month = {12},
 %\fi
 
 % \DescribeMacro{volume}
-% The |volume| may contain only a number:
+% The |volume| field may contain only a numeral:
 %\iffalse
 %<*verb>
 %\fi
@@ -319,7 +318,7 @@ volume = {32},
 %\fi
 
 % \DescribeMacro{number}
-% The |number| may contain only a number:
+% The |number| field may contain only a numeral:
 %\iffalse
 %<*verb>
 %\fi
@@ -331,7 +330,7 @@ number = {132},
 %\fi
 
 % \DescribeMacro{pages}
-% The |pages| may contain either a number or two numbers separated by a double dash:
+% The |pages| field may contain either a single numeral or two numerals separated by a double dash:
 %\iffalse
 %<*verb>
 %\fi
@@ -343,8 +342,8 @@ pages = {145--163},
 %\fi
 
 % \DescribeMacro{proceedings}
-% The |booktitle| in the |@inproceedings| entry must always start with ``|Proceedings| |of| |the|'',
-% as in this example:
+% The |booktitle| within an |@inproceedings| entry must invariably begin with ``|Proceedings| |of| |the|'',
+% as illustrated below:
 %\iffalse
 %<*verb>
 %\fi
@@ -355,10 +354,10 @@ booktitle = {{Proceedings of the International
 %\iffalse
 %</verb>
 %\fi
-% This rule may be disabled by the |noinproc| package option.
+% This rule may be disabled by means of the |noinproc| package option.
 
 % \DescribeMacro{arXiv}
-% If the |archivePrefix| is present, the |eprint| and |primaryClass| must also be present and must adhere to the formatting principles of \href{https://arxiv.org/help/arxiv_identifier}{arXiv identifiers}:
+% Whenever |archivePrefix| is present, |eprint| and |primaryClass| must likewise be present and must conform to the formatting principles of \href{https://arxiv.org/help/arxiv_identifier}{arXiv identifiers}:
 %\iffalse
 %<*verb>
 %\fi
@@ -374,15 +373,15 @@ booktitle = {{Proceedings of the International
 %\fi
 
 % \DescribeMacro{typography}
-% All tags in each \BibTeX{} entry are checked for adherence to basic typography rules:
+% All tags within each \BibTeX{} entry are inspected for compliance with elementary typographic conventions:
 % \begin{itemize}
-%   \item No spaces are allowed in front of a comma, a semi-colon, a colon, a dot, a question mark, and an exclamation mark;
-%   \item Text may not end with a dot, a comma, a semi-colon, a colon, or a dash;
-%   \item A triple dash must be surrounded by spaces.
+%   \item No space is admissible before a comma, semicolon, colon, full stop, question mark, or exclamation mark;
+%   \item Text may not terminate in a full stop, comma, semicolon, colon, or dash;
+%   \item A triple dash must be flanked on both sides by spaces.
 % \end{itemize}
 
 % \DescribeMacro{Unicode}
-% Any non-ASCII characters are prohibited in the entire |.bib| file.
+% Non-ASCII characters are prohibited throughout the |.bib| file.
 
 % \StopEventually{}
 
