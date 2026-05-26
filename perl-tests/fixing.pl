@@ -41,6 +41,9 @@ fixes('title', 'user\'s story', 'User\'s Story');
 fixes('title', 'step in, step out', 'Step in, Step Out');
 fixes('title', 'are we there yet?', 'Are We There yet?');
 fixes('title', 'GitHub Audience? --- a Thematic Analysis', 'GitHub Audience? --- A Thematic Analysis');
+fixes('title', '“Air Canada”', '``Air Canada\'\'');
+fixes('title', '"Air Canada"', '``Air Canada\'\'');
+fixes('title', 'A "Small" Example', 'A ``Small\'\' Example');
 
 fixes('booktitle', 'Proceedings Of IEEE Symposium On Art', 'Proceedings of Symposium on Art');
 fixes('booktitle', 'Symposium on Computers', 'Proceedings of the Symposium on Computers');
