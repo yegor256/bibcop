@@ -966,6 +966,48 @@ sub entries {
   return @entries;
 }
 
+# Extract citation keys from a LaTeX .aux file.
+sub citations {
+  my ($aux) = @_;
+  my %cited;
+  while ($aux =~ /\\citation\{([^}]*)\}/g) {
+    remember_citations($1, \%cited);
+  }
+  while ($aux =~ /\\abx\@aux\@cite\{[^}]*\}\{([^}]*)\}/g) {
+    remember_citations($1, \%cited);
+  }
+  while ($aux =~ /\\abx\@aux\@segm\{[^}]*\}\{[^}]*\}\{([^}]*)\}/g) {
+    remember_citations($1, \%cited);
+  }
+  return %cited;
+}
+
+sub remember_citations {
+  my ($keys, $cited) = @_;
+  foreach my $key (split(/,/, $keys)) {
+    $key =~ s/^\s+|\s+$//g;
+    if ($key ne '') {
+      $cited->{$key} = 1;
+    }
+  }
+}
+
+sub cited_entries {
+  my ($file) = @_;
+  my %cited;
+  my $dir = dirname($file);
+  my $name = basename($file);
+  $name =~ s/\.[^.]+$/.aux/;
+  open(my $fh, '<', "$dir/$name") or return %cited;
+  my $aux; { local $/; $aux = <$fh>; }
+  close($fh);
+  my %found = citations($aux);
+  foreach my $key (keys %found) {
+    $cited{$key} = 1;
+  }
+  return %cited;
+}
+
 # Takes the text and returns only list of words seen there.
 sub only_words {
   my ($tex) = @_;
@@ -1134,6 +1176,9 @@ if (@ARGV+0 eq 0 or exists $args{'--help'} or exists $args{'-?'}) {
     debug((@entries+0) . ' entries found in ' . $file);
     my $found = 0;
     my %seen;
+    my %cited = cited_entries($file);
+    my $citations = keys %cited;
+    my $all = exists $cited{'*'};
     for my $i (0..(@entries+0 - 1)) {
       my %entry = %{ $entries[$i] };
       debug("Checking $entry{':name'} (no.$i)...");
@@ -1143,6 +1188,10 @@ if (@ARGV+0 eq 0 or exists $args{'--help'} or exists $args{'-?'}) {
         $found += 1;
       } elsif (defined $name) {
         $seen{$name} = 1;
+      }
+      if ($citations > 0 and not $all and defined $name and not exists $cited{$name}) {
+        warning("The entry '$name' is not cited");
+        $found += 1;
       }
       foreach my $err (process_entry(%entry)) {
         warning("$err, in the '$entry{':name'}' entry");
