@@ -2,7 +2,7 @@
 # SPDX-FileCopyrightText: Copyright (c) 2022-2026 Yegor Bugayenko
 # SPDX-License-Identifier: MIT
 
-# 0000-00-00 09.14.29
+# 0000-00-00 09.14.58
 package bibcop;
 
 use warnings;
@@ -341,7 +341,12 @@ sub check_typography {
     }
     foreach my $s (@need_space_after) {
       my $p = join('', @no_space_before);
-      if ($value =~ /^.*[^\\]\Q$s\E[^\}\s\Q$p\E].*$/) {
+      my $checked = $value;
+      if ($s eq ')' or $s eq ']') {
+        my $o = ($s eq ')') ? '(' : '[';
+        $checked =~ s/\Q$o\E[A-Z][A-Za-z]*\Q$s\E[A-Z][A-Za-z]*//g;
+      }
+      if ($checked =~ /^.*[^\\]\Q$s\E[^\}\s\Q$p\E].*$/) {
         return "In the '$tag', put a space after the $symbols{$s}"
       }
     }
@@ -1110,7 +1115,7 @@ if (@ARGV+0 eq 0 or exists $args{'--help'} or exists $args{'-?'}) {
     "      --latex     Report errors in LaTeX format using the \\PackageWarningNoLine command\n\n" .
     "If any issues, please, report to GitHub: https://github.com/yegor256/bibcop");
 } elsif (exists $args{'--version'} or exists $args{'-v'}) {
-  info('09.14.29 0000-00-00');
+  info('09.14.58 0000-00-00');
 } else {
   my ($file) = grep { not($_ =~ /^-.*$/) } @ARGV;
   if (not $file) {
