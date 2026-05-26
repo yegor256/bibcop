@@ -68,6 +68,16 @@ passes((
   'pages' => '22--33'
 ));
 passes((
+  ':type' => 'article',
+  'author' => "Li, Jiawei and Farag{\\'o}, David and Petrov, Christian and Ahmed, Iftekhar",
+  'title' => '{{Optimization Is Better Than Generation: Optimizing Commit Message Leveraging Human-Written Commit Message}}',
+  'year' => '2025',
+  'archiveprefix' => 'arXiv',
+  'eprint' => '2501.09861',
+  'primaryclass' => 'cs.SE',
+  'doi' => '10.48550/arXiv.2501.09861'
+));
+passes((
   ':type' => 'misc',
   'author' => 'Doe, John',
   'title' => '{{The Title}}',

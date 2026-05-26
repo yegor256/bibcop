@@ -18,7 +18,7 @@ my %args = map { $_ => 1 } @ARGV;
 
 # Only these tags are allowed and only these types of entries.
 my %blessed = (
-  'article' => ['doi', 'year', 'title', 'author', 'journal', 'volume', 'number', 'month?', 'pages?'],
+  'article' => ['doi', 'year', 'title', 'author', 'journal', 'volume', 'number', 'month?', 'pages?', 'archiveprefix?', 'eprint?', 'primaryclass?'],
   'inproceedings' => ['doi', 'booktitle', 'title', 'author', 'year', 'pages?', 'month?', 'organization?', 'volume?'],
   'incollection' => ['doi', 'booktitle', 'title', 'author', 'year', 'editor', 'pages?', 'month?', 'volume?', 'publisher?'],
   'book' => ['title', 'author', 'year', 'publisher', 'doi?', 'edition?'],
@@ -47,6 +47,9 @@ sub check_mandatory_tags {
     if (not(exists $entry{$tag})) {
       my $listed = listed_tags(%entry);
       if ($tag eq 'doi' and exists $args{'--no:doi'}) {
+        next;
+      }
+      if ($type eq 'article' and exists $entry{'archiveprefix'} and grep { $_ eq $tag } qw/journal volume number/) {
         next;
       }
       return "A mandatory '$tag' tag for '\@$type' is missing among $listed"
@@ -214,26 +217,33 @@ sub check_wrapping {
 # See https://arxiv.org/help/arxiv_identifier
 sub check_arXiv {
   my (%entry) = @_;
-  if (exists($entry{'archiveprefix'})) {
-    if (not exists $entry{'eprint'}) {
-      return "The 'eprint' is mandatory when 'archiveprefix' is there"
-    }
-    if (not $entry{'eprint'} =~ /^[0-9]{4}\.[0-9]{4,5}(v[0-9]+)?$/) {
-      return "The 'eprint' must have two integers separated by a dot"
-    }
-    my $eprint = $entry{'eprint'};
-    my ($head, $tail) = split(/\./, $eprint);
-    my $year = substr($head, 0, 2);
-    my $month = substr($head, 2);
-    if ($month > 12) {
-      return "The month '$month' of the 'eprint' is wrong, it can't be bigger than 12"
-    }
-    if (not exists $entry{'primaryclass'}) {
-      return "The 'primaryclass' is mandatory when 'archiveprefix' is there"
-    }
-    if (not $entry{'primaryclass'} =~ /^[a-z]{2,}\.[A-Z]{2}$/) {
-      return "The 'primaryclass' must have two parts, like 'cs.PL'"
-    }
+  if (not grep { exists $entry{$_} } qw/archiveprefix eprint primaryclass/) {
+    return;
+  }
+  if (not exists $entry{'archiveprefix'}) {
+    return "The 'archiveprefix' is mandatory when arXiv tags are there"
+  }
+  if (not $entry{'archiveprefix'} eq 'arXiv') {
+    return "The 'archiveprefix' must be 'arXiv'"
+  }
+  if (not exists $entry{'eprint'}) {
+    return "The 'eprint' is mandatory when 'archiveprefix' is there"
+  }
+  if (not $entry{'eprint'} =~ /^[0-9]{4}\.[0-9]{4,5}(v[0-9]+)?$/) {
+    return "The 'eprint' must have two integers separated by a dot"
+  }
+  my $eprint = $entry{'eprint'};
+  my ($head, $tail) = split(/\./, $eprint);
+  my $year = substr($head, 0, 2);
+  my $month = substr($head, 2);
+  if ($month > 12) {
+    return "The month '$month' of the 'eprint' is wrong, it can't be bigger than 12"
+  }
+  if (not exists $entry{'primaryclass'}) {
+    return "The 'primaryclass' is mandatory when 'archiveprefix' is there"
+  }
+  if (not $entry{'primaryclass'} =~ /^[a-z]{2,}\.[A-Z]{2}$/) {
+    return "The 'primaryclass' must have two parts, like 'cs.PL'"
   }
 }
 
