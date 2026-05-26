@@ -162,6 +162,8 @@ check_passes($f, ('doi' => '10.1002/(SICI)1096-908X(199701)9:1<47::AID-SMR142>3.
 
 $f = 'check_arXiv';
 check_fails($f, ('archiveprefix' => 'arXiv'));
+check_fails($f, ('eprint' => '2112.13384', 'primaryclass' => 'cs.PL'));
+check_fails($f, ('archiveprefix' => 'Arxiv', 'eprint' => '2112.13384', 'primaryclass' => 'cs.PL'));
 check_fails($f, ('archiveprefix' => 'arXiv', 'eprint' => '2111.13384'));
 check_fails($f, ('archiveprefix' => 'arXiv', 'eprint' => 'abc', 'primaryclass' => 'cs.PL'));
 check_fails($f, ('archiveprefix' => 'arXiv', 'eprint' => '2111.13384', 'primaryclass' => 'hello'));
