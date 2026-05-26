@@ -341,7 +341,12 @@ sub check_typography {
     }
     foreach my $s (@need_space_after) {
       my $p = join('', @no_space_before);
-      if ($value =~ /^.*[^\\]\Q$s\E[^\}\s\Q$p\E].*$/) {
+      my $checked = $value;
+      if ($s eq ')' or $s eq ']') {
+        my $o = ($s eq ')') ? '(' : '[';
+        $checked =~ s/\Q$o\E[A-Z][A-Za-z]*\Q$s\E[A-Z][A-Za-z]*//g;
+      }
+      if ($checked =~ /^.*[^\\]\Q$s\E[^\}\s\Q$p\E].*$/) {
         return "In the '$tag', put a space after the $symbols{$s}"
       }
     }
