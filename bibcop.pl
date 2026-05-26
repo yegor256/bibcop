@@ -2,7 +2,7 @@
 # SPDX-FileCopyrightText: Copyright (c) 2022-2026 Yegor Bugayenko
 # SPDX-License-Identifier: MIT
 
-# 0000-00-00 07.10.10
+# 0000-00-00 09.14.29
 package bibcop;
 
 use warnings;
@@ -728,6 +728,7 @@ sub fix_capitalization {
 sub fix_title {
   my ($value) = @_;
   $value = fix_capitalization($value);
+  $value = fix_quotes($value);
   $value =~ s/([^ ])---/$1 ---/g;
   $value =~ s/---([^ ])/--- $1/g;
   return $value;
@@ -824,6 +825,7 @@ sub fix_organization {
 
 sub fix_unicode {
   my ($value) = @_;
+  $value = fix_quotes($value);
   my %literals = (
     'ò' => '\`{o}', 'ó' => '\\\'{o}', 'ô' => '\^{o}', 'ö' => '\"{o}', 'ő' => '\H{o}', 'ǒ' => '\v{o}', 'õ' => '\~{o}',
     'à' => '\`{a}', 'á' => '\\\'{a}', 'â' => '\^{a}', 'ä' => '\"{a}', 'å' => '\r{a}', 'ą' => '\k{a}', 'ǎ' => '\v{a}', 'ã' => '\~{a}',
@@ -841,6 +843,14 @@ sub fix_unicode {
   while(my($k, $v) = each %literals) {
     $value =~ s/\Q$k\E/$v/g;
   }
+  return $value;
+}
+
+sub fix_quotes {
+  my ($value) = @_;
+  $value =~ s/“/``/g;
+  $value =~ s/”/''/g;
+  $value =~ s/(?<!\\)"([^"\n]+)(?<!\\)"/``$1''/g;
   return $value;
 }
 
@@ -1100,7 +1110,7 @@ if (@ARGV+0 eq 0 or exists $args{'--help'} or exists $args{'-?'}) {
     "      --latex     Report errors in LaTeX format using the \\PackageWarningNoLine command\n\n" .
     "If any issues, please, report to GitHub: https://github.com/yegor256/bibcop");
 } elsif (exists $args{'--version'} or exists $args{'-v'}) {
-  info('07.10.10 0000-00-00');
+  info('09.14.29 0000-00-00');
 } else {
   my ($file) = grep { not($_ =~ /^-.*$/) } @ARGV;
   if (not $file) {
