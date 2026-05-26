@@ -52,6 +52,7 @@ check_passes($f, ('title' => 'Proper formatting of (brackets)? with no space aft
 check_passes($f, ('title' => 'Proper formatting of (brackets): with no space after it'));
 check_passes($f, ('title' => 'Proper formatting of (brackets); with no space after it'));
 check_passes($f, ('title' => 'Proper spaces in \(\phi\) and in $\phi$'));
+check_passes($f, ('title' => '{In (Co)Inductive Type Theory}'));
 check_passes($f, ('publisher' => 'Elsevier Science Inc.'));
 check_passes($f, ('title' => 'Either You Love Me, or ... Not'));
 
