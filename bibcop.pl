@@ -256,10 +256,12 @@ sub check_org_in_booktitle {
   my @orgs = qw/ACM IEEE/;
   if (exists($entry{'booktitle'})) {
     my $title = $entry{'booktitle'};
-    # Drop substrings protected by curly brackets (TeX case-preservation),
+    # First, drop the single outer pair of curly brackets that wraps the
+    # whole booktitle (the inner pair of the mandatory double braces), then
+    # drop substrings protected by curly brackets (TeX case-preservation),
     # so '{ACM}' or '{IEEE}' inside the booktitle is treated as part of the
     # original conference name and does not trigger this warning.
-    $title =~ s/^\{(.+)\}$/$1/;
+    $title = strip_outer_braces($title);
     while ($title =~ s/\{[^{}]*\}//g) {};
     foreach my $o (@orgs) {
       if ($title =~ /^.*\Q$o\E.*$/) {
@@ -1032,6 +1034,32 @@ sub only_words {
   $t =~ s/{ /{/g;
   $t =~ s/ }/}/g;
   return split(/ +/, $t);
+}
+
+# Remove the single outermost pair of curly brackets, but only if the leading
+# '{' is actually matched by the trailing '}'. This avoids the greedy mistake
+# of stripping '{ACM} ... {Notes}' down to 'ACM} ... {Notes', which would leak
+# a brace-protected organization name into the visible text.
+sub strip_outer_braces {
+  my ($s) = @_;
+  if ($s =~ /^\{(.*)\}$/s) {
+    my $inner = $1;
+    my $depth = 1;
+    foreach my $c (split //, $inner) {
+      if ($c eq '{') {
+        $depth += 1;
+      } elsif ($c eq '}') {
+        $depth -= 1;
+      }
+      if ($depth == 0) {
+        # The leading '{' was closed before the end, so it does not wrap
+        # the whole string; leave it untouched.
+        return $s;
+      }
+    }
+    return $inner;
+  }
+  return $s;
 }
 
 # Take a TeX string and return a cleaner one, without redundant spaces, brackets, etc.
