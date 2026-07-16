@@ -37,11 +37,17 @@
 \documentclass{ltxdoc}
 \usepackage[T1]{fontenc}
 \usepackage{lmodern}
+\usepackage{fail-fast}
+\usepackage{silence}
+\WarningFilter{latex}{Empty bibliography}
 \usepackage[maxnames=1,minnames=1,maxbibnames=1,natbib=true,citestyle=authoryear,bibstyle=authoryear,doi=false,url=false,isbn=false,isbn=false]{biblatex}
 \addbibresource{bibcop.bib}
 \usepackage{microtype}
 \AddToHook{env/verbatim/begin}{\microtypesetup{protrusion=false}}
+\PassOptionsToPackage{hyperindex=false}{hyperref}
 \usepackage{href-ul}
+\usepackage{bookmark}
+\renewcommand{\RerunFileCheck}[3]{\AddToHook{enddocument/info}{#2}}
 \usepackage{xcolor}
 \usepackage{graphicx}
 \PageIndex
