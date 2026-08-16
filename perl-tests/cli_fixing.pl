@@ -10,6 +10,7 @@ use File::Temp qw/ tempfile /;
 
 assert_fix_compare('duplicates');
 assert_fix_compare('no-fixes');
+assert_fix_compare('unicode');
 
 sub read_file {
   my ($path) = @_;

@@ -388,7 +388,26 @@ booktitle = {{Proceedings of the International
 % \end{itemize}
 
 % \DescribeMacro{Unicode}
-% Non-ASCII characters are prohibited throughout the |.bib| file.
+% Non-ASCII characters are prohibited throughout the |.bib| file,
+% unless curled brackets protect them:
+%\iffalse
+%<*verb>
+%\fi
+\begin{verbatim}
+@book{proust1913,
+  author = {{Proust, Marcel}},
+  title = {{{À la Recherche du Temps Perdu}}},
+  publisher = {{Éditions Grasset}},
+}
+\end{verbatim}
+%\iffalse
+%</verb>
+%\fi
+% The brackets that delimit the value of a tag protect nothing,
+% which is why one extra pair is required around the text itself
+% (and yet one more around a |title|, since it demands its own pair anyway).
+% This is how a bibliography in Cyrillic, Greek, Arabic, or Chinese may be kept,
+% even though transliteration into Latin remains the safer choice.
 
 % \StopEventually{}
 
