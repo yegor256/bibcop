@@ -374,7 +374,7 @@ sub check_type_capitalization {
   }
 }
 
-# Check that no values have non-ASCII symbols.
+# Check that no values have non-ASCII symbols outside of curled brackets.
 sub check_ascii {
   my (%entry) = @_;
   foreach my $tag (keys %entry) {
@@ -383,17 +383,17 @@ sub check_ascii {
     }
     my $value = $entry{$tag};
     for my $pos (0..length($value)-1) {
-      my $char = substr($value, $pos, 1);
-      my $ord = ord($char);
+      my $ord = ord(substr($value, $pos, 1));
       if ($ord == 9 || $ord == 10 || $ord == 13) {
         next;
       }
       if ($ord < 20) {
         return "In the '$tag', don't use control symbol '0x" . (sprintf '%04x', $ord) . "'"
       }
-      if ($ord > 0x7f) {
-        return "In the '$tag', don't use Unicode symbol '0x" . (sprintf '%04x', $ord) . "'"
-      }
+    }
+    my $naked = naked_unicode($value);
+    if ($naked > 0) {
+      return "In the '$tag', don't use Unicode symbol '0x" . (sprintf '%04x', $naked) . "' outside of curled brackets"
     }
   }
 }
@@ -616,6 +616,9 @@ sub entry_fix {
       $value = $fixer->($value);
     }
     $value = fix_unicode($value);
+    if (naked_unicode($value) > 0) {
+      $value = '{' . $value . '}';
+    }
     if ($tag =~ /title|booktitle|journal/) {
       $value = '{' . $value . '}';
     }
@@ -1060,6 +1063,33 @@ sub strip_outer_braces {
     return $inner;
   }
   return $s;
+}
+
+# Find the first non-ASCII symbol that curled brackets do not protect and return
+# its code. Return zero when every non-ASCII symbol is protected, or when there
+# are no such symbols at all. An escaped bracket protects nothing.
+sub naked_unicode {
+  my ($tex) = @_;
+  my $depth = 0;
+  my $escape = 0;
+  for my $pos (0..length($tex)-1) {
+    my $char = substr($tex, $pos, 1);
+    if ($escape) {
+      $escape = 0;
+    } elsif ($char eq '\\') {
+      $escape = 1;
+    } elsif ($char eq '{') {
+      $depth = $depth + 1;
+      next;
+    } elsif ($char eq '}') {
+      $depth = $depth - 1;
+      next;
+    }
+    if (ord($char) > 0x7f and $depth <= 0) {
+      return ord($char);
+    }
+  }
+  return 0;
 }
 
 # Take a TeX string and return a cleaner one, without redundant spaces, brackets, etc.

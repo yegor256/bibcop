@@ -17,6 +17,9 @@ fixes_entry({':name' => 'k', ':type' => 'article', 'title' => 'Book', 'pages' =>
 my $today = strftime('%d-%m-%Y', localtime(time));
 fixes_entry({':name' => 'f', ':type' => 'misc', 'url' => 'http://google.com'}, "\@misc{f,\n  howpublished = {\\url{http://google.com}},\n  note = {[Online; accessed $today]},\n}\n\n");
 
+fixes_entry({':name' => 'd', ':type' => 'book', 'title' => '{{Бесы}}'}, "\@book{d,\n  title = {{{Бесы}}},\n}\n\n");
+fixes_entry({':name' => 'd', ':type' => 'book', 'author' => '{Достоевский, Федор}'}, "\@book{d,\n  author = {{Достоевский, Федор}},\n}\n\n");
+
 fixes_entry({':name' => 'f', ':type' => 'article', 'booktitle' => 'ONE'}, "\@article{f,\n  journal = {{ONE}},\n}\n\n");
 fixes_entry({':name' => 'f', ':type' => 'inproceedings', 'journal' => 'ONE'}, "\@inproceedings{f,\n  booktitle = {{Proceedings of the ONE}},\n}\n\n");
 

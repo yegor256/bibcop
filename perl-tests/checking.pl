@@ -86,6 +86,13 @@ passes((
   'note' => 'it is a blog post'
 ));
 passes((
+  ':type' => 'book',
+  'author' => '{Достоевский, Федор}',
+  'title' => '{{Бесы}}',
+  'year' => '1972',
+  'publisher' => '{Типография К. Замысловского}'
+));
+passes((
   ':type' => 'phdthesis',
   'author' => 'Doe, John',
   'title' => '{The Title}',
