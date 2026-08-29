@@ -11,6 +11,7 @@ use File::Temp qw/ tempfile /;
 assert_fix_compare('duplicates');
 assert_fix_compare('no-fixes');
 assert_fix_compare('unicode');
+assert_fix_compare('protected');
 
 sub read_file {
   my ($path) = @_;

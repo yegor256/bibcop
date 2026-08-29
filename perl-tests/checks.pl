@@ -120,6 +120,10 @@ check_passes($f, ('booktitle' => '{Conferences ``On the Move\'\'}'));
 check_passes($f, ('booktitle' => '{Workshop on `On Demand\' Computing}'));
 check_passes($f, ('title' => 'A Study of ``In Context\'\' Learning'));
 check_fails($f, ('title' => '``in Context\'\' Learning'));
+check_passes($f, ('title' => '{{a b c}}'));
+check_passes($f, ('booktitle' => '{{the tex book}}'));
+check_passes($f, ('journal' => '{{a b c}}'));
+check_fails($f, ('title' => '{a b c}'));
 
 $f = 'check_howpublished';
 check_fails($f, ('howpublished' => 'hello'));

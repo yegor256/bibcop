@@ -20,6 +20,16 @@ assert_eq(strip_outer_braces('{Alpha {Beta} Gamma}'), 'Alpha {Beta} Gamma');
 assert_eq(strip_outer_braces('{Alpha} and {Beta}'), '{Alpha} and {Beta}');
 assert_eq(strip_outer_braces('Alpha'), 'Alpha');
 
+assert_eq(protected('title', '{{Alpha}}'), 1);
+assert_eq(protected('booktitle', '{{Alpha Beta Gamma}}'), 1);
+assert_eq(protected('title', '{Alpha}'), '');
+assert_eq(protected('title', '{Alpha {Beta} Gamma}'), '');
+assert_eq(protected('journal', '{Alpha}'), '');
+assert_eq(protected('journal', '{{Alpha}}'), 1);
+assert_eq(protected('publisher', '{Alpha}'), 1);
+assert_eq(protected('publisher', 'Alpha'), '');
+assert_eq(protected('publisher', '{Alpha} and {Beta}'), '');
+
 my %cited = citations('\citation{alpha, beta}
 \abx@aux@cite{0}{gamma}
 \abx@aux@segm{0}{0}{delta}');

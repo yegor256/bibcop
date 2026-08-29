@@ -100,6 +100,15 @@ passes((
   'school' => 'Stanford'
 ));
 
+# capitalization is not checked inside extra curled brackets
+passes((
+  ':type' => 'phdthesis',
+  'author' => 'Doe, John',
+  'title' => '{{the title in lower case}}',
+  'year' => '1984',
+  'school' => 'Stanford'
+));
+
 sub fails {
   my (%entry) = @_;
   my @errors = process_entry(%entry);
