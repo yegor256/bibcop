@@ -29,6 +29,10 @@ my %blessed = (
 # See https://research.arizona.edu/faq/what-do-you-mean-when-you-say-use-title-case-proposalproject-titles
 my %minors = map { $_ => 1 } qw/in of at to by the a an and or as if up via yet nor but off on for into vs versus/;
 
+# These tags bibcop wraps in curled brackets of its own, thus one more pair
+# of brackets around them is the protection made by the author.
+my %wrapped = map { $_ => 1 } qw/title booktitle journal/;
+
 # Check the presence of mandatory tags.
 sub check_mandatory_tags {
   if (exists $args{'--no:tags'}) {
@@ -80,8 +84,10 @@ sub check_capitalization {
       next;
     }
     my @ends = qw/ ; ? . --- : ! ` /;
-    my $value = $entry{$tag};
-    my @words = only_words($value);
+    if (protected($tag, $entry{$tag})) {
+      next;
+    }
+    my @words = only_words($entry{$tag});
     my $pos = 0;
     foreach my $word (@words) {
       $word =~ s/\.$//g;
@@ -609,17 +615,20 @@ sub entry_fix {
     if (not exists $allowed{$tag} and not exists $allowed{$tag . '?'}) {
       next;
     }
-    my $fixer = "fix_$tag";
-    my $fixed = $value;
-    if (defined &{$fixer}) {
-      no strict 'refs';
-      $value = $fixer->($value);
-    }
-    $value = fix_unicode($value);
-    if (naked_unicode($value) > 0) {
+    if (protected($tag, $entry{$tag})) {
       $value = '{' . $value . '}';
+    } else {
+      my $fixer = "fix_$tag";
+      if (defined &{$fixer}) {
+        no strict 'refs';
+        $value = $fixer->($value);
+      }
+      $value = fix_unicode($value);
+      if (naked_unicode($value) > 0) {
+        $value = '{' . $value . '}';
+      }
     }
-    if ($tag =~ /title|booktitle|journal/) {
+    if (exists $wrapped{$tag}) {
       $value = '{' . $value . '}';
     }
     if (not $value eq '') {
@@ -1063,6 +1072,17 @@ sub strip_outer_braces {
     return $inner;
   }
   return $s;
+}
+
+# Check whether curled brackets protect the entire value of the tag. The pair
+# of brackets that a tag demands on its own does not count as protection, since
+# it belongs to bibcop and not to the author.
+sub protected {
+  my ($tag, $value) = @_;
+  if (exists $wrapped{$tag}) {
+    $value = strip_outer_braces($value);
+  }
+  return strip_outer_braces($value) ne $value;
 }
 
 # Find the first non-ASCII symbol that curled brackets do not protect and return
