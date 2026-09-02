@@ -124,6 +124,8 @@ check_passes($f, ('title' => '{{a b c}}'));
 check_passes($f, ('booktitle' => '{{the tex book}}'));
 check_passes($f, ('journal' => '{{a b c}}'));
 check_fails($f, ('title' => '{a b c}'));
+check_passes($f, ('journal' => q(Annales {de} {la} {Soci{\'e}t{\'e}} Scientifique {de} Bruxelles)));
+check_passes($f, ('title' => q({\'E}tude of Numbers)));
 
 $f = 'check_howpublished';
 check_fails($f, ('howpublished' => 'hello'));
