@@ -15,6 +15,12 @@ assert_eq(clean_tex('{Alpha}'), 'Alpha');
 assert_eq(clean_tex('{{Beta}}'), 'Beta');
 assert_eq(clean_tex('Hello, {world!}'), 'Hello, {world!}');
 
+assert_eq(join('|', only_words('Hello, {GitHub.com} Users')), 'Hello|,|{GitHub.com}|Users');
+assert_eq(join('|', only_words(q(Soci{\'e}t{\'e} Scientifique))), q(Soci{\'e}t{\'e}|Scientifique));
+assert_eq(join('|', only_words(q(Annales {de} {Soci{\'e}t{\'e}} Scientifique))), q(Annales|{de}|{Soci{\'e}t{\'e}}|Scientifique));
+assert_eq(join('|', only_words('The {ACM}-ISCOPE Conference')), 'The|{ACM}|-|ISCOPE|Conference');
+assert_eq(join('|', only_words('No spaces around the---triple dash')), 'No|spaces|around|the|---|triple|dash');
+
 assert_eq(strip_outer_braces('{Alpha}'), 'Alpha');
 assert_eq(strip_outer_braces('{Alpha {Beta} Gamma}'), 'Alpha {Beta} Gamma');
 assert_eq(strip_outer_braces('{Alpha} and {Beta}'), '{Alpha} and {Beta}');

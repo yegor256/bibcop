@@ -1037,14 +1037,35 @@ sub cited_entries {
   return %cited;
 }
 
-# Takes the text and returns only list of words seen there.
+# Takes the text and returns only list of words seen there. Whatever curled
+# brackets protect stays inside its word, no matter how deeply the brackets
+# nest, so that 'Soci{\'e}t{\'e}' remains one word and not three.
 sub only_words {
   my ($tex) = @_;
-  my $t = clean_tex($tex);
-  $t =~ s/([^a-zA-Z0-9\\'])/ $1 /g;
+  my $t = '';
+  my $depth = 0;
+  my $escape = 0;
+  foreach my $char (split //, clean_tex($tex)) {
+    my $inside = $depth ne 0;
+    if ($escape) {
+      $escape = 0;
+    } elsif ($char eq '\\') {
+      $escape = 1;
+    } elsif ($char eq '{') {
+      $depth = $depth + 1;
+      $inside = 1;
+    } elsif ($char eq '}' and $depth > 0) {
+      $depth = $depth - 1;
+      $inside = 1;
+    }
+    if ($inside or $char =~ /[a-zA-Z0-9\\']/) {
+      $t .= $char;
+    } else {
+      $t .= " $char ";
+    }
+  }
   $t =~ s/- +- +-/---/g;
-  $t =~ s/{ /{/g;
-  $t =~ s/ }/}/g;
+  $t =~ s/^ +//;
   return split(/ +/, $t);
 }
 
