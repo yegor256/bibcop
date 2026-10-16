@@ -13,6 +13,7 @@ check_fails($f, ('title' => 'hello'));
 check_fails($f, ('title' => 'привет'));
 check_fails($f, ('publisher' => 'Типография {К. Замысловского}'));
 check_fails($f, ('title' => '\{Бесы\}'));
+check_fails($f, ('title' => "control\x1bsymbol"));
 check_passes($f, ('title' => '{{Бесы}}'));
 check_passes($f, ('author' => '{Достоевский, Федор}'));
 check_passes($f, ('publisher' => 'The {Типография} Press'));

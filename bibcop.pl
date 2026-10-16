@@ -393,7 +393,7 @@ sub check_ascii {
       if ($ord == 9 || $ord == 10 || $ord == 13) {
         next;
       }
-      if ($ord < 20) {
+      if ($ord < 0x20) {
         return "In the '$tag', don't use control symbol '0x" . (sprintf '%04x', $ord) . "'"
       }
     }
