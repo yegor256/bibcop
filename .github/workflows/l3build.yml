@@ -30,6 +30,7 @@ jobs:
         with:
           package_file: .texlive-packages.txt
           texlive_version: 2026
+          repository: https://mirrors.rit.edu/CTAN/systems/texlive/tlnet
       - run: l3build ctan --show-log-on-error --halt-on-error
       - if: failure()
         run: |
