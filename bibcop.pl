@@ -2,7 +2,7 @@
 # SPDX-FileCopyrightText: Copyright (c) 2022-2026 Yegor Bugayenko
 # SPDX-License-Identifier: MIT
 
-# 2026-10-16 06.55.47
+# 2026-10-16 06.57.29
 package bibcop;
 
 use warnings;
@@ -603,7 +603,7 @@ sub entry_fix {
       next;
     }
     my $value = clean_tex($entry{$tag});
-    if ($tag eq 'url') {
+    if ($tag eq 'url' and exists $allowed{'howpublished?'} and exists $allowed{'note?'}) {
       my $today = strftime('%d-%m-%Y', localtime(time));
       push(@lines, "  howpublished = {\\url{$value}},");
       push(@lines, "  note = {[Online; accessed $today]},");
@@ -1267,7 +1267,7 @@ if (@ARGV+0 eq 0 or exists $args{'--help'} or exists $args{'-?'}) {
     "      --latex     Report errors in LaTeX format using the \\PackageWarningNoLine command\n\n" .
     "If any issues, please, report to GitHub: https://github.com/yegor256/bibcop");
 } elsif (exists $args{'--version'} or exists $args{'-v'}) {
-  info('06.55.47 2026-10-16');
+  info('06.57.29 2026-10-16');
 } else {
   my ($file) = grep { not($_ =~ /^-.*$/) } @ARGV;
   if (not $file) {
