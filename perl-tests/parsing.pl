@@ -61,4 +61,14 @@ assert_eq(entries('@article{k1_34} @misc{do43ss,Title=,Year=1998}')+0, 2);
 assert_eq(entries("\@article{t1}\n\n\n\@misc{ff,year=1998}")+0, 2);
 assert_eq(entries('@misc{42i-88/7.7,a=hello}')+0, 1);
 
+my @i9 = entries("\@string{acm = \"ACM\"}\n\@comment{jabref-meta: databaseType:bibtex;}\n\@preamble{\"\\newcommand{\\noop}[1]{#1}\"}\n\@misc{x3, year=1999}\n");
+# show(@i9);
+assert_eq(@i9+0, 1);
+assert_eq($i9[0]{':name'}, 'x3');
+
+my @i10 = entries("\@Comment{ {nested} \\} braces }\n\@STRING{ieee = {IEEE}}\n\@misc{x4}\n\@misc{x5}\n");
+# show(@i10);
+assert_eq(@i10+0, 2);
+assert_eq($i10[1]{':name'}, 'x5');
+
 1;
