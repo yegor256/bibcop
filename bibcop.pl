@@ -1276,6 +1276,7 @@ if (@ARGV+0 eq 0 or exists $args{'--help'} or exists $args{'-?'}) {
   }
   open(my $fh, '<', $file) or error('Cannot open file: ' . $file);
   my $bib; { local $/; $bib = <$fh>; }
+  $bib =~ s/\r\n/\n/g;
   my @entries = entries($bib);
   if (exists $args{'--fix'}) {
     my $fixed = '';

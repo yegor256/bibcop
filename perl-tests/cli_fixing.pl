@@ -8,23 +8,28 @@ use strict;
 use warnings;
 use File::Temp qw/ tempfile /;
 
-assert_fix_compare('duplicates');
-assert_fix_compare('no-fixes');
-assert_fix_compare('unicode');
-assert_fix_compare('protected');
+assert_fix_compare('duplicates', "\n");
+assert_fix_compare('no-fixes', "\n");
+assert_fix_compare('unicode', "\n");
+assert_fix_compare('protected', "\n");
+assert_fix_compare('duplicates', "\r\n");
 
 sub read_file {
   my ($path) = @_;
   open(my $h, '<', $path) or error('Cannot open file: ' . $path);
   my $content; { local $/; $content = <$h>; }
+  $content =~ s/\r\n/\n/g;
   $content =~ s/^\s+|\s+$//g;
   return $content;
 }
 
 sub assert_fix_compare {
-  my ($dir) = @_;
-  my $before = "test-files/fixes/$dir/before.bib";
+  my ($dir, $eol) = @_;
   my $expected = "test-files/fixes/$dir/expected.bib";
+  my ($b, $before) = tempfile();
+  binmode $b;
+  print $b join($eol, split(/\n/, read_file("test-files/fixes/$dir/before.bib"), -1)) . $eol;
+  close $b;
   my ($a, $after) = tempfile();
   close $a;
   my $cmd = "perl ./bibcop.pl --fix $before > $after";
