@@ -603,7 +603,7 @@ sub entry_fix {
       next;
     }
     my $value = clean_tex($entry{$tag});
-    if ($tag eq 'url') {
+    if ($tag eq 'url' and exists $allowed{'howpublished?'} and exists $allowed{'note?'}) {
       my $today = strftime('%d-%m-%Y', localtime(time));
       push(@lines, "  howpublished = {\\url{$value}},");
       push(@lines, "  note = {[Online; accessed $today]},");
