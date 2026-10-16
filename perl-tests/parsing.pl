@@ -71,4 +71,13 @@ my @i10 = entries("\@Comment{ {nested} \\} braces }\n\@STRING{ieee = {IEEE}}\n\@
 assert_eq(@i10+0, 2);
 assert_eq($i10[1]{':name'}, 'x5');
 
+my @i11 = entries(q(@misc{x6, title={a \{ b}, year=1999} @misc{x7, year=2000}));
+# show(@i11);
+assert_eq(@i11+0, 2);
+assert_eq($i11[0]{'title'}, q(a \{ b));
+
+my @i12 = entries(q(@misc{x8, title={a \} b}}));
+# show(@i12);
+assert_eq($i12[0]{'title'}, q(a \} b));
+
 1;
