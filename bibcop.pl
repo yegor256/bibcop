@@ -883,7 +883,7 @@ sub entries {
   my $acc = '';
   my $tag = '';
   my $interrupted = ''; # where the comment interrupted the proceeding (state name)
-  my $lineno = 0;
+  my $lineno = 1;
   my $nest = 0;
   my $escape = 0;
   for my $pos (0..length($bib)-1) {
