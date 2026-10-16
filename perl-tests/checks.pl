@@ -146,6 +146,9 @@ $f = 'check_month';
 check_fails($f, ('month' => 'January'));
 check_fails($f, ('month' => '01'));
 check_fails($f, ('month' => 'jan'));
+check_fails($f, ('month' => '13'));
+check_fails($f, ('month' => '1x'));
+check_fails($f, ('month' => '100'));
 check_passes($f, ('month' => '1'));
 check_passes($f, ('month' => '12'));
 
