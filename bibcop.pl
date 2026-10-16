@@ -461,7 +461,7 @@ sub check_howpublished {
     }
     my $url = substr($how, 5, -1);
     if (not $url =~ /^https?:\/\/.+$/) {
-      return "The format of the URL in 'howpublished' is wrong, doesn't start with https://: '$url'"
+      return "The format of the URL in 'howpublished' is wrong, doesn't start with http:// or https://: '$url'"
     }
     my $max = 64;
     my $len = length($url);
