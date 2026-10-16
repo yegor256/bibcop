@@ -43,6 +43,9 @@ jobs:
           texlive_version: 2026
           repository: https://mirrors.rit.edu/CTAN/systems/texlive/tlnet
       - run: l3build ctan --show-log-on-error --halt-on-error
+        if: matrix.os != 'windows-2025'
+      - run: l3build doc --halt-on-error
+        if: matrix.os == 'windows-2025'
       - if: failure()
         run: |
           echo '::group::bibcop.log'
