@@ -5,15 +5,11 @@ soft biblatex
 soft bibtex
 soft bookmark
 soft fail-fast
-soft ffcode
 soft href-ul
 soft hypdoc
 soft l3build
 soft lm
 soft microtype
-soft newtx
-soft pgfopts
 soft scheme-basic
 soft silence
-soft verbatimcopy
 soft xetex
