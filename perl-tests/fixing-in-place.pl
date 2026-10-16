@@ -23,7 +23,7 @@ open(my $in1, '<', $temp);
 my $after1; { local $/; $after1 = <$in1>; }
 close($in1);
 
-if (index($after1, 'Knuth, Donald E.') == 1) {
+if (index($after1, 'Knuth, Donald E.') == -1) {
   print "Didn't fix in place\n";
   exit 1;
 }

@@ -45,5 +45,6 @@ require './perl-tests/functions.pl';
 require './perl-tests/checks.pl';
 require './perl-tests/cli.pl';
 require './perl-tests/cli_fixing.pl';
+require './perl-tests/fixing-in-place.pl';
 
 print "\033[0;32mGREAT!\033[0m All tests are green.\n";
