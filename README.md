@@ -50,7 +50,8 @@ perl bibcop.pl --fix main.bib > fixed.bib
 This command will read the `main.bib` file and
 create `fixed.bib`, which will have the fixed and properly
 formatted content (well, to some extent).
-Be careful, all comments will be removed.
+Be careful, all comments will be removed,
+except those at the very top of the file.
 
 You can also make changes inline, not creating a new file:
 
