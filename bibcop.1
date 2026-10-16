@@ -11,14 +11,16 @@ of a .bib file during the rendering of a LaTeX document. All found
 issues are reported as LaTeX warnings.
 .SH OPTIONS
 Various options apply:
-.IP --version
+.IP "-v, --version"
 Print the version of the tool
-.IP --help
+.IP "-?, --help"
 Print the help screen
 .IP --fix
 Auto-fix all issues and print new content to the console
-.IP --in-place
+.IP "-i, --in-place"
 When used with --fix, modifies the file in place
+.IP --no:XXX
+Disable one of the checks: tags, caps, wraps, doi, inproc, or org (for example, --no:wraps)
 .IP --latex
 Print everything in LaTeX format
 .IP --verbose
