@@ -80,4 +80,9 @@ my @i12 = entries(q(@misc{x8, title={a \} b}}));
 # show(@i12);
 assert_eq($i12[0]{'title'}, q(a \} b));
 
+my @i13 = entries("% header\r\n\r\n\@misc{x9,\r\n  year=2022\r\n}\r\n\r\n\@misc{x10}\r\n");
+# show(@i13);
+assert_eq(@i13+0, 2);
+assert_eq($i13[0]{'year'}, '2022');
+
 1;

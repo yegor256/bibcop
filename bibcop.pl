@@ -874,6 +874,7 @@ sub fix_quotes {
 # of hash-maps, where each one is a bibentry.
 sub entries {
   my ($bib) = @_;
+  $bib =~ s/\r\n/\n/g;
   my @entries;
   my $s = 'top';
   my %entry;
