@@ -2,7 +2,7 @@
 # SPDX-FileCopyrightText: Copyright (c) 2022-2026 Yegor Bugayenko
 # SPDX-License-Identifier: MIT
 
-# 2026-10-16 06.51.05
+# 2026-10-16 06.55.47
 package bibcop;
 
 use warnings;
@@ -882,7 +882,6 @@ sub entries {
   my $interrupted = ''; # where the comment interrupted the proceeding (state name)
   my $lineno = 1;
   my $nest = 0;
-  my $escape = 0;
   for my $pos (0..length($bib)-1) {
     my $char = substr($bib, $pos, 1);
     if ($char eq ' ') {
@@ -984,18 +983,17 @@ sub entries {
       $s = 'brackets';
       $acc = '';
     } elsif ($s eq 'brackets') {
-      if ($char eq '\\') {
-        $escape = 1;
-      } elsif ($char eq '{' and $escape != 1) {
+      if (substr($bib, $pos - 1, 1) eq '\\') {
+        # the escaped symbol
+      } elsif ($char eq '{') {
         $nest = $nest + 1;
-      } elsif ($char eq '}' and $escape != 1) {
+      } elsif ($char eq '}') {
         $nest = $nest - 1;
         if ($nest == 0) {
           $entry{$tag} = substr($acc, 1);
           $s = 'value';
         }
       }
-      $escape = 0;
     } else {
       warning("It is impossible to parse the .bib file, because I do not know what to do with '$char' at line no.$lineno (s=$s)");
       last;
@@ -1269,7 +1267,7 @@ if (@ARGV+0 eq 0 or exists $args{'--help'} or exists $args{'-?'}) {
     "      --latex     Report errors in LaTeX format using the \\PackageWarningNoLine command\n\n" .
     "If any issues, please, report to GitHub: https://github.com/yegor256/bibcop");
 } elsif (exists $args{'--version'} or exists $args{'-v'}) {
-  info('06.51.05 2026-10-16');
+  info('06.55.47 2026-10-16');
 } else {
   my ($file) = grep { not($_ =~ /^-.*$/) } @ARGV;
   if (not $file) {
