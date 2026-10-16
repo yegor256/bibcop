@@ -274,9 +274,6 @@ sub check_org_in_booktitle {
         return "The '$o' organization must not be mentioned in the booktitle, use 'publisher' tag instead"
       }
     }
-    if ($title =~ /^.*(ACM|IEEE).*$/) {
-      return "Don't mention the organization in the booktitle, use 'publisher' tag instead"
-    }
   }
 }
 
