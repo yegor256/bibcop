@@ -65,6 +65,8 @@ check_passes($f, ('title' => 'Either You Love Me, or ... Not'));
 $f = 'check_wrapping';
 check_fails($f, ('title' => 'The title is not surrounded by curled brackets'));
 check_passes($f, ('title' => '{This title is surrounded}'));
+check_fails($f, ('journal' => 'The journal is not surrounded by curled brackets'));
+check_passes($f, ('journal' => '{This journal is surrounded}'));
 
 $f = 'check_shortenings';
 check_fails($f, ('journal' => 'J. Log. Comp.'));
