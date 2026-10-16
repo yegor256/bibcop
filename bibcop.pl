@@ -2,7 +2,7 @@
 # SPDX-FileCopyrightText: Copyright (c) 2022-2026 Yegor Bugayenko
 # SPDX-License-Identifier: MIT
 
-# 2026-10-16 06.46.34
+# 2026-10-16 06.51.05
 package bibcop;
 
 use warnings;
@@ -900,6 +900,17 @@ sub entries {
       }
     } elsif ($s eq 'comment') {
       # ignore the comment
+    } elsif ($s eq 'skip') {
+      if (substr($bib, $pos - 1, 1) eq '\\') {
+        # the escaped symbol
+      } elsif ($char eq '{') {
+        $nest = $nest + 1;
+      } elsif ($char eq '}') {
+        $nest = $nest - 1;
+        if ($nest == 0) {
+          $s = 'top';
+        }
+      }
     } elsif ($s eq 'top') {
       if ($char eq '@') {
         %entry = ();
@@ -914,7 +925,12 @@ sub entries {
     } elsif ($char eq '{' and $s eq 'start') {
       $entry{':type'} = substr($acc, 1);
       $acc = '';
-      $s = 'body';
+      if (lc($entry{':type'}) =~ /^(string|preamble|comment)$/) {
+        $nest = 1;
+        $s = 'skip';
+      } else {
+        $s = 'body';
+      }
     } elsif ($char =~ /[a-zA-Z0-9]/ and $s eq 'body') {
       $acc = '';
       $s = 'tag';
@@ -1253,7 +1269,7 @@ if (@ARGV+0 eq 0 or exists $args{'--help'} or exists $args{'-?'}) {
     "      --latex     Report errors in LaTeX format using the \\PackageWarningNoLine command\n\n" .
     "If any issues, please, report to GitHub: https://github.com/yegor256/bibcop");
 } elsif (exists $args{'--version'} or exists $args{'-v'}) {
-  info('06.46.34 2026-10-16');
+  info('06.51.05 2026-10-16');
 } else {
   my ($file) = grep { not($_ =~ /^-.*$/) } @ARGV;
   if (not $file) {
