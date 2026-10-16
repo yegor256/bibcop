@@ -2,7 +2,7 @@
 # SPDX-FileCopyrightText: Copyright (c) 2022-2026 Yegor Bugayenko
 # SPDX-License-Identifier: MIT
 
-# 0000-00-00 13.22.51
+# 2026-10-16 06.46.34
 package bibcop;
 
 use warnings;
@@ -274,9 +274,6 @@ sub check_org_in_booktitle {
         return "The '$o' organization must not be mentioned in the booktitle, use 'publisher' tag instead"
       }
     }
-    if ($title =~ /^.*(ACM|IEEE).*$/) {
-      return "Don't mention the organization in the booktitle, use 'publisher' tag instead"
-    }
   }
 }
 
@@ -393,7 +390,7 @@ sub check_ascii {
       if ($ord == 9 || $ord == 10 || $ord == 13) {
         next;
       }
-      if ($ord < 20) {
+      if ($ord < 0x20) {
         return "In the '$tag', don't use control symbol '0x" . (sprintf '%04x', $ord) . "'"
       }
     }
@@ -461,7 +458,7 @@ sub check_howpublished {
     }
     my $url = substr($how, 5, -1);
     if (not $url =~ /^https?:\/\/.+$/) {
-      return "The format of the URL in 'howpublished' is wrong, doesn't start with https://: '$url'"
+      return "The format of the URL in 'howpublished' is wrong, doesn't start with http:// or https://: '$url'"
     }
     my $max = 64;
     my $len = length($url);
@@ -493,7 +490,7 @@ sub check_month {
   my (%entry) = @_;
   if (exists $entry{'month'}) {
     my $month = $entry{'month'};
-    if (not $month =~ /^[1-9]|10|11|12$/) {
+    if (not $month =~ /^([1-9]|1[0-2])$/) {
       return "The format of the 'month' is wrong"
     }
   }
@@ -883,7 +880,7 @@ sub entries {
   my $acc = '';
   my $tag = '';
   my $interrupted = ''; # where the comment interrupted the proceeding (state name)
-  my $lineno = 0;
+  my $lineno = 1;
   my $nest = 0;
   my $escape = 0;
   for my $pos (0..length($bib)-1) {
@@ -1256,7 +1253,7 @@ if (@ARGV+0 eq 0 or exists $args{'--help'} or exists $args{'-?'}) {
     "      --latex     Report errors in LaTeX format using the \\PackageWarningNoLine command\n\n" .
     "If any issues, please, report to GitHub: https://github.com/yegor256/bibcop");
 } elsif (exists $args{'--version'} or exists $args{'-v'}) {
-  info('13.22.51 0000-00-00');
+  info('06.46.34 2026-10-16');
 } else {
   my ($file) = grep { not($_ =~ /^-.*$/) } @ARGV;
   if (not $file) {
@@ -1277,7 +1274,7 @@ if (@ARGV+0 eq 0 or exists $args{'--help'} or exists $args{'-?'}) {
       $fixed = $fixed . entry_fix(%entry);
       $seen{$name} = 1;
     }
-    my ($head) = $bib =~ /^((?:%.*\n)+\n*)/;
+    my $head = $bib =~ /^((?:%.*\n)+\n*)/ ? $1 : '';
     $fixed = $head . $fixed;
     if (exists $args{'-i'} or exists $args{'--in-place'}) {
       open(my $out, '>', $file) or error('Cannot open file for writing: ' . $file);
