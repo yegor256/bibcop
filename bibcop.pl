@@ -2,7 +2,7 @@
 # SPDX-FileCopyrightText: Copyright (c) 2022-2026 Yegor Bugayenko
 # SPDX-License-Identifier: MIT
 
-# 2026-10-16 06.57.29
+# 2026-10-16 07.02.26
 package bibcop;
 
 use warnings;
@@ -201,13 +201,13 @@ sub check_shortenings {
   }
 }
 
-# Check the right format of the 'title' and 'booktitle.'
+# Check the right format of the 'title', 'booktitle', and 'journal.'
 sub check_wrapping {
   if (exists $args{'--no:wraps'}) {
     return;
   }
   my (%entry) = @_;
-  my @tags = qw/title booktitle/;
+  my @tags = qw/title booktitle journal/;
   foreach my $tag (@tags) {
     if (not exists($entry{$tag})) {
       next;
@@ -1260,14 +1260,14 @@ if (@ARGV+0 eq 0 or exists $args{'--help'} or exists $args{'-?'}) {
     "      --no:XXX    Disable one of the following checks (e.g. --no:wraps):\n" .
     "                    tags    Only some tags are allowed, while some of them are mandatory\n" .
     "                    caps    All major words in titles and booktitles must be capitalized\n" .
-    "                    wraps   Double curly braces are required around titles and booktitles\n" .
+    "                    wraps   Double curly braces are required around titles, booktitles, and journals\n" .
     "                    doi     The presence of the 'doi' tag is mandatory in all entries\n" .
     "                    inproc  The booktitle of \@inproceedings must start with 'Proceedings of the'\n" .
     "                    org     The booktitle may not mention ACM or IEEE\n" .
     "      --latex     Report errors in LaTeX format using the \\PackageWarningNoLine command\n\n" .
     "If any issues, please, report to GitHub: https://github.com/yegor256/bibcop");
 } elsif (exists $args{'--version'} or exists $args{'-v'}) {
-  info('06.57.29 2026-10-16');
+  info('07.02.26 2026-10-16');
 } else {
   my ($file) = grep { not($_ =~ /^-.*$/) } @ARGV;
   if (not $file) {
